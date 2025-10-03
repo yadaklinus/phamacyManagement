@@ -57,7 +57,7 @@ export default function LoginForm() {
         if(data.user.role == "supaAdmina"){
           await signOut()
         }
-        router.push(`/${data.user.role}/dashboard`)
+        router.push(`/users/${data.user.role}/dashboard`)
       }
      
     }

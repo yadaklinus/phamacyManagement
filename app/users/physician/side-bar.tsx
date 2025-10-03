@@ -7,19 +7,19 @@ import {
   Bell,
   ChevronRight,
   Home,
-  Package,
+  Stethoscope,
   Plus,
   Settings,
-  ShoppingCart,
+  Calendar,
   FileText,
-  Truck,
-  ArrowLeftRight,
   Users,
   User,
-  Building2,
+  ClipboardList,
   UserCheck,
   Eye,
-  Warehouse,
+  Search,
+  Clock,
+  Pill,
   type LucideIcon,
 } from "lucide-react"
 
@@ -40,73 +40,118 @@ import {
 } from "@/components/ui/sidebar"
 import fetchData from "@/hooks/fetch-data"
 import { signOut } from "next-auth/react"
-import { Button } from "@heroui/button"
+import { Button } from "@/components/ui/button"
 
-// Navigation data for inventory management system
+// Navigation data for physician management system
 const navigationData = {
   main: [
     {
       title: "Dashboard",
-      url: "/dashboard",
+      url: "/users/physician/dashboard",
       icon: Home,
     },
   ],
-  inventory: [
-
+  consultations: [
     {
-      title: "Warehouses",
-      icon: Warehouse,
+      title: "Consultations",
+      icon: Stethoscope,
       items: [
         {
-          title: "Add Warehouse",
-          url: "/warehouses/add",
+          title: "New Consultation",
+          url: "/users/physician/consultations/new",
           icon: Plus,
         },
         {
-          title: "View Warehouses",
-          url: "/warehouses/list",
-          icon: Eye,
+          title: "Active Consultations",
+          url: "/users/physician/consultations/active",
+          icon: ClipboardList,
+        },
+        {
+          title: "Consultation History",
+          url: "/users/physician/consultations/history",
+          icon: FileText,
+        },
+      ],
+    },
+    {
+      title: "Queue Management",
+      icon: Clock,
+      items: [
+        {
+          title: "Current Queue",
+          url: "/users/physician/queue",
+          icon: Users,
+        },
+        {
+          title: "Call Next Patient",
+          url: "/users/physician/queue/next",
+          icon: UserCheck,
         },
       ],
     },
   ],
-  people: [
+  patients: [
     {
-      title: "People",
-      icon: Users,
+      title: "Patients",
+      icon: User,
       items: [
         {
-          title: "Users",
-          url: "/people/users",
-          icon: User,
+          title: "Search Patients",
+          url: "/users/physician/patients/search",
+          icon: Search,
         },
         {
-          title: "Customers",
-          url: "/people/customers",
-          icon: UserCheck,
-        },
-        {
-          title: "Suppliers",
-          url: "/people/suppliers",
-          icon: Building2,
+          title: "Patient Records",
+          url: "/users/physician/patients/records",
+          icon: FileText,
         },
       ],
+    },
+  ],
+  prescriptions: [
+    {
+      title: "Prescriptions",
+      icon: Pill,
+      items: [
+        {
+          title: "Active Prescriptions",
+          url: "/users/physician/prescriptions/active",
+          icon: ClipboardList,
+        },
+        {
+          title: "Prescription History",
+          url: "/users/physician/prescriptions/history",
+          icon: FileText,
+        },
+      ],
+    },
+  ],
+  schedule: [
+    {
+      title: "My Schedule",
+      url: "/users/physician/schedule",
+      icon: Calendar,
+    },
+    {
+      title: "Appointments",
+      url: "/users/physician/appointments",
+      icon: Calendar,
     },
   ],
   system: [
     {
       title: "Notifications",
-      url: "/notifications",
+      url: "/users/physician/notifications",
       icon: Bell,
     },
     {
       title: "Reports",
-      url: "/reports",
+      url: "/users/physician/reports",
       icon: BarChart3,
     },
     {
       title: "Settings",
-      url: "/settings",
+      url: "/users/physician/settings",
       icon: Settings,
     },
   ],
@@ -181,28 +226,25 @@ function NavSection({
   )
 }
 
-export function WarehouseAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function PhysicianAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   
   const {data,loading,error} = fetchData("/api/settings")
 
   if(loading) return ""
 
-  // const isOnline = useConnectionCheck()
- 
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="/dashboard">
+              <a href="/users/physician/dashboard">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <Package className="size-4" />
+                  <Stethoscope className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{data?.companyName}</span>
-                  <span className="truncate text-xs">Admin Management System</span>
-                  {/* {isOnline ? "online" : "ofline"} */}
+                  <span className="truncate font-semibold">{data?.companyName || "Clinic"}</span>
+                  <span className="truncate text-xs">Physician Portal</span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -211,8 +253,10 @@ export function WarehouseAppSidebar({ ...props }: React.ComponentProps<typeof Si
       </SidebarHeader>
       <SidebarContent>
         <NavSection title="Overview" items={navigationData.main} />
-        <NavSection title="Inventory" items={navigationData.inventory} />
-        <NavSection title="People" items={navigationData.people} />
+        <NavSection title="Consultations" items={navigationData.consultations} />
+        <NavSection title="Patients" items={navigationData.patients} />
+        <NavSection title="Prescriptions" items={navigationData.prescriptions} />
+        <NavSection title="Schedule" items={navigationData.schedule} />
         <NavSection title="System" items={navigationData.system} />
         <Button onClick={()=>signOut()} className="bg-red-500 m-2">Logout</Button>
       </SidebarContent>

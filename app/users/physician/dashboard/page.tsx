@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
   BarChart,
   Bar,
@@ -14,175 +15,194 @@ import {
   PieChart,
   Pie,
   Cell,
-  Area,
-  AreaChart,
-  LineChart,
-  Line,
 } from "recharts"
 import {
-  Truck,
-  DollarSign,
+  Users,
+  Stethoscope,
+  Pill,
+  Clock,
   AlertTriangle,
   Loader2,
-  Package,
   Calendar,
-  Building2,
-  TrendingDown,
+  TrendingUp,
+  UserCheck,
+  Activity,
+  Bell,
+  ChevronRight,
 } from "lucide-react"
-import { getWareHouseId } from "@/hooks/get-werehouseId"
 import { useSession } from "next-auth/react"
-import { formatCurrency } from "@/lib/utils"
-import fetchWareHouseData from "@/hooks/fetch-invidual-data"
+import { useRouter } from "next/navigation"
+import axios from "axios"
 
-interface PurchaseDashboardData {
-  metrics: {
-    totalPurchases: number
-    totalPurchaseValue: number
-    avgPurchaseValue: number
-    totalSuppliers: number
-    pendingOrders: number
-    todayPurchases: number
-    monthlyGrowth: number
+interface PhysicianDashboardData {
+  todayStats: {
+    patientsCompleted: number
+    consultationsCompleted: number
+    prescriptionsWritten: number
+    inQueue: number
   }
-  recentPurchases: Array<{
+  currentQueue: Array<{
     id: string
-    orderNo: string
-    supplierName: string
-    grandTotal: number
-    createdAt: string
+    studentName: string
+    matricNumber: string
+    priority: 'emergency' | 'urgent' | 'normal'
+    complaint: string
+    waitTime: string
+  }>
+  todayAppointments: Array<{
+    id: string
+    time: string
+    studentName: string
+    type: string
     status: string
-    itemsCount: number
   }>
-  topSuppliers: Array<{
-    supplierId: string
-    name: string
-    purchases: number
-    totalValue: number
+  weekOverview: {
+    totalConsultations: number
+    mostCommonDiagnosis: string
+    diagnosisCount: number
+    avgConsultationTime: number
+  }
+  consultationsByDay: Array<{
+    day: string
+    consultations: number
   }>
-  purchasesByMonth: Array<{
-    month: string
-    purchases: number
-    value: number
-  }>
-  purchasesByStatus: Array<{
-    status: string
+  diagnosisDistribution: Array<{
+    diagnosis: string
     count: number
     color: string
   }>
-  dailyPurchases: Array<{
-    date: string
-    purchases: number
-    value: number
-  }>
-  lowStockAlerts: Array<{
-    productId: string
-    name: string
-    currentStock: number
-    minStock: number
-  }>
 }
 
-export default function PurchaseDashboard() {
-  const [data, setData] = useState<PurchaseDashboardData | null>(null)
+export default function PhysicianDashboard() {
+  const [data, setData] = useState<PhysicianDashboardData | null>(null)
   const [loading, setLoading] = useState(true)
-  const warehouseId = getWareHouseId()
   const { data: session } = useSession()
+  const router = useRouter()
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
         setLoading(true)
         
-        // Mock data for demonstration since the API might not exist yet
-        const mockData: PurchaseDashboardData = {
-          metrics: {
-            totalPurchases: 856,
-            totalPurchaseValue: 98750.25,
-            avgPurchaseValue: 115.38,
-            totalSuppliers: 45,
-            pendingOrders: 12,
-            todayPurchases: 8,
-            monthlyGrowth: -3.2
+        // Mock data for demonstration - replace with actual API call
+        const mockData: PhysicianDashboardData = {
+          todayStats: {
+            patientsCompleted: 15,
+            consultationsCompleted: 12,
+            prescriptionsWritten: 14,
+            inQueue: 3
           },
-          recentPurchases: [
+          currentQueue: [
             {
               id: "1",
-              orderNo: "PO-001",
-              supplierName: "ABC Supplies Co.",
-              grandTotal: 1250.00,
-              createdAt: new Date().toISOString(),
-              status: "Completed",
-              itemsCount: 5
+              studentName: "John Doe",
+              matricNumber: "CSC/2020/001",
+              priority: "emergency",
+              complaint: "Severe chest pain",
+              waitTime: "5 mins"
             },
             {
-              id: "2", 
-              orderNo: "PO-002",
-              supplierName: "XYZ Materials Ltd.",
-              grandTotal: 890.50,
-              createdAt: new Date().toISOString(),
-              status: "Pending",
-              itemsCount: 3
+              id: "2",
+              studentName: "Jane Smith",
+              matricNumber: "ENG/2021/045",
+              priority: "urgent",
+              complaint: "High fever",
+              waitTime: "12 mins"
+            },
+            {
+              id: "3",
+              studentName: "Mike Wilson",
+              matricNumber: "MED/2019/078",
+              priority: "normal",
+              complaint: "Routine checkup",
+              waitTime: "25 mins"
             }
           ],
-          topSuppliers: [
-            { supplierId: "1", name: "ABC Supplies Co.", purchases: 25, totalValue: 15000 },
-            { supplierId: "2", name: "XYZ Materials Ltd.", purchases: 18, totalValue: 12500 },
-            { supplierId: "3", name: "Global Parts Inc.", purchases: 15, totalValue: 9800 }
+          todayAppointments: [
+            {
+              id: "1",
+              time: "10:00 AM",
+              studentName: "Sarah Johnson",
+              type: "Follow-up",
+              status: "scheduled"
+            },
+            {
+              id: "2",
+              time: "11:30 AM",
+              studentName: "David Brown",
+              type: "New consultation",
+              status: "scheduled"
+            },
+            {
+              id: "3",
+              time: "2:00 PM",
+              studentName: "Lisa Garcia",
+              type: "Lab results review",
+              status: "scheduled"
+            }
           ],
-          purchasesByMonth: [
-            { month: "Jan", purchases: 95, value: 18000 },
-            { month: "Feb", purchases: 88, value: 16500 },
-            { month: "Mar", purchases: 102, value: 19800 },
-            { month: "Apr", purchases: 112, value: 21200 }
+          weekOverview: {
+            totalConsultations: 45,
+            mostCommonDiagnosis: "Malaria",
+            diagnosisCount: 12,
+            avgConsultationTime: 15
+          },
+          consultationsByDay: [
+            { day: "Mon", consultations: 8 },
+            { day: "Tue", consultations: 12 },
+            { day: "Wed", consultations: 6 },
+            { day: "Thu", consultations: 10 },
+            { day: "Fri", consultations: 9 },
           ],
-          purchasesByStatus: [
-            { status: "Completed", count: 65, color: "#00C49F" },
-            { status: "Pending", count: 25, color: "#FFBB28" },
-            { status: "Cancelled", count: 10, color: "#FF8042" }
-          ],
-          dailyPurchases: [
-            { date: "Mon", purchases: 8, value: 1800 },
-            { date: "Tue", purchases: 12, value: 2400 },
-            { date: "Wed", purchases: 6, value: 1200 },
-            { date: "Thu", purchases: 15, value: 3000 },
-            { date: "Fri", purchases: 18, value: 3600 },
-            { date: "Sat", purchases: 4, value: 800 },
-            { date: "Sun", purchases: 2, value: 400 }
-          ],
-          lowStockAlerts: [
-            { productId: "1", name: "Product X", currentStock: 5, minStock: 20 },
-            { productId: "2", name: "Product Y", currentStock: 8, minStock: 25 },
-            { productId: "3", name: "Product Z", currentStock: 12, minStock: 30 }
+          diagnosisDistribution: [
+            { diagnosis: "Malaria", count: 12, color: "#FF6B6B" },
+            { diagnosis: "Headache", count: 8, color: "#4ECDC4" },
+            { diagnosis: "Fever", count: 6, color: "#45B7D1" },
+            { diagnosis: "Cough", count: 5, color: "#96CEB4" },
+            { diagnosis: "Others", count: 14, color: "#FFEAA7" }
           ]
         }
+
+        const response = await axios.get("/api/physician/dashboard")
+
+        console.log(response)
         
-        setData(mockData)
+        setData(response.data)
       } catch (error) {
         console.error("Error fetching dashboard data:", error)
-        setData({
-          metrics: {
-            totalPurchases: 856,
-            totalPurchaseValue: 98750.25,
-            avgPurchaseValue: 115.38,
-            totalSuppliers: 45,
-            pendingOrders: 12,
-            todayPurchases: 8,
-            monthlyGrowth: -3.2
-          },
-          recentPurchases: [],
-          topSuppliers: [],
-          purchasesByMonth: [],
-          purchasesByStatus: [],
-          dailyPurchases: [],
-          lowStockAlerts: []
-        })
       } finally {
         setLoading(false)
       }
     }
 
     fetchDashboardData()
-  }, [warehouseId, session])
+  }, [session])
+
+  const handleCallNextPatient = () => {
+    router.push('/users/physician/queue/next')
+  }
+
+  const handleNewConsultation = () => {
+    router.push('/users/physician/consultations/new')
+  }
+
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'emergency': return 'bg-red-500'
+      case 'urgent': return 'bg-orange-500'
+      case 'normal': return 'bg-green-500'
+      default: return 'bg-gray-500'
+    }
+  }
+
+  const getPriorityBadge = (priority: string) => {
+    switch (priority) {
+      case 'emergency': return 'destructive'
+      case 'urgent': return 'secondary'
+      case 'normal': return 'default'
+      default: return 'outline'
+    }
+  }
 
   if (loading) {
     return (
@@ -206,152 +226,231 @@ export default function PurchaseDashboard() {
     <div className="space-y-6 p-6">
       {/* Header */}
       <div className="flex flex-col space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">Purchase Dashboard</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Physician Dashboard</h1>
         <p className="text-muted-foreground">
-          Overview of your purchase operations and supplier management
+          Welcome back, Dr. {session?.user?.name || "Doctor"}. Here's your overview for today.
         </p>
       </div>
 
-      {/* Key Metrics */}
+      {/* Today's Stats */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Purchases</CardTitle>
-            <Truck className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Patients</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{data.metrics.totalPurchases.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground flex items-center">
-              <TrendingDown className="h-3 w-3 mr-1 text-red-500" />
-              {Math.abs(data.metrics.monthlyGrowth)}% from last month
-            </p>
+            <div className="text-2xl font-bold">{data.todayStats.patientsCompleted}</div>
+            <p className="text-xs text-muted-foreground">Completed</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Purchase Value</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Consultations</CardTitle>
+            <Stethoscope className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatCurrency(data.metrics.totalPurchaseValue)}</div>
-            <p className="text-xs text-muted-foreground">
-              Average: {formatCurrency(data.metrics.avgPurchaseValue)} per order
-            </p>
+            <div className="text-2xl font-bold">{data.todayStats.consultationsCompleted}</div>
+            <p className="text-xs text-muted-foreground">Completed</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Suppliers</CardTitle>
-            <Building2 className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Prescriptions</CardTitle>
+            <Pill className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{data.metrics.totalSuppliers}</div>
-            <p className="text-xs text-muted-foreground">
-              {data.metrics.pendingOrders} pending orders
-            </p>
+            <div className="text-2xl font-bold">{data.todayStats.prescriptionsWritten}</div>
+            <p className="text-xs text-muted-foreground">Written</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Today's Orders</CardTitle>
-            <Calendar className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">In Queue</CardTitle>
+            <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{data.metrics.todayPurchases}</div>
-            <p className="text-xs text-muted-foreground">
-              Purchase orders today
-            </p>
+            <div className="text-2xl font-bold">{data.todayStats.inQueue}</div>
+            <p className="text-xs text-muted-foreground">Waiting</p>
           </CardContent>
         </Card>
       </div>
 
-      {/* Low Stock Alerts */}
-      {data.lowStockAlerts.length > 0 && (
+      {/* Current Queue */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center">
+            <Bell className="h-5 w-5 mr-2 text-blue-500" />
+            Current Queue ({data.currentQueue.length} waiting)
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            {data.currentQueue.map((patient, index) => (
+              <div key={patient.id} className="flex items-center justify-between p-4 border rounded-lg">
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg font-bold text-muted-foreground">{index + 1}.</span>
+                    <Badge variant={getPriorityBadge(patient.priority) as any}>
+                      {patient.priority.toUpperCase()}
+                    </Badge>
+                  </div>
+                  <div>
+                    <p className="font-medium">{patient.studentName}</p>
+                    <p className="text-sm text-muted-foreground">{patient.matricNumber}</p>
+                    <p className="text-sm text-blue-600">"{patient.complaint}"</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-muted-foreground">Waiting: {patient.waitTime}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4">
+            <Button onClick={handleCallNextPatient} className="w-full">
+              <UserCheck className="h-4 w-4 mr-2" />
+              Call Next Patient
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Today's Appointments and Quick Actions */}
+      <div className="grid gap-4 md:grid-cols-2">
+        {/* Today's Appointments */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
-              <AlertTriangle className="h-5 w-5 mr-2 text-orange-500" />
-              Low Stock Alerts
+              <Calendar className="h-5 w-5 mr-2 text-green-500" />
+              Today's Appointments
             </CardTitle>
-            <CardDescription>Products that need to be restocked</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {data.lowStockAlerts.map((item) => (
-                <div key={item.productId} className="flex items-center justify-between p-3 border border-orange-200 rounded-lg bg-orange-50">
+              {data.todayAppointments.map((appointment) => (
+                <div key={appointment.id} className="flex items-center justify-between p-3 border-l-4 border-blue-500 bg-blue-50">
                   <div>
-                    <p className="font-medium">{item.name}</p>
-                    <p className="text-sm text-muted-foreground">
-                      Current: {item.currentStock} | Minimum: {item.minStock}
-                    </p>
+                    <p className="font-medium">{appointment.time}</p>
+                    <p className="text-sm text-muted-foreground">{appointment.studentName}</p>
+                    <p className="text-xs text-blue-600">{appointment.type}</p>
                   </div>
-                  <Badge variant="destructive">Low Stock</Badge>
+                  <Badge variant="outline">{appointment.status}</Badge>
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
-      )}
 
-      {/* Charts Section */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {/* Purchase Trend Chart */}
-        <Card className="lg:col-span-2">
+        {/* Quick Actions */}
+        <Card>
           <CardHeader>
-            <CardTitle>Purchase Trend</CardTitle>
-            <CardDescription>Monthly purchase orders and value</CardDescription>
+            <CardTitle className="flex items-center">
+              <Activity className="h-5 w-5 mr-2 text-purple-500" />
+              Quick Actions
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-3">
+              <Button variant="outline" className="justify-start" onClick={() => router.push('/users/physician/queue')}>
+                <Clock className="h-4 w-4 mr-2" />
+                View Queue
+                <ChevronRight className="h-4 w-4 ml-auto" />
+              </Button>
+              <Button variant="outline" className="justify-start" onClick={handleNewConsultation}>
+                <Stethoscope className="h-4 w-4 mr-2" />
+                Start New Consultation
+                <ChevronRight className="h-4 w-4 ml-auto" />
+              </Button>
+              <Button variant="outline" className="justify-start" onClick={() => router.push('/users/physician/patients/search')}>
+                <Users className="h-4 w-4 mr-2" />
+                Search Patient
+                <ChevronRight className="h-4 w-4 ml-auto" />
+              </Button>
+              <Button variant="outline" className="justify-start" onClick={() => router.push('/users/physician/schedule')}>
+                <Calendar className="h-4 w-4 mr-2" />
+                My Schedule
+                <ChevronRight className="h-4 w-4 ml-auto" />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* This Week Overview */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center">
+            <TrendingUp className="h-5 w-5 mr-2 text-green-500" />
+            This Week Overview
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-4">
+            <div className="text-center">
+              <p className="text-2xl font-bold text-blue-600">{data.weekOverview.totalConsultations}</p>
+              <p className="text-sm text-muted-foreground">Total Consultations</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-red-600">{data.weekOverview.mostCommonDiagnosis}</p>
+              <p className="text-sm text-muted-foreground">Most Common Diagnosis ({data.weekOverview.diagnosisCount} cases)</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-green-600">{data.weekOverview.avgConsultationTime} min</p>
+              <p className="text-sm text-muted-foreground">Average Consultation Time</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-purple-600">98%</p>
+              <p className="text-sm text-muted-foreground">Patient Satisfaction</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Charts */}
+      <div className="grid gap-4 md:grid-cols-2">
+        {/* Weekly Consultations */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Weekly Consultations</CardTitle>
+            <CardDescription>Daily consultation activity this week</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
-              <AreaChart data={data.purchasesByMonth}>
+              <BarChart data={data.consultationsByDay}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
+                <XAxis dataKey="day" />
                 <YAxis />
                 <Tooltip />
-                <Area 
-                  type="monotone" 
-                  dataKey="value" 
-                  stackId="1" 
-                  stroke="#8884d8" 
-                  fill="#8884d8" 
-                  fillOpacity={0.6}
-                />
-                <Area 
-                  type="monotone" 
-                  dataKey="purchases" 
-                  stackId="2" 
-                  stroke="#82ca9d" 
-                  fill="#82ca9d" 
-                  fillOpacity={0.6}
-                />
-              </AreaChart>
+                <Bar dataKey="consultations" fill="#3B82F6" />
+              </BarChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        {/* Purchase Status Distribution */}
+        {/* Diagnosis Distribution */}
         <Card>
           <CardHeader>
-            <CardTitle>Order Status</CardTitle>
-            <CardDescription>Distribution by order status</CardDescription>
+            <CardTitle>Diagnosis Distribution</CardTitle>
+            <CardDescription>Most common diagnoses this week</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
-                  data={data.purchasesByStatus}
+                  data={data.diagnosisDistribution}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ status, count }) => `${status}: ${count}`}
+                  label={({ diagnosis, count }) => `${diagnosis}: ${count}`}
                   outerRadius={80}
                   fill="#8884d8"
                   dataKey="count"
                 >
-                  {data.purchasesByStatus.map((entry, index) => (
+                  {data.diagnosisDistribution.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
@@ -361,95 +460,6 @@ export default function PurchaseDashboard() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Weekly Purchases and Top Suppliers */}
-      <div className="grid gap-4 md:grid-cols-2">
-        {/* Weekly Purchases */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Weekly Purchases</CardTitle>
-            <CardDescription>Daily purchase activity this week</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={data.dailyPurchases}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Line 
-                  type="monotone" 
-                  dataKey="purchases" 
-                  stroke="#8884d8" 
-                  strokeWidth={2}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        {/* Top Suppliers */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Top Suppliers</CardTitle>
-            <CardDescription>Suppliers by purchase volume</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={data.topSuppliers}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="purchases" fill="#82ca9d" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Recent Purchases */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Purchase Orders</CardTitle>
-          <CardDescription>Latest purchase transactions</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {data.recentPurchases.length > 0 ? (
-            <div className="space-y-4">
-              {data.recentPurchases.map((purchase) => (
-                <div key={purchase.id} className="flex items-center justify-between border-b pb-4">
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">{purchase.orderNo}</p>
-                    <p className="text-sm text-muted-foreground">{purchase.supplierName}</p>
-                    <div className="flex items-center space-x-2">
-                      <Badge 
-                        variant={purchase.status === "Completed" ? "default" : purchase.status === "Pending" ? "secondary" : "destructive"}
-                      >
-                        {purchase.status}
-                      </Badge>
-                      <span className="text-xs text-muted-foreground">
-                        {purchase.itemsCount} item{purchase.itemsCount !== 1 ? 's' : ''}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium">{formatCurrency(purchase.grandTotal)}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {new Date(purchase.createdAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <Truck className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-              <p className="text-muted-foreground">No recent purchases found</p>
-            </div>
-          )}
-        </CardContent>
-      </Card>
     </div>
   )
 }
