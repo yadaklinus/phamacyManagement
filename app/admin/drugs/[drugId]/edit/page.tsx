@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import { useParams, useRouter } from "next/navigation"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,8 +18,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Textarea } from "@/components/ui/textarea"
-import { Package, Save, ArrowLeft } from "lucide-react"
+import { Edit, Save, ArrowLeft } from "lucide-react"
 import { getWareHouseId } from "@/hooks/get-werehouseId"
+import { Loading } from "@/components/loading"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
 import axios from "axios"
@@ -31,6 +32,9 @@ interface DrugFormData {
   category: string
   manufacturer: string
   description: string
+  activeIngredient: string
+  strength: string
+  dosageForm: string
   quantity: number
   reorderLevel: number
   price: number
@@ -38,9 +42,6 @@ interface DrugFormData {
   expiryDate: string
   batchNumber: string
   unit: string
-  dosageForm: string
-  strength: string
-  activeIngredient: string
   storageConditions: string
   prescriptionRequired: boolean
 }
@@ -86,11 +87,14 @@ const units = [
   "Strips"
 ]
 
-export default function AddDrugPage() {
+export default function EditDrugPage() {
+  const params = useParams()
   const router = useRouter()
+  const drugId = params.drugId as string
   const { data: session } = useSession()
   const warehouseId = getWareHouseId()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [submitting, setSubmitting] = useState(false)
   
   const [formData, setFormData] = useState<DrugFormData>({
     code: '',
@@ -98,6 +102,9 @@ export default function AddDrugPage() {
     category: '',
     manufacturer: '',
     description: '',
+    activeIngredient: '',
+    strength: '',
+    dosageForm: '',
     quantity: 0,
     reorderLevel: 0,
     price: 0,
@@ -105,12 +112,54 @@ export default function AddDrugPage() {
     expiryDate: '',
     batchNumber: '',
     unit: 'Pieces',
-    dosageForm: '',
-    strength: '',
-    activeIngredient: '',
     storageConditions: '',
     prescriptionRequired: false
   })
+
+  const endpoint = `/warehouse/${warehouseId}/${session?.user?.role}`
+
+  useEffect(() => {
+    loadDrugData()
+  }, [drugId, warehouseId])
+
+  const loadDrugData = async () => {
+    try {
+      setLoading(true)
+      const response = await axios.get(`/api/drugs/${drugId}?warehouseId=${warehouseId}`)
+      
+      if (response.data.success) {
+        const drug = response.data.drug
+        setFormData({
+          code: drug.code || '',
+          name: drug.name || '',
+          category: drug.category || '',
+          manufacturer: drug.manufacturer || '',
+          description: drug.description || '',
+          activeIngredient: drug.activeIngredient || '',
+          strength: drug.strength || '',
+          dosageForm: drug.dosageForm || '',
+          quantity: drug.quantity || 0,
+          reorderLevel: drug.reorderLevel || 0,
+          price: drug.price || 0,
+          cost: drug.cost || 0,
+          expiryDate: drug.expiryDate ? new Date(drug.expiryDate).toISOString().split('T')[0] : '',
+          batchNumber: drug.batchNumber || '',
+          unit: drug.unit || 'Pieces',
+          storageConditions: drug.storageConditions || '',
+          prescriptionRequired: drug.prescriptionRequired || false
+        })
+      } else {
+        toast.error('Failed to load drug data')
+        router.push(`${endpoint}/drugs`)
+      }
+    } catch (error) {
+      console.error('Error loading drug data:', error)
+      toast.error('Failed to load drug data')
+      router.push(`${endpoint}/drugs`)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleInputChange = (field: keyof DrugFormData, value: any) => {
     setFormData(prev => ({
@@ -119,44 +168,31 @@ export default function AddDrugPage() {
     }))
   }
 
-  const generateDrugCode = () => {
-    const prefix = formData.category ? formData.category.substring(0, 3).toUpperCase() : 'DRG'
-    const timestamp = Date.now().toString().slice(-6)
-    return `${prefix}${timestamp}`
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
+    setSubmitting(true)
 
     try {
-      // Generate code if not provided
-      const drugCode = formData.code || generateDrugCode()
-      
-      const drugData = {
+      const response = await axios.put(`/api/drugs/${drugId}`, {
         ...formData,
-        code: drugCode,
-        warehouseId,
-        createdBy: session?.user?.id
-      }
-
-      const response = await axios.post('/api/drugs/create', drugData)
+        warehouseId
+      })
       
       if (response.data.success) {
-        toast.success('Drug added successfully!')
-        router.push(`/warehouse/${warehouseId}/${session?.user?.role}/drugs`)
+        toast.success('Drug updated successfully!')
+        router.push(`${endpoint}/drugs/${drugId}`)
       } else {
-        toast.error(response.data.message || 'Failed to add drug')
+        toast.error(response.data.message || 'Failed to update drug')
       }
     } catch (error: any) {
-      console.error('Error adding drug:', error)
-      toast.error(error.response?.data?.message || 'Failed to add drug')
+      console.error('Error updating drug:', error)
+      toast.error(error.response?.data?.message || 'Failed to update drug')
     } finally {
-      setLoading(false)
+      setSubmitting(false)
     }
   }
 
-  const endpoint = `/warehouse/${warehouseId}/${session?.user?.role}`
+  if (loading) return <Loading />
 
   return (
     <>
@@ -175,7 +211,11 @@ export default function AddDrugPage() {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Add Drug</BreadcrumbPage>
+                <BreadcrumbLink href={`${endpoint}/drugs/${drugId}`}>{formData.name}</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Edit</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -185,13 +225,13 @@ export default function AddDrugPage() {
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Package className="h-5 w-5 text-blue-600" />
-            <h1 className="text-2xl font-semibold text-blue-600">Add New Drug</h1>
+            <Edit className="h-5 w-5 text-blue-600" />
+            <h1 className="text-2xl font-semibold text-blue-600">Edit Drug</h1>
           </div>
           <Button variant="outline" asChild>
-            <Link href={`${endpoint}/drugs`}>
+            <Link href={`${endpoint}/drugs/${drugId}`}>
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Inventory
+              Back to Drug Details
             </Link>
           </Button>
         </div>
@@ -201,7 +241,7 @@ export default function AddDrugPage() {
           <Card>
             <CardHeader>
               <CardTitle>Basic Information</CardTitle>
-              <CardDescription>Enter the basic details of the drug</CardDescription>
+              <CardDescription>Update the basic details of the drug</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
@@ -210,7 +250,7 @@ export default function AddDrugPage() {
                   id="code"
                   value={formData.code}
                   onChange={(e) => handleInputChange('code', e.target.value)}
-                  placeholder="Auto-generated if empty"
+                  placeholder="Drug code"
                 />
               </div>
 
@@ -315,7 +355,7 @@ export default function AddDrugPage() {
           <Card>
             <CardHeader>
               <CardTitle>Stock & Pricing Information</CardTitle>
-              <CardDescription>Set stock levels and pricing details</CardDescription>
+              <CardDescription>Update stock levels and pricing details</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
@@ -378,7 +418,7 @@ export default function AddDrugPage() {
           <Card>
             <CardHeader>
               <CardTitle>Batch & Expiry Information</CardTitle>
-              <CardDescription>Enter batch and expiry details</CardDescription>
+              <CardDescription>Update batch and expiry details</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
@@ -430,15 +470,15 @@ export default function AddDrugPage() {
           {/* Submit Button */}
           <div className="flex justify-end gap-4">
             <Button type="button" variant="outline" asChild>
-              <Link href={`${endpoint}/drugs`}>Cancel</Link>
+              <Link href={`${endpoint}/drugs/${drugId}`}>Cancel</Link>
             </Button>
-            <Button type="submit" disabled={loading}>
-              {loading ? (
-                <>Loading...</>
+            <Button type="submit" disabled={submitting}>
+              {submitting ? (
+                <>Updating...</>
               ) : (
                 <>
                   <Save className="mr-2 h-4 w-4" />
-                  Add Drug
+                  Update Drug
                 </>
               )}
             </Button>
