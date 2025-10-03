@@ -36,5 +36,5 @@ next-env.d.ts
 
 /prisma/dev.db
 
-/prisma/generated
+/prisma/generated*
 

@@ -464,18 +464,21 @@ model Product {
   controlledSubstance Boolean            @default(false)
   storageConditions   String?             // Store in cool dry place
   
+  // Warehouse
+  
+  
   // Relations
   prescriptionItems   PrescriptionItem[]
   purchaseItem        PurchaseItem[]
   
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @updatedAt
-  
+  sync                Boolean             @default(false)
+  syncedAt            DateTime?
   
   isDeleted           Boolean             @default(false)
 
-  @@index([expiryDate])
-  @@index([quantity])
+  
 }
 
 model Purchase {
@@ -615,3 +618,132 @@ model ReceiptSettings {
   syncedAt                DateTime?
   isDeleted               Boolean             @default(false)
 }
+
+// ==================== DRUG INVENTORY MODELS ====================
+
+model Drug {
+  id                      String              @id @default(uuid())
+  code                    String              // Drug code (e.g., PAI001, ANT002)
+  name                    String              // Drug name
+  category                String              // Category (Painkillers, Antibiotics, etc.)
+  manufacturer            String              // Manufacturer name
+  description             String?             // Drug description
+  activeIngredient        String?             // Active ingredient
+  strength                String?             // Strength/dosage (e.g., 500mg, 10ml)
+  dosageForm              String?             // Tablet, Capsule, Syrup, etc.
+  
+  // Stock Management
+  quantity                Int                 @default(0)
+  reorderLevel            Int                 @default(0)
+  
+  // Pricing
+  price                   Float               // Selling price
+  cost                    Float               // Cost price
+  
+  // Batch & Expiry
+  expiryDate              DateTime
+  batchNumber             String
+  
+  // Additional Info
+  unit                    String              @default("Pieces")
+  storageConditions       String?
+  prescriptionRequired    Boolean             @default(false)
+  supplier                String?
+  
+  // Disposal Info (for expired drugs)
+  isDisposed              Boolean             @default(false)
+  disposalDate            DateTime?
+  disposalMethod          String?
+  disposalReason          String?
+  disposalNotes           String?
+  disposedBy              String?
+  
+  // Warehouse & Sync
+  
+  
+  // Audit Fields
+  createdBy               String?
+  lastStockUpdate         DateTime?
+  
+  // Relations
+  stockMovements          DrugStockMovement[]
+  disposalRecords         DrugDisposal[]
+  
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+  sync                    Boolean             @default(false)
+  syncedAt                DateTime?
+  isDeleted               Boolean             @default(false)
+
+ 
+}
+
+model DrugCategory {
+  id                      String              @id @default(uuid())
+  name                    String              // Category name
+  description             String?             // Category description
+  color                   String              @default("#3B82F6") // Color for UI
+  
+  // Warehouse
+ 
+  
+  // Status
+  isActive                Boolean             @default(true)
+  
+  // Audit
+  createdBy               String?
+  
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+  isDeleted               Boolean             @default(false)
+
+ 
+}
+
+model DrugStockMovement {
+  id                      String              @id @default(uuid())
+  drugId                  String
+  drug                    Drug                @relation(fields: [drugId], references: [id])
+  
+  type                    String              // 'in', 'out', 'adjustment'
+  quantity                Int                 // Quantity moved (positive for in, negative for out)
+  reason                  String              // Reason for movement
+  reference               String?             // Reference number (invoice, transfer, etc.)
+  notes                   String?             // Additional notes
+  balanceAfter            Int                 // Stock balance after this movement
+  
+  // Warehouse
+  warehouseId             String
+  
+  // Audit
+  createdBy               String              @default("system")
+  
+  createdAt               DateTime            @default(now())
+
+  @@index([drugId, createdAt])
+  @@index([warehouseId, createdAt])
+}
+
+model DrugDisposal {
+  id                      String              @id @default(uuid())
+  drugId                  String
+  drug                    Drug                @relation(fields: [drugId], references: [id])
+  
+  disposalMethod          String              // Incineration, Return to Supplier, etc.
+  disposalReason          String              // Expired, Damaged, etc.
+  notes                   String?
+  
+  // Warehouse
+  warehouseId             String
+  
+  // Audit
+  disposedBy              String
+  disposalDate            DateTime            @default(now())
+  
+  createdAt               DateTime            @default(now())
+
+  @@index([drugId])
+  @@index([warehouseId, disposalDate])
+}
+
+// Add warehouse model if it doesn't exist

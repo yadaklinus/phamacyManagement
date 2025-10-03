@@ -108,6 +108,26 @@ export type Supplier = $Result.DefaultSelection<Prisma.$SupplierPayload>
  * 
  */
 export type ReceiptSettings = $Result.DefaultSelection<Prisma.$ReceiptSettingsPayload>
+/**
+ * Model Drug
+ * 
+ */
+export type Drug = $Result.DefaultSelection<Prisma.$DrugPayload>
+/**
+ * Model DrugCategory
+ * 
+ */
+export type DrugCategory = $Result.DefaultSelection<Prisma.$DrugCategoryPayload>
+/**
+ * Model DrugStockMovement
+ * 
+ */
+export type DrugStockMovement = $Result.DefaultSelection<Prisma.$DrugStockMovementPayload>
+/**
+ * Model DrugDisposal
+ * 
+ */
+export type DrugDisposal = $Result.DefaultSelection<Prisma.$DrugDisposalPayload>
 
 /**
  * Enums
@@ -536,6 +556,46 @@ export class PrismaClient<
     * ```
     */
   get receiptSettings(): Prisma.ReceiptSettingsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.drug`: Exposes CRUD operations for the **Drug** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Drugs
+    * const drugs = await prisma.drug.findMany()
+    * ```
+    */
+  get drug(): Prisma.DrugDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.drugCategory`: Exposes CRUD operations for the **DrugCategory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DrugCategories
+    * const drugCategories = await prisma.drugCategory.findMany()
+    * ```
+    */
+  get drugCategory(): Prisma.DrugCategoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.drugStockMovement`: Exposes CRUD operations for the **DrugStockMovement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DrugStockMovements
+    * const drugStockMovements = await prisma.drugStockMovement.findMany()
+    * ```
+    */
+  get drugStockMovement(): Prisma.DrugStockMovementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.drugDisposal`: Exposes CRUD operations for the **DrugDisposal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DrugDisposals
+    * const drugDisposals = await prisma.drugDisposal.findMany()
+    * ```
+    */
+  get drugDisposal(): Prisma.DrugDisposalDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -994,7 +1054,11 @@ export namespace Prisma {
     PurchaseItem: 'PurchaseItem',
     BalanceTransaction: 'BalanceTransaction',
     Supplier: 'Supplier',
-    ReceiptSettings: 'ReceiptSettings'
+    ReceiptSettings: 'ReceiptSettings',
+    Drug: 'Drug',
+    DrugCategory: 'DrugCategory',
+    DrugStockMovement: 'DrugStockMovement',
+    DrugDisposal: 'DrugDisposal'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1013,7 +1077,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "superAdmin" | "users" | "settings" | "student" | "physician" | "queue" | "appointment" | "vitalSigns" | "consultation" | "prescription" | "prescriptionItem" | "drugDispensal" | "medicalRecord" | "product" | "purchase" | "purchaseItem" | "balanceTransaction" | "supplier" | "receiptSettings"
+      modelProps: "superAdmin" | "users" | "settings" | "student" | "physician" | "queue" | "appointment" | "vitalSigns" | "consultation" | "prescription" | "prescriptionItem" | "drugDispensal" | "medicalRecord" | "product" | "purchase" | "purchaseItem" | "balanceTransaction" | "supplier" | "receiptSettings" | "drug" | "drugCategory" | "drugStockMovement" | "drugDisposal"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2423,6 +2487,302 @@ export namespace Prisma {
           }
         }
       }
+      Drug: {
+        payload: Prisma.$DrugPayload<ExtArgs>
+        fields: Prisma.DrugFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DrugFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DrugFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugPayload>
+          }
+          findFirst: {
+            args: Prisma.DrugFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DrugFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugPayload>
+          }
+          findMany: {
+            args: Prisma.DrugFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugPayload>[]
+          }
+          create: {
+            args: Prisma.DrugCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugPayload>
+          }
+          createMany: {
+            args: Prisma.DrugCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DrugCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugPayload>[]
+          }
+          delete: {
+            args: Prisma.DrugDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugPayload>
+          }
+          update: {
+            args: Prisma.DrugUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugPayload>
+          }
+          deleteMany: {
+            args: Prisma.DrugDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DrugUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DrugUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugPayload>[]
+          }
+          upsert: {
+            args: Prisma.DrugUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugPayload>
+          }
+          aggregate: {
+            args: Prisma.DrugAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDrug>
+          }
+          groupBy: {
+            args: Prisma.DrugGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DrugGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DrugCountArgs<ExtArgs>
+            result: $Utils.Optional<DrugCountAggregateOutputType> | number
+          }
+        }
+      }
+      DrugCategory: {
+        payload: Prisma.$DrugCategoryPayload<ExtArgs>
+        fields: Prisma.DrugCategoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DrugCategoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugCategoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DrugCategoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugCategoryPayload>
+          }
+          findFirst: {
+            args: Prisma.DrugCategoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugCategoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DrugCategoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugCategoryPayload>
+          }
+          findMany: {
+            args: Prisma.DrugCategoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugCategoryPayload>[]
+          }
+          create: {
+            args: Prisma.DrugCategoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugCategoryPayload>
+          }
+          createMany: {
+            args: Prisma.DrugCategoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DrugCategoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugCategoryPayload>[]
+          }
+          delete: {
+            args: Prisma.DrugCategoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugCategoryPayload>
+          }
+          update: {
+            args: Prisma.DrugCategoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugCategoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.DrugCategoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DrugCategoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DrugCategoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugCategoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.DrugCategoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugCategoryPayload>
+          }
+          aggregate: {
+            args: Prisma.DrugCategoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDrugCategory>
+          }
+          groupBy: {
+            args: Prisma.DrugCategoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DrugCategoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DrugCategoryCountArgs<ExtArgs>
+            result: $Utils.Optional<DrugCategoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      DrugStockMovement: {
+        payload: Prisma.$DrugStockMovementPayload<ExtArgs>
+        fields: Prisma.DrugStockMovementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DrugStockMovementFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugStockMovementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DrugStockMovementFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugStockMovementPayload>
+          }
+          findFirst: {
+            args: Prisma.DrugStockMovementFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugStockMovementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DrugStockMovementFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugStockMovementPayload>
+          }
+          findMany: {
+            args: Prisma.DrugStockMovementFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugStockMovementPayload>[]
+          }
+          create: {
+            args: Prisma.DrugStockMovementCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugStockMovementPayload>
+          }
+          createMany: {
+            args: Prisma.DrugStockMovementCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DrugStockMovementCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugStockMovementPayload>[]
+          }
+          delete: {
+            args: Prisma.DrugStockMovementDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugStockMovementPayload>
+          }
+          update: {
+            args: Prisma.DrugStockMovementUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugStockMovementPayload>
+          }
+          deleteMany: {
+            args: Prisma.DrugStockMovementDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DrugStockMovementUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DrugStockMovementUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugStockMovementPayload>[]
+          }
+          upsert: {
+            args: Prisma.DrugStockMovementUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugStockMovementPayload>
+          }
+          aggregate: {
+            args: Prisma.DrugStockMovementAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDrugStockMovement>
+          }
+          groupBy: {
+            args: Prisma.DrugStockMovementGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DrugStockMovementGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DrugStockMovementCountArgs<ExtArgs>
+            result: $Utils.Optional<DrugStockMovementCountAggregateOutputType> | number
+          }
+        }
+      }
+      DrugDisposal: {
+        payload: Prisma.$DrugDisposalPayload<ExtArgs>
+        fields: Prisma.DrugDisposalFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DrugDisposalFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugDisposalPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DrugDisposalFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugDisposalPayload>
+          }
+          findFirst: {
+            args: Prisma.DrugDisposalFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugDisposalPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DrugDisposalFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugDisposalPayload>
+          }
+          findMany: {
+            args: Prisma.DrugDisposalFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugDisposalPayload>[]
+          }
+          create: {
+            args: Prisma.DrugDisposalCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugDisposalPayload>
+          }
+          createMany: {
+            args: Prisma.DrugDisposalCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DrugDisposalCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugDisposalPayload>[]
+          }
+          delete: {
+            args: Prisma.DrugDisposalDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugDisposalPayload>
+          }
+          update: {
+            args: Prisma.DrugDisposalUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugDisposalPayload>
+          }
+          deleteMany: {
+            args: Prisma.DrugDisposalDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DrugDisposalUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DrugDisposalUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugDisposalPayload>[]
+          }
+          upsert: {
+            args: Prisma.DrugDisposalUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DrugDisposalPayload>
+          }
+          aggregate: {
+            args: Prisma.DrugDisposalAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDrugDisposal>
+          }
+          groupBy: {
+            args: Prisma.DrugDisposalGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DrugDisposalGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DrugDisposalCountArgs<ExtArgs>
+            result: $Utils.Optional<DrugDisposalCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2526,6 +2886,10 @@ export namespace Prisma {
     balanceTransaction?: BalanceTransactionOmit
     supplier?: SupplierOmit
     receiptSettings?: ReceiptSettingsOmit
+    drug?: DrugOmit
+    drugCategory?: DrugCategoryOmit
+    drugStockMovement?: DrugStockMovementOmit
+    drugDisposal?: DrugDisposalOmit
   }
 
   /* Types for Logging */
@@ -2928,6 +3292,46 @@ export namespace Prisma {
    */
   export type SupplierCountOutputTypeCountPurchaseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PurchaseWhereInput
+  }
+
+
+  /**
+   * Count Type DrugCountOutputType
+   */
+
+  export type DrugCountOutputType = {
+    stockMovements: number
+    disposalRecords: number
+  }
+
+  export type DrugCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stockMovements?: boolean | DrugCountOutputTypeCountStockMovementsArgs
+    disposalRecords?: boolean | DrugCountOutputTypeCountDisposalRecordsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DrugCountOutputType without action
+   */
+  export type DrugCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCountOutputType
+     */
+    select?: DrugCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DrugCountOutputType without action
+   */
+  export type DrugCountOutputTypeCountStockMovementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DrugStockMovementWhereInput
+  }
+
+  /**
+   * DrugCountOutputType without action
+   */
+  export type DrugCountOutputTypeCountDisposalRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DrugDisposalWhereInput
   }
 
 
@@ -19071,6 +19475,8 @@ export namespace Prisma {
     storageConditions: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    sync: boolean | null
+    syncedAt: Date | null
     isDeleted: boolean | null
   }
 
@@ -19100,6 +19506,8 @@ export namespace Prisma {
     storageConditions: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    sync: boolean | null
+    syncedAt: Date | null
     isDeleted: boolean | null
   }
 
@@ -19129,6 +19537,8 @@ export namespace Prisma {
     storageConditions: number
     createdAt: number
     updatedAt: number
+    sync: number
+    syncedAt: number
     isDeleted: number
     _all: number
   }
@@ -19180,6 +19590,8 @@ export namespace Prisma {
     storageConditions?: true
     createdAt?: true
     updatedAt?: true
+    sync?: true
+    syncedAt?: true
     isDeleted?: true
   }
 
@@ -19209,6 +19621,8 @@ export namespace Prisma {
     storageConditions?: true
     createdAt?: true
     updatedAt?: true
+    sync?: true
+    syncedAt?: true
     isDeleted?: true
   }
 
@@ -19238,6 +19652,8 @@ export namespace Prisma {
     storageConditions?: true
     createdAt?: true
     updatedAt?: true
+    sync?: true
+    syncedAt?: true
     isDeleted?: true
     _all?: true
   }
@@ -19354,6 +19770,8 @@ export namespace Prisma {
     storageConditions: string | null
     createdAt: Date
     updatedAt: Date
+    sync: boolean
+    syncedAt: Date | null
     isDeleted: boolean
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
@@ -19402,6 +19820,8 @@ export namespace Prisma {
     storageConditions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    sync?: boolean
+    syncedAt?: boolean
     isDeleted?: boolean
     prescriptionItems?: boolean | Product$prescriptionItemsArgs<ExtArgs>
     purchaseItem?: boolean | Product$purchaseItemArgs<ExtArgs>
@@ -19434,6 +19854,8 @@ export namespace Prisma {
     storageConditions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    sync?: boolean
+    syncedAt?: boolean
     isDeleted?: boolean
   }, ExtArgs["result"]["product"]>
 
@@ -19463,6 +19885,8 @@ export namespace Prisma {
     storageConditions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    sync?: boolean
+    syncedAt?: boolean
     isDeleted?: boolean
   }, ExtArgs["result"]["product"]>
 
@@ -19492,10 +19916,12 @@ export namespace Prisma {
     storageConditions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    sync?: boolean
+    syncedAt?: boolean
     isDeleted?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "barcode" | "genericName" | "brandName" | "category" | "manufacturer" | "batchNumber" | "expiryDate" | "wholeSalePrice" | "retailPrice" | "cost" | "quantity" | "reorderLevel" | "maxStockLevel" | "taxRate" | "unit" | "description" | "dosageForm" | "strength" | "requiresPrescription" | "controlledSubstance" | "storageConditions" | "createdAt" | "updatedAt" | "isDeleted", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "barcode" | "genericName" | "brandName" | "category" | "manufacturer" | "batchNumber" | "expiryDate" | "wholeSalePrice" | "retailPrice" | "cost" | "quantity" | "reorderLevel" | "maxStockLevel" | "taxRate" | "unit" | "description" | "dosageForm" | "strength" | "requiresPrescription" | "controlledSubstance" | "storageConditions" | "createdAt" | "updatedAt" | "sync" | "syncedAt" | "isDeleted", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     prescriptionItems?: boolean | Product$prescriptionItemsArgs<ExtArgs>
     purchaseItem?: boolean | Product$purchaseItemArgs<ExtArgs>
@@ -19536,6 +19962,8 @@ export namespace Prisma {
       storageConditions: string | null
       createdAt: Date
       updatedAt: Date
+      sync: boolean
+      syncedAt: Date | null
       isDeleted: boolean
     }, ExtArgs["result"]["product"]>
     composites: {}
@@ -19987,6 +20415,8 @@ export namespace Prisma {
     readonly storageConditions: FieldRef<"Product", 'String'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
+    readonly sync: FieldRef<"Product", 'Boolean'>
+    readonly syncedAt: FieldRef<"Product", 'DateTime'>
     readonly isDeleted: FieldRef<"Product", 'Boolean'>
   }
     
@@ -26915,6 +27345,4824 @@ export namespace Prisma {
 
 
   /**
+   * Model Drug
+   */
+
+  export type AggregateDrug = {
+    _count: DrugCountAggregateOutputType | null
+    _avg: DrugAvgAggregateOutputType | null
+    _sum: DrugSumAggregateOutputType | null
+    _min: DrugMinAggregateOutputType | null
+    _max: DrugMaxAggregateOutputType | null
+  }
+
+  export type DrugAvgAggregateOutputType = {
+    quantity: number | null
+    reorderLevel: number | null
+    price: number | null
+    cost: number | null
+  }
+
+  export type DrugSumAggregateOutputType = {
+    quantity: number | null
+    reorderLevel: number | null
+    price: number | null
+    cost: number | null
+  }
+
+  export type DrugMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    category: string | null
+    manufacturer: string | null
+    description: string | null
+    activeIngredient: string | null
+    strength: string | null
+    dosageForm: string | null
+    quantity: number | null
+    reorderLevel: number | null
+    price: number | null
+    cost: number | null
+    expiryDate: Date | null
+    batchNumber: string | null
+    unit: string | null
+    storageConditions: string | null
+    prescriptionRequired: boolean | null
+    supplier: string | null
+    isDisposed: boolean | null
+    disposalDate: Date | null
+    disposalMethod: string | null
+    disposalReason: string | null
+    disposalNotes: string | null
+    disposedBy: string | null
+    createdBy: string | null
+    lastStockUpdate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    sync: boolean | null
+    syncedAt: Date | null
+    isDeleted: boolean | null
+  }
+
+  export type DrugMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    category: string | null
+    manufacturer: string | null
+    description: string | null
+    activeIngredient: string | null
+    strength: string | null
+    dosageForm: string | null
+    quantity: number | null
+    reorderLevel: number | null
+    price: number | null
+    cost: number | null
+    expiryDate: Date | null
+    batchNumber: string | null
+    unit: string | null
+    storageConditions: string | null
+    prescriptionRequired: boolean | null
+    supplier: string | null
+    isDisposed: boolean | null
+    disposalDate: Date | null
+    disposalMethod: string | null
+    disposalReason: string | null
+    disposalNotes: string | null
+    disposedBy: string | null
+    createdBy: string | null
+    lastStockUpdate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    sync: boolean | null
+    syncedAt: Date | null
+    isDeleted: boolean | null
+  }
+
+  export type DrugCountAggregateOutputType = {
+    id: number
+    code: number
+    name: number
+    category: number
+    manufacturer: number
+    description: number
+    activeIngredient: number
+    strength: number
+    dosageForm: number
+    quantity: number
+    reorderLevel: number
+    price: number
+    cost: number
+    expiryDate: number
+    batchNumber: number
+    unit: number
+    storageConditions: number
+    prescriptionRequired: number
+    supplier: number
+    isDisposed: number
+    disposalDate: number
+    disposalMethod: number
+    disposalReason: number
+    disposalNotes: number
+    disposedBy: number
+    createdBy: number
+    lastStockUpdate: number
+    createdAt: number
+    updatedAt: number
+    sync: number
+    syncedAt: number
+    isDeleted: number
+    _all: number
+  }
+
+
+  export type DrugAvgAggregateInputType = {
+    quantity?: true
+    reorderLevel?: true
+    price?: true
+    cost?: true
+  }
+
+  export type DrugSumAggregateInputType = {
+    quantity?: true
+    reorderLevel?: true
+    price?: true
+    cost?: true
+  }
+
+  export type DrugMinAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    category?: true
+    manufacturer?: true
+    description?: true
+    activeIngredient?: true
+    strength?: true
+    dosageForm?: true
+    quantity?: true
+    reorderLevel?: true
+    price?: true
+    cost?: true
+    expiryDate?: true
+    batchNumber?: true
+    unit?: true
+    storageConditions?: true
+    prescriptionRequired?: true
+    supplier?: true
+    isDisposed?: true
+    disposalDate?: true
+    disposalMethod?: true
+    disposalReason?: true
+    disposalNotes?: true
+    disposedBy?: true
+    createdBy?: true
+    lastStockUpdate?: true
+    createdAt?: true
+    updatedAt?: true
+    sync?: true
+    syncedAt?: true
+    isDeleted?: true
+  }
+
+  export type DrugMaxAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    category?: true
+    manufacturer?: true
+    description?: true
+    activeIngredient?: true
+    strength?: true
+    dosageForm?: true
+    quantity?: true
+    reorderLevel?: true
+    price?: true
+    cost?: true
+    expiryDate?: true
+    batchNumber?: true
+    unit?: true
+    storageConditions?: true
+    prescriptionRequired?: true
+    supplier?: true
+    isDisposed?: true
+    disposalDate?: true
+    disposalMethod?: true
+    disposalReason?: true
+    disposalNotes?: true
+    disposedBy?: true
+    createdBy?: true
+    lastStockUpdate?: true
+    createdAt?: true
+    updatedAt?: true
+    sync?: true
+    syncedAt?: true
+    isDeleted?: true
+  }
+
+  export type DrugCountAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    category?: true
+    manufacturer?: true
+    description?: true
+    activeIngredient?: true
+    strength?: true
+    dosageForm?: true
+    quantity?: true
+    reorderLevel?: true
+    price?: true
+    cost?: true
+    expiryDate?: true
+    batchNumber?: true
+    unit?: true
+    storageConditions?: true
+    prescriptionRequired?: true
+    supplier?: true
+    isDisposed?: true
+    disposalDate?: true
+    disposalMethod?: true
+    disposalReason?: true
+    disposalNotes?: true
+    disposedBy?: true
+    createdBy?: true
+    lastStockUpdate?: true
+    createdAt?: true
+    updatedAt?: true
+    sync?: true
+    syncedAt?: true
+    isDeleted?: true
+    _all?: true
+  }
+
+  export type DrugAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Drug to aggregate.
+     */
+    where?: DrugWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Drugs to fetch.
+     */
+    orderBy?: DrugOrderByWithRelationInput | DrugOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DrugWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Drugs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Drugs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Drugs
+    **/
+    _count?: true | DrugCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DrugAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DrugSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DrugMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DrugMaxAggregateInputType
+  }
+
+  export type GetDrugAggregateType<T extends DrugAggregateArgs> = {
+        [P in keyof T & keyof AggregateDrug]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDrug[P]>
+      : GetScalarType<T[P], AggregateDrug[P]>
+  }
+
+
+
+
+  export type DrugGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DrugWhereInput
+    orderBy?: DrugOrderByWithAggregationInput | DrugOrderByWithAggregationInput[]
+    by: DrugScalarFieldEnum[] | DrugScalarFieldEnum
+    having?: DrugScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DrugCountAggregateInputType | true
+    _avg?: DrugAvgAggregateInputType
+    _sum?: DrugSumAggregateInputType
+    _min?: DrugMinAggregateInputType
+    _max?: DrugMaxAggregateInputType
+  }
+
+  export type DrugGroupByOutputType = {
+    id: string
+    code: string
+    name: string
+    category: string
+    manufacturer: string
+    description: string | null
+    activeIngredient: string | null
+    strength: string | null
+    dosageForm: string | null
+    quantity: number
+    reorderLevel: number
+    price: number
+    cost: number
+    expiryDate: Date
+    batchNumber: string
+    unit: string
+    storageConditions: string | null
+    prescriptionRequired: boolean
+    supplier: string | null
+    isDisposed: boolean
+    disposalDate: Date | null
+    disposalMethod: string | null
+    disposalReason: string | null
+    disposalNotes: string | null
+    disposedBy: string | null
+    createdBy: string | null
+    lastStockUpdate: Date | null
+    createdAt: Date
+    updatedAt: Date
+    sync: boolean
+    syncedAt: Date | null
+    isDeleted: boolean
+    _count: DrugCountAggregateOutputType | null
+    _avg: DrugAvgAggregateOutputType | null
+    _sum: DrugSumAggregateOutputType | null
+    _min: DrugMinAggregateOutputType | null
+    _max: DrugMaxAggregateOutputType | null
+  }
+
+  type GetDrugGroupByPayload<T extends DrugGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DrugGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DrugGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DrugGroupByOutputType[P]>
+            : GetScalarType<T[P], DrugGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DrugSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    category?: boolean
+    manufacturer?: boolean
+    description?: boolean
+    activeIngredient?: boolean
+    strength?: boolean
+    dosageForm?: boolean
+    quantity?: boolean
+    reorderLevel?: boolean
+    price?: boolean
+    cost?: boolean
+    expiryDate?: boolean
+    batchNumber?: boolean
+    unit?: boolean
+    storageConditions?: boolean
+    prescriptionRequired?: boolean
+    supplier?: boolean
+    isDisposed?: boolean
+    disposalDate?: boolean
+    disposalMethod?: boolean
+    disposalReason?: boolean
+    disposalNotes?: boolean
+    disposedBy?: boolean
+    createdBy?: boolean
+    lastStockUpdate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    sync?: boolean
+    syncedAt?: boolean
+    isDeleted?: boolean
+    stockMovements?: boolean | Drug$stockMovementsArgs<ExtArgs>
+    disposalRecords?: boolean | Drug$disposalRecordsArgs<ExtArgs>
+    _count?: boolean | DrugCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["drug"]>
+
+  export type DrugSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    category?: boolean
+    manufacturer?: boolean
+    description?: boolean
+    activeIngredient?: boolean
+    strength?: boolean
+    dosageForm?: boolean
+    quantity?: boolean
+    reorderLevel?: boolean
+    price?: boolean
+    cost?: boolean
+    expiryDate?: boolean
+    batchNumber?: boolean
+    unit?: boolean
+    storageConditions?: boolean
+    prescriptionRequired?: boolean
+    supplier?: boolean
+    isDisposed?: boolean
+    disposalDate?: boolean
+    disposalMethod?: boolean
+    disposalReason?: boolean
+    disposalNotes?: boolean
+    disposedBy?: boolean
+    createdBy?: boolean
+    lastStockUpdate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    sync?: boolean
+    syncedAt?: boolean
+    isDeleted?: boolean
+  }, ExtArgs["result"]["drug"]>
+
+  export type DrugSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    category?: boolean
+    manufacturer?: boolean
+    description?: boolean
+    activeIngredient?: boolean
+    strength?: boolean
+    dosageForm?: boolean
+    quantity?: boolean
+    reorderLevel?: boolean
+    price?: boolean
+    cost?: boolean
+    expiryDate?: boolean
+    batchNumber?: boolean
+    unit?: boolean
+    storageConditions?: boolean
+    prescriptionRequired?: boolean
+    supplier?: boolean
+    isDisposed?: boolean
+    disposalDate?: boolean
+    disposalMethod?: boolean
+    disposalReason?: boolean
+    disposalNotes?: boolean
+    disposedBy?: boolean
+    createdBy?: boolean
+    lastStockUpdate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    sync?: boolean
+    syncedAt?: boolean
+    isDeleted?: boolean
+  }, ExtArgs["result"]["drug"]>
+
+  export type DrugSelectScalar = {
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    category?: boolean
+    manufacturer?: boolean
+    description?: boolean
+    activeIngredient?: boolean
+    strength?: boolean
+    dosageForm?: boolean
+    quantity?: boolean
+    reorderLevel?: boolean
+    price?: boolean
+    cost?: boolean
+    expiryDate?: boolean
+    batchNumber?: boolean
+    unit?: boolean
+    storageConditions?: boolean
+    prescriptionRequired?: boolean
+    supplier?: boolean
+    isDisposed?: boolean
+    disposalDate?: boolean
+    disposalMethod?: boolean
+    disposalReason?: boolean
+    disposalNotes?: boolean
+    disposedBy?: boolean
+    createdBy?: boolean
+    lastStockUpdate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    sync?: boolean
+    syncedAt?: boolean
+    isDeleted?: boolean
+  }
+
+  export type DrugOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "category" | "manufacturer" | "description" | "activeIngredient" | "strength" | "dosageForm" | "quantity" | "reorderLevel" | "price" | "cost" | "expiryDate" | "batchNumber" | "unit" | "storageConditions" | "prescriptionRequired" | "supplier" | "isDisposed" | "disposalDate" | "disposalMethod" | "disposalReason" | "disposalNotes" | "disposedBy" | "createdBy" | "lastStockUpdate" | "createdAt" | "updatedAt" | "sync" | "syncedAt" | "isDeleted", ExtArgs["result"]["drug"]>
+  export type DrugInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stockMovements?: boolean | Drug$stockMovementsArgs<ExtArgs>
+    disposalRecords?: boolean | Drug$disposalRecordsArgs<ExtArgs>
+    _count?: boolean | DrugCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DrugIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type DrugIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $DrugPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Drug"
+    objects: {
+      stockMovements: Prisma.$DrugStockMovementPayload<ExtArgs>[]
+      disposalRecords: Prisma.$DrugDisposalPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      name: string
+      category: string
+      manufacturer: string
+      description: string | null
+      activeIngredient: string | null
+      strength: string | null
+      dosageForm: string | null
+      quantity: number
+      reorderLevel: number
+      price: number
+      cost: number
+      expiryDate: Date
+      batchNumber: string
+      unit: string
+      storageConditions: string | null
+      prescriptionRequired: boolean
+      supplier: string | null
+      isDisposed: boolean
+      disposalDate: Date | null
+      disposalMethod: string | null
+      disposalReason: string | null
+      disposalNotes: string | null
+      disposedBy: string | null
+      createdBy: string | null
+      lastStockUpdate: Date | null
+      createdAt: Date
+      updatedAt: Date
+      sync: boolean
+      syncedAt: Date | null
+      isDeleted: boolean
+    }, ExtArgs["result"]["drug"]>
+    composites: {}
+  }
+
+  type DrugGetPayload<S extends boolean | null | undefined | DrugDefaultArgs> = $Result.GetResult<Prisma.$DrugPayload, S>
+
+  type DrugCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DrugFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DrugCountAggregateInputType | true
+    }
+
+  export interface DrugDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Drug'], meta: { name: 'Drug' } }
+    /**
+     * Find zero or one Drug that matches the filter.
+     * @param {DrugFindUniqueArgs} args - Arguments to find a Drug
+     * @example
+     * // Get one Drug
+     * const drug = await prisma.drug.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DrugFindUniqueArgs>(args: SelectSubset<T, DrugFindUniqueArgs<ExtArgs>>): Prisma__DrugClient<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Drug that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DrugFindUniqueOrThrowArgs} args - Arguments to find a Drug
+     * @example
+     * // Get one Drug
+     * const drug = await prisma.drug.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DrugFindUniqueOrThrowArgs>(args: SelectSubset<T, DrugFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DrugClient<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Drug that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugFindFirstArgs} args - Arguments to find a Drug
+     * @example
+     * // Get one Drug
+     * const drug = await prisma.drug.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DrugFindFirstArgs>(args?: SelectSubset<T, DrugFindFirstArgs<ExtArgs>>): Prisma__DrugClient<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Drug that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugFindFirstOrThrowArgs} args - Arguments to find a Drug
+     * @example
+     * // Get one Drug
+     * const drug = await prisma.drug.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DrugFindFirstOrThrowArgs>(args?: SelectSubset<T, DrugFindFirstOrThrowArgs<ExtArgs>>): Prisma__DrugClient<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Drugs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Drugs
+     * const drugs = await prisma.drug.findMany()
+     * 
+     * // Get first 10 Drugs
+     * const drugs = await prisma.drug.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const drugWithIdOnly = await prisma.drug.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DrugFindManyArgs>(args?: SelectSubset<T, DrugFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Drug.
+     * @param {DrugCreateArgs} args - Arguments to create a Drug.
+     * @example
+     * // Create one Drug
+     * const Drug = await prisma.drug.create({
+     *   data: {
+     *     // ... data to create a Drug
+     *   }
+     * })
+     * 
+     */
+    create<T extends DrugCreateArgs>(args: SelectSubset<T, DrugCreateArgs<ExtArgs>>): Prisma__DrugClient<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Drugs.
+     * @param {DrugCreateManyArgs} args - Arguments to create many Drugs.
+     * @example
+     * // Create many Drugs
+     * const drug = await prisma.drug.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DrugCreateManyArgs>(args?: SelectSubset<T, DrugCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Drugs and returns the data saved in the database.
+     * @param {DrugCreateManyAndReturnArgs} args - Arguments to create many Drugs.
+     * @example
+     * // Create many Drugs
+     * const drug = await prisma.drug.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Drugs and only return the `id`
+     * const drugWithIdOnly = await prisma.drug.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DrugCreateManyAndReturnArgs>(args?: SelectSubset<T, DrugCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Drug.
+     * @param {DrugDeleteArgs} args - Arguments to delete one Drug.
+     * @example
+     * // Delete one Drug
+     * const Drug = await prisma.drug.delete({
+     *   where: {
+     *     // ... filter to delete one Drug
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DrugDeleteArgs>(args: SelectSubset<T, DrugDeleteArgs<ExtArgs>>): Prisma__DrugClient<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Drug.
+     * @param {DrugUpdateArgs} args - Arguments to update one Drug.
+     * @example
+     * // Update one Drug
+     * const drug = await prisma.drug.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DrugUpdateArgs>(args: SelectSubset<T, DrugUpdateArgs<ExtArgs>>): Prisma__DrugClient<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Drugs.
+     * @param {DrugDeleteManyArgs} args - Arguments to filter Drugs to delete.
+     * @example
+     * // Delete a few Drugs
+     * const { count } = await prisma.drug.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DrugDeleteManyArgs>(args?: SelectSubset<T, DrugDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Drugs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Drugs
+     * const drug = await prisma.drug.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DrugUpdateManyArgs>(args: SelectSubset<T, DrugUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Drugs and returns the data updated in the database.
+     * @param {DrugUpdateManyAndReturnArgs} args - Arguments to update many Drugs.
+     * @example
+     * // Update many Drugs
+     * const drug = await prisma.drug.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Drugs and only return the `id`
+     * const drugWithIdOnly = await prisma.drug.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DrugUpdateManyAndReturnArgs>(args: SelectSubset<T, DrugUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Drug.
+     * @param {DrugUpsertArgs} args - Arguments to update or create a Drug.
+     * @example
+     * // Update or create a Drug
+     * const drug = await prisma.drug.upsert({
+     *   create: {
+     *     // ... data to create a Drug
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Drug we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DrugUpsertArgs>(args: SelectSubset<T, DrugUpsertArgs<ExtArgs>>): Prisma__DrugClient<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Drugs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugCountArgs} args - Arguments to filter Drugs to count.
+     * @example
+     * // Count the number of Drugs
+     * const count = await prisma.drug.count({
+     *   where: {
+     *     // ... the filter for the Drugs we want to count
+     *   }
+     * })
+    **/
+    count<T extends DrugCountArgs>(
+      args?: Subset<T, DrugCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DrugCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Drug.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DrugAggregateArgs>(args: Subset<T, DrugAggregateArgs>): Prisma.PrismaPromise<GetDrugAggregateType<T>>
+
+    /**
+     * Group by Drug.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DrugGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DrugGroupByArgs['orderBy'] }
+        : { orderBy?: DrugGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DrugGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDrugGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Drug model
+   */
+  readonly fields: DrugFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Drug.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DrugClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    stockMovements<T extends Drug$stockMovementsArgs<ExtArgs> = {}>(args?: Subset<T, Drug$stockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugStockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    disposalRecords<T extends Drug$disposalRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Drug$disposalRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugDisposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Drug model
+   */
+  interface DrugFieldRefs {
+    readonly id: FieldRef<"Drug", 'String'>
+    readonly code: FieldRef<"Drug", 'String'>
+    readonly name: FieldRef<"Drug", 'String'>
+    readonly category: FieldRef<"Drug", 'String'>
+    readonly manufacturer: FieldRef<"Drug", 'String'>
+    readonly description: FieldRef<"Drug", 'String'>
+    readonly activeIngredient: FieldRef<"Drug", 'String'>
+    readonly strength: FieldRef<"Drug", 'String'>
+    readonly dosageForm: FieldRef<"Drug", 'String'>
+    readonly quantity: FieldRef<"Drug", 'Int'>
+    readonly reorderLevel: FieldRef<"Drug", 'Int'>
+    readonly price: FieldRef<"Drug", 'Float'>
+    readonly cost: FieldRef<"Drug", 'Float'>
+    readonly expiryDate: FieldRef<"Drug", 'DateTime'>
+    readonly batchNumber: FieldRef<"Drug", 'String'>
+    readonly unit: FieldRef<"Drug", 'String'>
+    readonly storageConditions: FieldRef<"Drug", 'String'>
+    readonly prescriptionRequired: FieldRef<"Drug", 'Boolean'>
+    readonly supplier: FieldRef<"Drug", 'String'>
+    readonly isDisposed: FieldRef<"Drug", 'Boolean'>
+    readonly disposalDate: FieldRef<"Drug", 'DateTime'>
+    readonly disposalMethod: FieldRef<"Drug", 'String'>
+    readonly disposalReason: FieldRef<"Drug", 'String'>
+    readonly disposalNotes: FieldRef<"Drug", 'String'>
+    readonly disposedBy: FieldRef<"Drug", 'String'>
+    readonly createdBy: FieldRef<"Drug", 'String'>
+    readonly lastStockUpdate: FieldRef<"Drug", 'DateTime'>
+    readonly createdAt: FieldRef<"Drug", 'DateTime'>
+    readonly updatedAt: FieldRef<"Drug", 'DateTime'>
+    readonly sync: FieldRef<"Drug", 'Boolean'>
+    readonly syncedAt: FieldRef<"Drug", 'DateTime'>
+    readonly isDeleted: FieldRef<"Drug", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Drug findUnique
+   */
+  export type DrugFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drug
+     */
+    select?: DrugSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drug
+     */
+    omit?: DrugOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugInclude<ExtArgs> | null
+    /**
+     * Filter, which Drug to fetch.
+     */
+    where: DrugWhereUniqueInput
+  }
+
+  /**
+   * Drug findUniqueOrThrow
+   */
+  export type DrugFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drug
+     */
+    select?: DrugSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drug
+     */
+    omit?: DrugOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugInclude<ExtArgs> | null
+    /**
+     * Filter, which Drug to fetch.
+     */
+    where: DrugWhereUniqueInput
+  }
+
+  /**
+   * Drug findFirst
+   */
+  export type DrugFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drug
+     */
+    select?: DrugSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drug
+     */
+    omit?: DrugOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugInclude<ExtArgs> | null
+    /**
+     * Filter, which Drug to fetch.
+     */
+    where?: DrugWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Drugs to fetch.
+     */
+    orderBy?: DrugOrderByWithRelationInput | DrugOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Drugs.
+     */
+    cursor?: DrugWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Drugs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Drugs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Drugs.
+     */
+    distinct?: DrugScalarFieldEnum | DrugScalarFieldEnum[]
+  }
+
+  /**
+   * Drug findFirstOrThrow
+   */
+  export type DrugFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drug
+     */
+    select?: DrugSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drug
+     */
+    omit?: DrugOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugInclude<ExtArgs> | null
+    /**
+     * Filter, which Drug to fetch.
+     */
+    where?: DrugWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Drugs to fetch.
+     */
+    orderBy?: DrugOrderByWithRelationInput | DrugOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Drugs.
+     */
+    cursor?: DrugWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Drugs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Drugs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Drugs.
+     */
+    distinct?: DrugScalarFieldEnum | DrugScalarFieldEnum[]
+  }
+
+  /**
+   * Drug findMany
+   */
+  export type DrugFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drug
+     */
+    select?: DrugSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drug
+     */
+    omit?: DrugOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugInclude<ExtArgs> | null
+    /**
+     * Filter, which Drugs to fetch.
+     */
+    where?: DrugWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Drugs to fetch.
+     */
+    orderBy?: DrugOrderByWithRelationInput | DrugOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Drugs.
+     */
+    cursor?: DrugWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Drugs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Drugs.
+     */
+    skip?: number
+    distinct?: DrugScalarFieldEnum | DrugScalarFieldEnum[]
+  }
+
+  /**
+   * Drug create
+   */
+  export type DrugCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drug
+     */
+    select?: DrugSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drug
+     */
+    omit?: DrugOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Drug.
+     */
+    data: XOR<DrugCreateInput, DrugUncheckedCreateInput>
+  }
+
+  /**
+   * Drug createMany
+   */
+  export type DrugCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Drugs.
+     */
+    data: DrugCreateManyInput | DrugCreateManyInput[]
+  }
+
+  /**
+   * Drug createManyAndReturn
+   */
+  export type DrugCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drug
+     */
+    select?: DrugSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drug
+     */
+    omit?: DrugOmit<ExtArgs> | null
+    /**
+     * The data used to create many Drugs.
+     */
+    data: DrugCreateManyInput | DrugCreateManyInput[]
+  }
+
+  /**
+   * Drug update
+   */
+  export type DrugUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drug
+     */
+    select?: DrugSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drug
+     */
+    omit?: DrugOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Drug.
+     */
+    data: XOR<DrugUpdateInput, DrugUncheckedUpdateInput>
+    /**
+     * Choose, which Drug to update.
+     */
+    where: DrugWhereUniqueInput
+  }
+
+  /**
+   * Drug updateMany
+   */
+  export type DrugUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Drugs.
+     */
+    data: XOR<DrugUpdateManyMutationInput, DrugUncheckedUpdateManyInput>
+    /**
+     * Filter which Drugs to update
+     */
+    where?: DrugWhereInput
+    /**
+     * Limit how many Drugs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Drug updateManyAndReturn
+   */
+  export type DrugUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drug
+     */
+    select?: DrugSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drug
+     */
+    omit?: DrugOmit<ExtArgs> | null
+    /**
+     * The data used to update Drugs.
+     */
+    data: XOR<DrugUpdateManyMutationInput, DrugUncheckedUpdateManyInput>
+    /**
+     * Filter which Drugs to update
+     */
+    where?: DrugWhereInput
+    /**
+     * Limit how many Drugs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Drug upsert
+   */
+  export type DrugUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drug
+     */
+    select?: DrugSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drug
+     */
+    omit?: DrugOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Drug to update in case it exists.
+     */
+    where: DrugWhereUniqueInput
+    /**
+     * In case the Drug found by the `where` argument doesn't exist, create a new Drug with this data.
+     */
+    create: XOR<DrugCreateInput, DrugUncheckedCreateInput>
+    /**
+     * In case the Drug was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DrugUpdateInput, DrugUncheckedUpdateInput>
+  }
+
+  /**
+   * Drug delete
+   */
+  export type DrugDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drug
+     */
+    select?: DrugSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drug
+     */
+    omit?: DrugOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugInclude<ExtArgs> | null
+    /**
+     * Filter which Drug to delete.
+     */
+    where: DrugWhereUniqueInput
+  }
+
+  /**
+   * Drug deleteMany
+   */
+  export type DrugDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Drugs to delete
+     */
+    where?: DrugWhereInput
+    /**
+     * Limit how many Drugs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Drug.stockMovements
+   */
+  export type Drug$stockMovementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementInclude<ExtArgs> | null
+    where?: DrugStockMovementWhereInput
+    orderBy?: DrugStockMovementOrderByWithRelationInput | DrugStockMovementOrderByWithRelationInput[]
+    cursor?: DrugStockMovementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DrugStockMovementScalarFieldEnum | DrugStockMovementScalarFieldEnum[]
+  }
+
+  /**
+   * Drug.disposalRecords
+   */
+  export type Drug$disposalRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalInclude<ExtArgs> | null
+    where?: DrugDisposalWhereInput
+    orderBy?: DrugDisposalOrderByWithRelationInput | DrugDisposalOrderByWithRelationInput[]
+    cursor?: DrugDisposalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DrugDisposalScalarFieldEnum | DrugDisposalScalarFieldEnum[]
+  }
+
+  /**
+   * Drug without action
+   */
+  export type DrugDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Drug
+     */
+    select?: DrugSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Drug
+     */
+    omit?: DrugOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DrugCategory
+   */
+
+  export type AggregateDrugCategory = {
+    _count: DrugCategoryCountAggregateOutputType | null
+    _min: DrugCategoryMinAggregateOutputType | null
+    _max: DrugCategoryMaxAggregateOutputType | null
+  }
+
+  export type DrugCategoryMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    color: string | null
+    isActive: boolean | null
+    createdBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    isDeleted: boolean | null
+  }
+
+  export type DrugCategoryMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    color: string | null
+    isActive: boolean | null
+    createdBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    isDeleted: boolean | null
+  }
+
+  export type DrugCategoryCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    color: number
+    isActive: number
+    createdBy: number
+    createdAt: number
+    updatedAt: number
+    isDeleted: number
+    _all: number
+  }
+
+
+  export type DrugCategoryMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    color?: true
+    isActive?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+    isDeleted?: true
+  }
+
+  export type DrugCategoryMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    color?: true
+    isActive?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+    isDeleted?: true
+  }
+
+  export type DrugCategoryCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    color?: true
+    isActive?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+    isDeleted?: true
+    _all?: true
+  }
+
+  export type DrugCategoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DrugCategory to aggregate.
+     */
+    where?: DrugCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DrugCategories to fetch.
+     */
+    orderBy?: DrugCategoryOrderByWithRelationInput | DrugCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DrugCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DrugCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DrugCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DrugCategories
+    **/
+    _count?: true | DrugCategoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DrugCategoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DrugCategoryMaxAggregateInputType
+  }
+
+  export type GetDrugCategoryAggregateType<T extends DrugCategoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateDrugCategory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDrugCategory[P]>
+      : GetScalarType<T[P], AggregateDrugCategory[P]>
+  }
+
+
+
+
+  export type DrugCategoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DrugCategoryWhereInput
+    orderBy?: DrugCategoryOrderByWithAggregationInput | DrugCategoryOrderByWithAggregationInput[]
+    by: DrugCategoryScalarFieldEnum[] | DrugCategoryScalarFieldEnum
+    having?: DrugCategoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DrugCategoryCountAggregateInputType | true
+    _min?: DrugCategoryMinAggregateInputType
+    _max?: DrugCategoryMaxAggregateInputType
+  }
+
+  export type DrugCategoryGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    color: string
+    isActive: boolean
+    createdBy: string | null
+    createdAt: Date
+    updatedAt: Date
+    isDeleted: boolean
+    _count: DrugCategoryCountAggregateOutputType | null
+    _min: DrugCategoryMinAggregateOutputType | null
+    _max: DrugCategoryMaxAggregateOutputType | null
+  }
+
+  type GetDrugCategoryGroupByPayload<T extends DrugCategoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DrugCategoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DrugCategoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DrugCategoryGroupByOutputType[P]>
+            : GetScalarType<T[P], DrugCategoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DrugCategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    color?: boolean
+    isActive?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    isDeleted?: boolean
+  }, ExtArgs["result"]["drugCategory"]>
+
+  export type DrugCategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    color?: boolean
+    isActive?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    isDeleted?: boolean
+  }, ExtArgs["result"]["drugCategory"]>
+
+  export type DrugCategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    color?: boolean
+    isActive?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    isDeleted?: boolean
+  }, ExtArgs["result"]["drugCategory"]>
+
+  export type DrugCategorySelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    color?: boolean
+    isActive?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    isDeleted?: boolean
+  }
+
+  export type DrugCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "color" | "isActive" | "createdBy" | "createdAt" | "updatedAt" | "isDeleted", ExtArgs["result"]["drugCategory"]>
+
+  export type $DrugCategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DrugCategory"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      color: string
+      isActive: boolean
+      createdBy: string | null
+      createdAt: Date
+      updatedAt: Date
+      isDeleted: boolean
+    }, ExtArgs["result"]["drugCategory"]>
+    composites: {}
+  }
+
+  type DrugCategoryGetPayload<S extends boolean | null | undefined | DrugCategoryDefaultArgs> = $Result.GetResult<Prisma.$DrugCategoryPayload, S>
+
+  type DrugCategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DrugCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DrugCategoryCountAggregateInputType | true
+    }
+
+  export interface DrugCategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DrugCategory'], meta: { name: 'DrugCategory' } }
+    /**
+     * Find zero or one DrugCategory that matches the filter.
+     * @param {DrugCategoryFindUniqueArgs} args - Arguments to find a DrugCategory
+     * @example
+     * // Get one DrugCategory
+     * const drugCategory = await prisma.drugCategory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DrugCategoryFindUniqueArgs>(args: SelectSubset<T, DrugCategoryFindUniqueArgs<ExtArgs>>): Prisma__DrugCategoryClient<$Result.GetResult<Prisma.$DrugCategoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DrugCategory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DrugCategoryFindUniqueOrThrowArgs} args - Arguments to find a DrugCategory
+     * @example
+     * // Get one DrugCategory
+     * const drugCategory = await prisma.drugCategory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DrugCategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, DrugCategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DrugCategoryClient<$Result.GetResult<Prisma.$DrugCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DrugCategory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugCategoryFindFirstArgs} args - Arguments to find a DrugCategory
+     * @example
+     * // Get one DrugCategory
+     * const drugCategory = await prisma.drugCategory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DrugCategoryFindFirstArgs>(args?: SelectSubset<T, DrugCategoryFindFirstArgs<ExtArgs>>): Prisma__DrugCategoryClient<$Result.GetResult<Prisma.$DrugCategoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DrugCategory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugCategoryFindFirstOrThrowArgs} args - Arguments to find a DrugCategory
+     * @example
+     * // Get one DrugCategory
+     * const drugCategory = await prisma.drugCategory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DrugCategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, DrugCategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__DrugCategoryClient<$Result.GetResult<Prisma.$DrugCategoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DrugCategories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugCategoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DrugCategories
+     * const drugCategories = await prisma.drugCategory.findMany()
+     * 
+     * // Get first 10 DrugCategories
+     * const drugCategories = await prisma.drugCategory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const drugCategoryWithIdOnly = await prisma.drugCategory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DrugCategoryFindManyArgs>(args?: SelectSubset<T, DrugCategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DrugCategory.
+     * @param {DrugCategoryCreateArgs} args - Arguments to create a DrugCategory.
+     * @example
+     * // Create one DrugCategory
+     * const DrugCategory = await prisma.drugCategory.create({
+     *   data: {
+     *     // ... data to create a DrugCategory
+     *   }
+     * })
+     * 
+     */
+    create<T extends DrugCategoryCreateArgs>(args: SelectSubset<T, DrugCategoryCreateArgs<ExtArgs>>): Prisma__DrugCategoryClient<$Result.GetResult<Prisma.$DrugCategoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DrugCategories.
+     * @param {DrugCategoryCreateManyArgs} args - Arguments to create many DrugCategories.
+     * @example
+     * // Create many DrugCategories
+     * const drugCategory = await prisma.drugCategory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DrugCategoryCreateManyArgs>(args?: SelectSubset<T, DrugCategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DrugCategories and returns the data saved in the database.
+     * @param {DrugCategoryCreateManyAndReturnArgs} args - Arguments to create many DrugCategories.
+     * @example
+     * // Create many DrugCategories
+     * const drugCategory = await prisma.drugCategory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DrugCategories and only return the `id`
+     * const drugCategoryWithIdOnly = await prisma.drugCategory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DrugCategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, DrugCategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugCategoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DrugCategory.
+     * @param {DrugCategoryDeleteArgs} args - Arguments to delete one DrugCategory.
+     * @example
+     * // Delete one DrugCategory
+     * const DrugCategory = await prisma.drugCategory.delete({
+     *   where: {
+     *     // ... filter to delete one DrugCategory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DrugCategoryDeleteArgs>(args: SelectSubset<T, DrugCategoryDeleteArgs<ExtArgs>>): Prisma__DrugCategoryClient<$Result.GetResult<Prisma.$DrugCategoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DrugCategory.
+     * @param {DrugCategoryUpdateArgs} args - Arguments to update one DrugCategory.
+     * @example
+     * // Update one DrugCategory
+     * const drugCategory = await prisma.drugCategory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DrugCategoryUpdateArgs>(args: SelectSubset<T, DrugCategoryUpdateArgs<ExtArgs>>): Prisma__DrugCategoryClient<$Result.GetResult<Prisma.$DrugCategoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DrugCategories.
+     * @param {DrugCategoryDeleteManyArgs} args - Arguments to filter DrugCategories to delete.
+     * @example
+     * // Delete a few DrugCategories
+     * const { count } = await prisma.drugCategory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DrugCategoryDeleteManyArgs>(args?: SelectSubset<T, DrugCategoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DrugCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugCategoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DrugCategories
+     * const drugCategory = await prisma.drugCategory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DrugCategoryUpdateManyArgs>(args: SelectSubset<T, DrugCategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DrugCategories and returns the data updated in the database.
+     * @param {DrugCategoryUpdateManyAndReturnArgs} args - Arguments to update many DrugCategories.
+     * @example
+     * // Update many DrugCategories
+     * const drugCategory = await prisma.drugCategory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DrugCategories and only return the `id`
+     * const drugCategoryWithIdOnly = await prisma.drugCategory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DrugCategoryUpdateManyAndReturnArgs>(args: SelectSubset<T, DrugCategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugCategoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DrugCategory.
+     * @param {DrugCategoryUpsertArgs} args - Arguments to update or create a DrugCategory.
+     * @example
+     * // Update or create a DrugCategory
+     * const drugCategory = await prisma.drugCategory.upsert({
+     *   create: {
+     *     // ... data to create a DrugCategory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DrugCategory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DrugCategoryUpsertArgs>(args: SelectSubset<T, DrugCategoryUpsertArgs<ExtArgs>>): Prisma__DrugCategoryClient<$Result.GetResult<Prisma.$DrugCategoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DrugCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugCategoryCountArgs} args - Arguments to filter DrugCategories to count.
+     * @example
+     * // Count the number of DrugCategories
+     * const count = await prisma.drugCategory.count({
+     *   where: {
+     *     // ... the filter for the DrugCategories we want to count
+     *   }
+     * })
+    **/
+    count<T extends DrugCategoryCountArgs>(
+      args?: Subset<T, DrugCategoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DrugCategoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DrugCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugCategoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DrugCategoryAggregateArgs>(args: Subset<T, DrugCategoryAggregateArgs>): Prisma.PrismaPromise<GetDrugCategoryAggregateType<T>>
+
+    /**
+     * Group by DrugCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugCategoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DrugCategoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DrugCategoryGroupByArgs['orderBy'] }
+        : { orderBy?: DrugCategoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DrugCategoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDrugCategoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DrugCategory model
+   */
+  readonly fields: DrugCategoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DrugCategory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DrugCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DrugCategory model
+   */
+  interface DrugCategoryFieldRefs {
+    readonly id: FieldRef<"DrugCategory", 'String'>
+    readonly name: FieldRef<"DrugCategory", 'String'>
+    readonly description: FieldRef<"DrugCategory", 'String'>
+    readonly color: FieldRef<"DrugCategory", 'String'>
+    readonly isActive: FieldRef<"DrugCategory", 'Boolean'>
+    readonly createdBy: FieldRef<"DrugCategory", 'String'>
+    readonly createdAt: FieldRef<"DrugCategory", 'DateTime'>
+    readonly updatedAt: FieldRef<"DrugCategory", 'DateTime'>
+    readonly isDeleted: FieldRef<"DrugCategory", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DrugCategory findUnique
+   */
+  export type DrugCategoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCategory
+     */
+    select?: DrugCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugCategory
+     */
+    omit?: DrugCategoryOmit<ExtArgs> | null
+    /**
+     * Filter, which DrugCategory to fetch.
+     */
+    where: DrugCategoryWhereUniqueInput
+  }
+
+  /**
+   * DrugCategory findUniqueOrThrow
+   */
+  export type DrugCategoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCategory
+     */
+    select?: DrugCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugCategory
+     */
+    omit?: DrugCategoryOmit<ExtArgs> | null
+    /**
+     * Filter, which DrugCategory to fetch.
+     */
+    where: DrugCategoryWhereUniqueInput
+  }
+
+  /**
+   * DrugCategory findFirst
+   */
+  export type DrugCategoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCategory
+     */
+    select?: DrugCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugCategory
+     */
+    omit?: DrugCategoryOmit<ExtArgs> | null
+    /**
+     * Filter, which DrugCategory to fetch.
+     */
+    where?: DrugCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DrugCategories to fetch.
+     */
+    orderBy?: DrugCategoryOrderByWithRelationInput | DrugCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DrugCategories.
+     */
+    cursor?: DrugCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DrugCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DrugCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DrugCategories.
+     */
+    distinct?: DrugCategoryScalarFieldEnum | DrugCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * DrugCategory findFirstOrThrow
+   */
+  export type DrugCategoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCategory
+     */
+    select?: DrugCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugCategory
+     */
+    omit?: DrugCategoryOmit<ExtArgs> | null
+    /**
+     * Filter, which DrugCategory to fetch.
+     */
+    where?: DrugCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DrugCategories to fetch.
+     */
+    orderBy?: DrugCategoryOrderByWithRelationInput | DrugCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DrugCategories.
+     */
+    cursor?: DrugCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DrugCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DrugCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DrugCategories.
+     */
+    distinct?: DrugCategoryScalarFieldEnum | DrugCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * DrugCategory findMany
+   */
+  export type DrugCategoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCategory
+     */
+    select?: DrugCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugCategory
+     */
+    omit?: DrugCategoryOmit<ExtArgs> | null
+    /**
+     * Filter, which DrugCategories to fetch.
+     */
+    where?: DrugCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DrugCategories to fetch.
+     */
+    orderBy?: DrugCategoryOrderByWithRelationInput | DrugCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DrugCategories.
+     */
+    cursor?: DrugCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DrugCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DrugCategories.
+     */
+    skip?: number
+    distinct?: DrugCategoryScalarFieldEnum | DrugCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * DrugCategory create
+   */
+  export type DrugCategoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCategory
+     */
+    select?: DrugCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugCategory
+     */
+    omit?: DrugCategoryOmit<ExtArgs> | null
+    /**
+     * The data needed to create a DrugCategory.
+     */
+    data: XOR<DrugCategoryCreateInput, DrugCategoryUncheckedCreateInput>
+  }
+
+  /**
+   * DrugCategory createMany
+   */
+  export type DrugCategoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DrugCategories.
+     */
+    data: DrugCategoryCreateManyInput | DrugCategoryCreateManyInput[]
+  }
+
+  /**
+   * DrugCategory createManyAndReturn
+   */
+  export type DrugCategoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCategory
+     */
+    select?: DrugCategorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugCategory
+     */
+    omit?: DrugCategoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many DrugCategories.
+     */
+    data: DrugCategoryCreateManyInput | DrugCategoryCreateManyInput[]
+  }
+
+  /**
+   * DrugCategory update
+   */
+  export type DrugCategoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCategory
+     */
+    select?: DrugCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugCategory
+     */
+    omit?: DrugCategoryOmit<ExtArgs> | null
+    /**
+     * The data needed to update a DrugCategory.
+     */
+    data: XOR<DrugCategoryUpdateInput, DrugCategoryUncheckedUpdateInput>
+    /**
+     * Choose, which DrugCategory to update.
+     */
+    where: DrugCategoryWhereUniqueInput
+  }
+
+  /**
+   * DrugCategory updateMany
+   */
+  export type DrugCategoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DrugCategories.
+     */
+    data: XOR<DrugCategoryUpdateManyMutationInput, DrugCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which DrugCategories to update
+     */
+    where?: DrugCategoryWhereInput
+    /**
+     * Limit how many DrugCategories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DrugCategory updateManyAndReturn
+   */
+  export type DrugCategoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCategory
+     */
+    select?: DrugCategorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugCategory
+     */
+    omit?: DrugCategoryOmit<ExtArgs> | null
+    /**
+     * The data used to update DrugCategories.
+     */
+    data: XOR<DrugCategoryUpdateManyMutationInput, DrugCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which DrugCategories to update
+     */
+    where?: DrugCategoryWhereInput
+    /**
+     * Limit how many DrugCategories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DrugCategory upsert
+   */
+  export type DrugCategoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCategory
+     */
+    select?: DrugCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugCategory
+     */
+    omit?: DrugCategoryOmit<ExtArgs> | null
+    /**
+     * The filter to search for the DrugCategory to update in case it exists.
+     */
+    where: DrugCategoryWhereUniqueInput
+    /**
+     * In case the DrugCategory found by the `where` argument doesn't exist, create a new DrugCategory with this data.
+     */
+    create: XOR<DrugCategoryCreateInput, DrugCategoryUncheckedCreateInput>
+    /**
+     * In case the DrugCategory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DrugCategoryUpdateInput, DrugCategoryUncheckedUpdateInput>
+  }
+
+  /**
+   * DrugCategory delete
+   */
+  export type DrugCategoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCategory
+     */
+    select?: DrugCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugCategory
+     */
+    omit?: DrugCategoryOmit<ExtArgs> | null
+    /**
+     * Filter which DrugCategory to delete.
+     */
+    where: DrugCategoryWhereUniqueInput
+  }
+
+  /**
+   * DrugCategory deleteMany
+   */
+  export type DrugCategoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DrugCategories to delete
+     */
+    where?: DrugCategoryWhereInput
+    /**
+     * Limit how many DrugCategories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DrugCategory without action
+   */
+  export type DrugCategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugCategory
+     */
+    select?: DrugCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugCategory
+     */
+    omit?: DrugCategoryOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DrugStockMovement
+   */
+
+  export type AggregateDrugStockMovement = {
+    _count: DrugStockMovementCountAggregateOutputType | null
+    _avg: DrugStockMovementAvgAggregateOutputType | null
+    _sum: DrugStockMovementSumAggregateOutputType | null
+    _min: DrugStockMovementMinAggregateOutputType | null
+    _max: DrugStockMovementMaxAggregateOutputType | null
+  }
+
+  export type DrugStockMovementAvgAggregateOutputType = {
+    quantity: number | null
+    balanceAfter: number | null
+  }
+
+  export type DrugStockMovementSumAggregateOutputType = {
+    quantity: number | null
+    balanceAfter: number | null
+  }
+
+  export type DrugStockMovementMinAggregateOutputType = {
+    id: string | null
+    drugId: string | null
+    type: string | null
+    quantity: number | null
+    reason: string | null
+    reference: string | null
+    notes: string | null
+    balanceAfter: number | null
+    warehouseId: string | null
+    createdBy: string | null
+    createdAt: Date | null
+  }
+
+  export type DrugStockMovementMaxAggregateOutputType = {
+    id: string | null
+    drugId: string | null
+    type: string | null
+    quantity: number | null
+    reason: string | null
+    reference: string | null
+    notes: string | null
+    balanceAfter: number | null
+    warehouseId: string | null
+    createdBy: string | null
+    createdAt: Date | null
+  }
+
+  export type DrugStockMovementCountAggregateOutputType = {
+    id: number
+    drugId: number
+    type: number
+    quantity: number
+    reason: number
+    reference: number
+    notes: number
+    balanceAfter: number
+    warehouseId: number
+    createdBy: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DrugStockMovementAvgAggregateInputType = {
+    quantity?: true
+    balanceAfter?: true
+  }
+
+  export type DrugStockMovementSumAggregateInputType = {
+    quantity?: true
+    balanceAfter?: true
+  }
+
+  export type DrugStockMovementMinAggregateInputType = {
+    id?: true
+    drugId?: true
+    type?: true
+    quantity?: true
+    reason?: true
+    reference?: true
+    notes?: true
+    balanceAfter?: true
+    warehouseId?: true
+    createdBy?: true
+    createdAt?: true
+  }
+
+  export type DrugStockMovementMaxAggregateInputType = {
+    id?: true
+    drugId?: true
+    type?: true
+    quantity?: true
+    reason?: true
+    reference?: true
+    notes?: true
+    balanceAfter?: true
+    warehouseId?: true
+    createdBy?: true
+    createdAt?: true
+  }
+
+  export type DrugStockMovementCountAggregateInputType = {
+    id?: true
+    drugId?: true
+    type?: true
+    quantity?: true
+    reason?: true
+    reference?: true
+    notes?: true
+    balanceAfter?: true
+    warehouseId?: true
+    createdBy?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DrugStockMovementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DrugStockMovement to aggregate.
+     */
+    where?: DrugStockMovementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DrugStockMovements to fetch.
+     */
+    orderBy?: DrugStockMovementOrderByWithRelationInput | DrugStockMovementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DrugStockMovementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DrugStockMovements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DrugStockMovements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DrugStockMovements
+    **/
+    _count?: true | DrugStockMovementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DrugStockMovementAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DrugStockMovementSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DrugStockMovementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DrugStockMovementMaxAggregateInputType
+  }
+
+  export type GetDrugStockMovementAggregateType<T extends DrugStockMovementAggregateArgs> = {
+        [P in keyof T & keyof AggregateDrugStockMovement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDrugStockMovement[P]>
+      : GetScalarType<T[P], AggregateDrugStockMovement[P]>
+  }
+
+
+
+
+  export type DrugStockMovementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DrugStockMovementWhereInput
+    orderBy?: DrugStockMovementOrderByWithAggregationInput | DrugStockMovementOrderByWithAggregationInput[]
+    by: DrugStockMovementScalarFieldEnum[] | DrugStockMovementScalarFieldEnum
+    having?: DrugStockMovementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DrugStockMovementCountAggregateInputType | true
+    _avg?: DrugStockMovementAvgAggregateInputType
+    _sum?: DrugStockMovementSumAggregateInputType
+    _min?: DrugStockMovementMinAggregateInputType
+    _max?: DrugStockMovementMaxAggregateInputType
+  }
+
+  export type DrugStockMovementGroupByOutputType = {
+    id: string
+    drugId: string
+    type: string
+    quantity: number
+    reason: string
+    reference: string | null
+    notes: string | null
+    balanceAfter: number
+    warehouseId: string
+    createdBy: string
+    createdAt: Date
+    _count: DrugStockMovementCountAggregateOutputType | null
+    _avg: DrugStockMovementAvgAggregateOutputType | null
+    _sum: DrugStockMovementSumAggregateOutputType | null
+    _min: DrugStockMovementMinAggregateOutputType | null
+    _max: DrugStockMovementMaxAggregateOutputType | null
+  }
+
+  type GetDrugStockMovementGroupByPayload<T extends DrugStockMovementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DrugStockMovementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DrugStockMovementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DrugStockMovementGroupByOutputType[P]>
+            : GetScalarType<T[P], DrugStockMovementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DrugStockMovementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    drugId?: boolean
+    type?: boolean
+    quantity?: boolean
+    reason?: boolean
+    reference?: boolean
+    notes?: boolean
+    balanceAfter?: boolean
+    warehouseId?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    drug?: boolean | DrugDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["drugStockMovement"]>
+
+  export type DrugStockMovementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    drugId?: boolean
+    type?: boolean
+    quantity?: boolean
+    reason?: boolean
+    reference?: boolean
+    notes?: boolean
+    balanceAfter?: boolean
+    warehouseId?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    drug?: boolean | DrugDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["drugStockMovement"]>
+
+  export type DrugStockMovementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    drugId?: boolean
+    type?: boolean
+    quantity?: boolean
+    reason?: boolean
+    reference?: boolean
+    notes?: boolean
+    balanceAfter?: boolean
+    warehouseId?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    drug?: boolean | DrugDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["drugStockMovement"]>
+
+  export type DrugStockMovementSelectScalar = {
+    id?: boolean
+    drugId?: boolean
+    type?: boolean
+    quantity?: boolean
+    reason?: boolean
+    reference?: boolean
+    notes?: boolean
+    balanceAfter?: boolean
+    warehouseId?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+  }
+
+  export type DrugStockMovementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "drugId" | "type" | "quantity" | "reason" | "reference" | "notes" | "balanceAfter" | "warehouseId" | "createdBy" | "createdAt", ExtArgs["result"]["drugStockMovement"]>
+  export type DrugStockMovementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    drug?: boolean | DrugDefaultArgs<ExtArgs>
+  }
+  export type DrugStockMovementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    drug?: boolean | DrugDefaultArgs<ExtArgs>
+  }
+  export type DrugStockMovementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    drug?: boolean | DrugDefaultArgs<ExtArgs>
+  }
+
+  export type $DrugStockMovementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DrugStockMovement"
+    objects: {
+      drug: Prisma.$DrugPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      drugId: string
+      type: string
+      quantity: number
+      reason: string
+      reference: string | null
+      notes: string | null
+      balanceAfter: number
+      warehouseId: string
+      createdBy: string
+      createdAt: Date
+    }, ExtArgs["result"]["drugStockMovement"]>
+    composites: {}
+  }
+
+  type DrugStockMovementGetPayload<S extends boolean | null | undefined | DrugStockMovementDefaultArgs> = $Result.GetResult<Prisma.$DrugStockMovementPayload, S>
+
+  type DrugStockMovementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DrugStockMovementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DrugStockMovementCountAggregateInputType | true
+    }
+
+  export interface DrugStockMovementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DrugStockMovement'], meta: { name: 'DrugStockMovement' } }
+    /**
+     * Find zero or one DrugStockMovement that matches the filter.
+     * @param {DrugStockMovementFindUniqueArgs} args - Arguments to find a DrugStockMovement
+     * @example
+     * // Get one DrugStockMovement
+     * const drugStockMovement = await prisma.drugStockMovement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DrugStockMovementFindUniqueArgs>(args: SelectSubset<T, DrugStockMovementFindUniqueArgs<ExtArgs>>): Prisma__DrugStockMovementClient<$Result.GetResult<Prisma.$DrugStockMovementPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DrugStockMovement that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DrugStockMovementFindUniqueOrThrowArgs} args - Arguments to find a DrugStockMovement
+     * @example
+     * // Get one DrugStockMovement
+     * const drugStockMovement = await prisma.drugStockMovement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DrugStockMovementFindUniqueOrThrowArgs>(args: SelectSubset<T, DrugStockMovementFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DrugStockMovementClient<$Result.GetResult<Prisma.$DrugStockMovementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DrugStockMovement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugStockMovementFindFirstArgs} args - Arguments to find a DrugStockMovement
+     * @example
+     * // Get one DrugStockMovement
+     * const drugStockMovement = await prisma.drugStockMovement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DrugStockMovementFindFirstArgs>(args?: SelectSubset<T, DrugStockMovementFindFirstArgs<ExtArgs>>): Prisma__DrugStockMovementClient<$Result.GetResult<Prisma.$DrugStockMovementPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DrugStockMovement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugStockMovementFindFirstOrThrowArgs} args - Arguments to find a DrugStockMovement
+     * @example
+     * // Get one DrugStockMovement
+     * const drugStockMovement = await prisma.drugStockMovement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DrugStockMovementFindFirstOrThrowArgs>(args?: SelectSubset<T, DrugStockMovementFindFirstOrThrowArgs<ExtArgs>>): Prisma__DrugStockMovementClient<$Result.GetResult<Prisma.$DrugStockMovementPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DrugStockMovements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugStockMovementFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DrugStockMovements
+     * const drugStockMovements = await prisma.drugStockMovement.findMany()
+     * 
+     * // Get first 10 DrugStockMovements
+     * const drugStockMovements = await prisma.drugStockMovement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const drugStockMovementWithIdOnly = await prisma.drugStockMovement.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DrugStockMovementFindManyArgs>(args?: SelectSubset<T, DrugStockMovementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugStockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DrugStockMovement.
+     * @param {DrugStockMovementCreateArgs} args - Arguments to create a DrugStockMovement.
+     * @example
+     * // Create one DrugStockMovement
+     * const DrugStockMovement = await prisma.drugStockMovement.create({
+     *   data: {
+     *     // ... data to create a DrugStockMovement
+     *   }
+     * })
+     * 
+     */
+    create<T extends DrugStockMovementCreateArgs>(args: SelectSubset<T, DrugStockMovementCreateArgs<ExtArgs>>): Prisma__DrugStockMovementClient<$Result.GetResult<Prisma.$DrugStockMovementPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DrugStockMovements.
+     * @param {DrugStockMovementCreateManyArgs} args - Arguments to create many DrugStockMovements.
+     * @example
+     * // Create many DrugStockMovements
+     * const drugStockMovement = await prisma.drugStockMovement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DrugStockMovementCreateManyArgs>(args?: SelectSubset<T, DrugStockMovementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DrugStockMovements and returns the data saved in the database.
+     * @param {DrugStockMovementCreateManyAndReturnArgs} args - Arguments to create many DrugStockMovements.
+     * @example
+     * // Create many DrugStockMovements
+     * const drugStockMovement = await prisma.drugStockMovement.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DrugStockMovements and only return the `id`
+     * const drugStockMovementWithIdOnly = await prisma.drugStockMovement.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DrugStockMovementCreateManyAndReturnArgs>(args?: SelectSubset<T, DrugStockMovementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugStockMovementPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DrugStockMovement.
+     * @param {DrugStockMovementDeleteArgs} args - Arguments to delete one DrugStockMovement.
+     * @example
+     * // Delete one DrugStockMovement
+     * const DrugStockMovement = await prisma.drugStockMovement.delete({
+     *   where: {
+     *     // ... filter to delete one DrugStockMovement
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DrugStockMovementDeleteArgs>(args: SelectSubset<T, DrugStockMovementDeleteArgs<ExtArgs>>): Prisma__DrugStockMovementClient<$Result.GetResult<Prisma.$DrugStockMovementPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DrugStockMovement.
+     * @param {DrugStockMovementUpdateArgs} args - Arguments to update one DrugStockMovement.
+     * @example
+     * // Update one DrugStockMovement
+     * const drugStockMovement = await prisma.drugStockMovement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DrugStockMovementUpdateArgs>(args: SelectSubset<T, DrugStockMovementUpdateArgs<ExtArgs>>): Prisma__DrugStockMovementClient<$Result.GetResult<Prisma.$DrugStockMovementPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DrugStockMovements.
+     * @param {DrugStockMovementDeleteManyArgs} args - Arguments to filter DrugStockMovements to delete.
+     * @example
+     * // Delete a few DrugStockMovements
+     * const { count } = await prisma.drugStockMovement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DrugStockMovementDeleteManyArgs>(args?: SelectSubset<T, DrugStockMovementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DrugStockMovements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugStockMovementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DrugStockMovements
+     * const drugStockMovement = await prisma.drugStockMovement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DrugStockMovementUpdateManyArgs>(args: SelectSubset<T, DrugStockMovementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DrugStockMovements and returns the data updated in the database.
+     * @param {DrugStockMovementUpdateManyAndReturnArgs} args - Arguments to update many DrugStockMovements.
+     * @example
+     * // Update many DrugStockMovements
+     * const drugStockMovement = await prisma.drugStockMovement.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DrugStockMovements and only return the `id`
+     * const drugStockMovementWithIdOnly = await prisma.drugStockMovement.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DrugStockMovementUpdateManyAndReturnArgs>(args: SelectSubset<T, DrugStockMovementUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugStockMovementPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DrugStockMovement.
+     * @param {DrugStockMovementUpsertArgs} args - Arguments to update or create a DrugStockMovement.
+     * @example
+     * // Update or create a DrugStockMovement
+     * const drugStockMovement = await prisma.drugStockMovement.upsert({
+     *   create: {
+     *     // ... data to create a DrugStockMovement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DrugStockMovement we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DrugStockMovementUpsertArgs>(args: SelectSubset<T, DrugStockMovementUpsertArgs<ExtArgs>>): Prisma__DrugStockMovementClient<$Result.GetResult<Prisma.$DrugStockMovementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DrugStockMovements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugStockMovementCountArgs} args - Arguments to filter DrugStockMovements to count.
+     * @example
+     * // Count the number of DrugStockMovements
+     * const count = await prisma.drugStockMovement.count({
+     *   where: {
+     *     // ... the filter for the DrugStockMovements we want to count
+     *   }
+     * })
+    **/
+    count<T extends DrugStockMovementCountArgs>(
+      args?: Subset<T, DrugStockMovementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DrugStockMovementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DrugStockMovement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugStockMovementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DrugStockMovementAggregateArgs>(args: Subset<T, DrugStockMovementAggregateArgs>): Prisma.PrismaPromise<GetDrugStockMovementAggregateType<T>>
+
+    /**
+     * Group by DrugStockMovement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugStockMovementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DrugStockMovementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DrugStockMovementGroupByArgs['orderBy'] }
+        : { orderBy?: DrugStockMovementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DrugStockMovementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDrugStockMovementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DrugStockMovement model
+   */
+  readonly fields: DrugStockMovementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DrugStockMovement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DrugStockMovementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    drug<T extends DrugDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DrugDefaultArgs<ExtArgs>>): Prisma__DrugClient<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DrugStockMovement model
+   */
+  interface DrugStockMovementFieldRefs {
+    readonly id: FieldRef<"DrugStockMovement", 'String'>
+    readonly drugId: FieldRef<"DrugStockMovement", 'String'>
+    readonly type: FieldRef<"DrugStockMovement", 'String'>
+    readonly quantity: FieldRef<"DrugStockMovement", 'Int'>
+    readonly reason: FieldRef<"DrugStockMovement", 'String'>
+    readonly reference: FieldRef<"DrugStockMovement", 'String'>
+    readonly notes: FieldRef<"DrugStockMovement", 'String'>
+    readonly balanceAfter: FieldRef<"DrugStockMovement", 'Int'>
+    readonly warehouseId: FieldRef<"DrugStockMovement", 'String'>
+    readonly createdBy: FieldRef<"DrugStockMovement", 'String'>
+    readonly createdAt: FieldRef<"DrugStockMovement", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DrugStockMovement findUnique
+   */
+  export type DrugStockMovementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which DrugStockMovement to fetch.
+     */
+    where: DrugStockMovementWhereUniqueInput
+  }
+
+  /**
+   * DrugStockMovement findUniqueOrThrow
+   */
+  export type DrugStockMovementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which DrugStockMovement to fetch.
+     */
+    where: DrugStockMovementWhereUniqueInput
+  }
+
+  /**
+   * DrugStockMovement findFirst
+   */
+  export type DrugStockMovementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which DrugStockMovement to fetch.
+     */
+    where?: DrugStockMovementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DrugStockMovements to fetch.
+     */
+    orderBy?: DrugStockMovementOrderByWithRelationInput | DrugStockMovementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DrugStockMovements.
+     */
+    cursor?: DrugStockMovementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DrugStockMovements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DrugStockMovements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DrugStockMovements.
+     */
+    distinct?: DrugStockMovementScalarFieldEnum | DrugStockMovementScalarFieldEnum[]
+  }
+
+  /**
+   * DrugStockMovement findFirstOrThrow
+   */
+  export type DrugStockMovementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which DrugStockMovement to fetch.
+     */
+    where?: DrugStockMovementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DrugStockMovements to fetch.
+     */
+    orderBy?: DrugStockMovementOrderByWithRelationInput | DrugStockMovementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DrugStockMovements.
+     */
+    cursor?: DrugStockMovementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DrugStockMovements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DrugStockMovements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DrugStockMovements.
+     */
+    distinct?: DrugStockMovementScalarFieldEnum | DrugStockMovementScalarFieldEnum[]
+  }
+
+  /**
+   * DrugStockMovement findMany
+   */
+  export type DrugStockMovementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementInclude<ExtArgs> | null
+    /**
+     * Filter, which DrugStockMovements to fetch.
+     */
+    where?: DrugStockMovementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DrugStockMovements to fetch.
+     */
+    orderBy?: DrugStockMovementOrderByWithRelationInput | DrugStockMovementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DrugStockMovements.
+     */
+    cursor?: DrugStockMovementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DrugStockMovements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DrugStockMovements.
+     */
+    skip?: number
+    distinct?: DrugStockMovementScalarFieldEnum | DrugStockMovementScalarFieldEnum[]
+  }
+
+  /**
+   * DrugStockMovement create
+   */
+  export type DrugStockMovementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DrugStockMovement.
+     */
+    data: XOR<DrugStockMovementCreateInput, DrugStockMovementUncheckedCreateInput>
+  }
+
+  /**
+   * DrugStockMovement createMany
+   */
+  export type DrugStockMovementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DrugStockMovements.
+     */
+    data: DrugStockMovementCreateManyInput | DrugStockMovementCreateManyInput[]
+  }
+
+  /**
+   * DrugStockMovement createManyAndReturn
+   */
+  export type DrugStockMovementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * The data used to create many DrugStockMovements.
+     */
+    data: DrugStockMovementCreateManyInput | DrugStockMovementCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DrugStockMovement update
+   */
+  export type DrugStockMovementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DrugStockMovement.
+     */
+    data: XOR<DrugStockMovementUpdateInput, DrugStockMovementUncheckedUpdateInput>
+    /**
+     * Choose, which DrugStockMovement to update.
+     */
+    where: DrugStockMovementWhereUniqueInput
+  }
+
+  /**
+   * DrugStockMovement updateMany
+   */
+  export type DrugStockMovementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DrugStockMovements.
+     */
+    data: XOR<DrugStockMovementUpdateManyMutationInput, DrugStockMovementUncheckedUpdateManyInput>
+    /**
+     * Filter which DrugStockMovements to update
+     */
+    where?: DrugStockMovementWhereInput
+    /**
+     * Limit how many DrugStockMovements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DrugStockMovement updateManyAndReturn
+   */
+  export type DrugStockMovementUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * The data used to update DrugStockMovements.
+     */
+    data: XOR<DrugStockMovementUpdateManyMutationInput, DrugStockMovementUncheckedUpdateManyInput>
+    /**
+     * Filter which DrugStockMovements to update
+     */
+    where?: DrugStockMovementWhereInput
+    /**
+     * Limit how many DrugStockMovements to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DrugStockMovement upsert
+   */
+  export type DrugStockMovementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DrugStockMovement to update in case it exists.
+     */
+    where: DrugStockMovementWhereUniqueInput
+    /**
+     * In case the DrugStockMovement found by the `where` argument doesn't exist, create a new DrugStockMovement with this data.
+     */
+    create: XOR<DrugStockMovementCreateInput, DrugStockMovementUncheckedCreateInput>
+    /**
+     * In case the DrugStockMovement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DrugStockMovementUpdateInput, DrugStockMovementUncheckedUpdateInput>
+  }
+
+  /**
+   * DrugStockMovement delete
+   */
+  export type DrugStockMovementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementInclude<ExtArgs> | null
+    /**
+     * Filter which DrugStockMovement to delete.
+     */
+    where: DrugStockMovementWhereUniqueInput
+  }
+
+  /**
+   * DrugStockMovement deleteMany
+   */
+  export type DrugStockMovementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DrugStockMovements to delete
+     */
+    where?: DrugStockMovementWhereInput
+    /**
+     * Limit how many DrugStockMovements to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DrugStockMovement without action
+   */
+  export type DrugStockMovementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugStockMovement
+     */
+    select?: DrugStockMovementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugStockMovement
+     */
+    omit?: DrugStockMovementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugStockMovementInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DrugDisposal
+   */
+
+  export type AggregateDrugDisposal = {
+    _count: DrugDisposalCountAggregateOutputType | null
+    _min: DrugDisposalMinAggregateOutputType | null
+    _max: DrugDisposalMaxAggregateOutputType | null
+  }
+
+  export type DrugDisposalMinAggregateOutputType = {
+    id: string | null
+    drugId: string | null
+    disposalMethod: string | null
+    disposalReason: string | null
+    notes: string | null
+    warehouseId: string | null
+    disposedBy: string | null
+    disposalDate: Date | null
+    createdAt: Date | null
+  }
+
+  export type DrugDisposalMaxAggregateOutputType = {
+    id: string | null
+    drugId: string | null
+    disposalMethod: string | null
+    disposalReason: string | null
+    notes: string | null
+    warehouseId: string | null
+    disposedBy: string | null
+    disposalDate: Date | null
+    createdAt: Date | null
+  }
+
+  export type DrugDisposalCountAggregateOutputType = {
+    id: number
+    drugId: number
+    disposalMethod: number
+    disposalReason: number
+    notes: number
+    warehouseId: number
+    disposedBy: number
+    disposalDate: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DrugDisposalMinAggregateInputType = {
+    id?: true
+    drugId?: true
+    disposalMethod?: true
+    disposalReason?: true
+    notes?: true
+    warehouseId?: true
+    disposedBy?: true
+    disposalDate?: true
+    createdAt?: true
+  }
+
+  export type DrugDisposalMaxAggregateInputType = {
+    id?: true
+    drugId?: true
+    disposalMethod?: true
+    disposalReason?: true
+    notes?: true
+    warehouseId?: true
+    disposedBy?: true
+    disposalDate?: true
+    createdAt?: true
+  }
+
+  export type DrugDisposalCountAggregateInputType = {
+    id?: true
+    drugId?: true
+    disposalMethod?: true
+    disposalReason?: true
+    notes?: true
+    warehouseId?: true
+    disposedBy?: true
+    disposalDate?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DrugDisposalAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DrugDisposal to aggregate.
+     */
+    where?: DrugDisposalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DrugDisposals to fetch.
+     */
+    orderBy?: DrugDisposalOrderByWithRelationInput | DrugDisposalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DrugDisposalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DrugDisposals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DrugDisposals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DrugDisposals
+    **/
+    _count?: true | DrugDisposalCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DrugDisposalMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DrugDisposalMaxAggregateInputType
+  }
+
+  export type GetDrugDisposalAggregateType<T extends DrugDisposalAggregateArgs> = {
+        [P in keyof T & keyof AggregateDrugDisposal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDrugDisposal[P]>
+      : GetScalarType<T[P], AggregateDrugDisposal[P]>
+  }
+
+
+
+
+  export type DrugDisposalGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DrugDisposalWhereInput
+    orderBy?: DrugDisposalOrderByWithAggregationInput | DrugDisposalOrderByWithAggregationInput[]
+    by: DrugDisposalScalarFieldEnum[] | DrugDisposalScalarFieldEnum
+    having?: DrugDisposalScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DrugDisposalCountAggregateInputType | true
+    _min?: DrugDisposalMinAggregateInputType
+    _max?: DrugDisposalMaxAggregateInputType
+  }
+
+  export type DrugDisposalGroupByOutputType = {
+    id: string
+    drugId: string
+    disposalMethod: string
+    disposalReason: string
+    notes: string | null
+    warehouseId: string
+    disposedBy: string
+    disposalDate: Date
+    createdAt: Date
+    _count: DrugDisposalCountAggregateOutputType | null
+    _min: DrugDisposalMinAggregateOutputType | null
+    _max: DrugDisposalMaxAggregateOutputType | null
+  }
+
+  type GetDrugDisposalGroupByPayload<T extends DrugDisposalGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DrugDisposalGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DrugDisposalGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DrugDisposalGroupByOutputType[P]>
+            : GetScalarType<T[P], DrugDisposalGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DrugDisposalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    drugId?: boolean
+    disposalMethod?: boolean
+    disposalReason?: boolean
+    notes?: boolean
+    warehouseId?: boolean
+    disposedBy?: boolean
+    disposalDate?: boolean
+    createdAt?: boolean
+    drug?: boolean | DrugDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["drugDisposal"]>
+
+  export type DrugDisposalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    drugId?: boolean
+    disposalMethod?: boolean
+    disposalReason?: boolean
+    notes?: boolean
+    warehouseId?: boolean
+    disposedBy?: boolean
+    disposalDate?: boolean
+    createdAt?: boolean
+    drug?: boolean | DrugDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["drugDisposal"]>
+
+  export type DrugDisposalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    drugId?: boolean
+    disposalMethod?: boolean
+    disposalReason?: boolean
+    notes?: boolean
+    warehouseId?: boolean
+    disposedBy?: boolean
+    disposalDate?: boolean
+    createdAt?: boolean
+    drug?: boolean | DrugDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["drugDisposal"]>
+
+  export type DrugDisposalSelectScalar = {
+    id?: boolean
+    drugId?: boolean
+    disposalMethod?: boolean
+    disposalReason?: boolean
+    notes?: boolean
+    warehouseId?: boolean
+    disposedBy?: boolean
+    disposalDate?: boolean
+    createdAt?: boolean
+  }
+
+  export type DrugDisposalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "drugId" | "disposalMethod" | "disposalReason" | "notes" | "warehouseId" | "disposedBy" | "disposalDate" | "createdAt", ExtArgs["result"]["drugDisposal"]>
+  export type DrugDisposalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    drug?: boolean | DrugDefaultArgs<ExtArgs>
+  }
+  export type DrugDisposalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    drug?: boolean | DrugDefaultArgs<ExtArgs>
+  }
+  export type DrugDisposalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    drug?: boolean | DrugDefaultArgs<ExtArgs>
+  }
+
+  export type $DrugDisposalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DrugDisposal"
+    objects: {
+      drug: Prisma.$DrugPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      drugId: string
+      disposalMethod: string
+      disposalReason: string
+      notes: string | null
+      warehouseId: string
+      disposedBy: string
+      disposalDate: Date
+      createdAt: Date
+    }, ExtArgs["result"]["drugDisposal"]>
+    composites: {}
+  }
+
+  type DrugDisposalGetPayload<S extends boolean | null | undefined | DrugDisposalDefaultArgs> = $Result.GetResult<Prisma.$DrugDisposalPayload, S>
+
+  type DrugDisposalCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DrugDisposalFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DrugDisposalCountAggregateInputType | true
+    }
+
+  export interface DrugDisposalDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DrugDisposal'], meta: { name: 'DrugDisposal' } }
+    /**
+     * Find zero or one DrugDisposal that matches the filter.
+     * @param {DrugDisposalFindUniqueArgs} args - Arguments to find a DrugDisposal
+     * @example
+     * // Get one DrugDisposal
+     * const drugDisposal = await prisma.drugDisposal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DrugDisposalFindUniqueArgs>(args: SelectSubset<T, DrugDisposalFindUniqueArgs<ExtArgs>>): Prisma__DrugDisposalClient<$Result.GetResult<Prisma.$DrugDisposalPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DrugDisposal that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DrugDisposalFindUniqueOrThrowArgs} args - Arguments to find a DrugDisposal
+     * @example
+     * // Get one DrugDisposal
+     * const drugDisposal = await prisma.drugDisposal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DrugDisposalFindUniqueOrThrowArgs>(args: SelectSubset<T, DrugDisposalFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DrugDisposalClient<$Result.GetResult<Prisma.$DrugDisposalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DrugDisposal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugDisposalFindFirstArgs} args - Arguments to find a DrugDisposal
+     * @example
+     * // Get one DrugDisposal
+     * const drugDisposal = await prisma.drugDisposal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DrugDisposalFindFirstArgs>(args?: SelectSubset<T, DrugDisposalFindFirstArgs<ExtArgs>>): Prisma__DrugDisposalClient<$Result.GetResult<Prisma.$DrugDisposalPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DrugDisposal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugDisposalFindFirstOrThrowArgs} args - Arguments to find a DrugDisposal
+     * @example
+     * // Get one DrugDisposal
+     * const drugDisposal = await prisma.drugDisposal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DrugDisposalFindFirstOrThrowArgs>(args?: SelectSubset<T, DrugDisposalFindFirstOrThrowArgs<ExtArgs>>): Prisma__DrugDisposalClient<$Result.GetResult<Prisma.$DrugDisposalPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DrugDisposals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugDisposalFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DrugDisposals
+     * const drugDisposals = await prisma.drugDisposal.findMany()
+     * 
+     * // Get first 10 DrugDisposals
+     * const drugDisposals = await prisma.drugDisposal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const drugDisposalWithIdOnly = await prisma.drugDisposal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DrugDisposalFindManyArgs>(args?: SelectSubset<T, DrugDisposalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugDisposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DrugDisposal.
+     * @param {DrugDisposalCreateArgs} args - Arguments to create a DrugDisposal.
+     * @example
+     * // Create one DrugDisposal
+     * const DrugDisposal = await prisma.drugDisposal.create({
+     *   data: {
+     *     // ... data to create a DrugDisposal
+     *   }
+     * })
+     * 
+     */
+    create<T extends DrugDisposalCreateArgs>(args: SelectSubset<T, DrugDisposalCreateArgs<ExtArgs>>): Prisma__DrugDisposalClient<$Result.GetResult<Prisma.$DrugDisposalPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DrugDisposals.
+     * @param {DrugDisposalCreateManyArgs} args - Arguments to create many DrugDisposals.
+     * @example
+     * // Create many DrugDisposals
+     * const drugDisposal = await prisma.drugDisposal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DrugDisposalCreateManyArgs>(args?: SelectSubset<T, DrugDisposalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DrugDisposals and returns the data saved in the database.
+     * @param {DrugDisposalCreateManyAndReturnArgs} args - Arguments to create many DrugDisposals.
+     * @example
+     * // Create many DrugDisposals
+     * const drugDisposal = await prisma.drugDisposal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DrugDisposals and only return the `id`
+     * const drugDisposalWithIdOnly = await prisma.drugDisposal.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DrugDisposalCreateManyAndReturnArgs>(args?: SelectSubset<T, DrugDisposalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugDisposalPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DrugDisposal.
+     * @param {DrugDisposalDeleteArgs} args - Arguments to delete one DrugDisposal.
+     * @example
+     * // Delete one DrugDisposal
+     * const DrugDisposal = await prisma.drugDisposal.delete({
+     *   where: {
+     *     // ... filter to delete one DrugDisposal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DrugDisposalDeleteArgs>(args: SelectSubset<T, DrugDisposalDeleteArgs<ExtArgs>>): Prisma__DrugDisposalClient<$Result.GetResult<Prisma.$DrugDisposalPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DrugDisposal.
+     * @param {DrugDisposalUpdateArgs} args - Arguments to update one DrugDisposal.
+     * @example
+     * // Update one DrugDisposal
+     * const drugDisposal = await prisma.drugDisposal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DrugDisposalUpdateArgs>(args: SelectSubset<T, DrugDisposalUpdateArgs<ExtArgs>>): Prisma__DrugDisposalClient<$Result.GetResult<Prisma.$DrugDisposalPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DrugDisposals.
+     * @param {DrugDisposalDeleteManyArgs} args - Arguments to filter DrugDisposals to delete.
+     * @example
+     * // Delete a few DrugDisposals
+     * const { count } = await prisma.drugDisposal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DrugDisposalDeleteManyArgs>(args?: SelectSubset<T, DrugDisposalDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DrugDisposals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugDisposalUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DrugDisposals
+     * const drugDisposal = await prisma.drugDisposal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DrugDisposalUpdateManyArgs>(args: SelectSubset<T, DrugDisposalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DrugDisposals and returns the data updated in the database.
+     * @param {DrugDisposalUpdateManyAndReturnArgs} args - Arguments to update many DrugDisposals.
+     * @example
+     * // Update many DrugDisposals
+     * const drugDisposal = await prisma.drugDisposal.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DrugDisposals and only return the `id`
+     * const drugDisposalWithIdOnly = await prisma.drugDisposal.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DrugDisposalUpdateManyAndReturnArgs>(args: SelectSubset<T, DrugDisposalUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DrugDisposalPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DrugDisposal.
+     * @param {DrugDisposalUpsertArgs} args - Arguments to update or create a DrugDisposal.
+     * @example
+     * // Update or create a DrugDisposal
+     * const drugDisposal = await prisma.drugDisposal.upsert({
+     *   create: {
+     *     // ... data to create a DrugDisposal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DrugDisposal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DrugDisposalUpsertArgs>(args: SelectSubset<T, DrugDisposalUpsertArgs<ExtArgs>>): Prisma__DrugDisposalClient<$Result.GetResult<Prisma.$DrugDisposalPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DrugDisposals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugDisposalCountArgs} args - Arguments to filter DrugDisposals to count.
+     * @example
+     * // Count the number of DrugDisposals
+     * const count = await prisma.drugDisposal.count({
+     *   where: {
+     *     // ... the filter for the DrugDisposals we want to count
+     *   }
+     * })
+    **/
+    count<T extends DrugDisposalCountArgs>(
+      args?: Subset<T, DrugDisposalCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DrugDisposalCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DrugDisposal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugDisposalAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DrugDisposalAggregateArgs>(args: Subset<T, DrugDisposalAggregateArgs>): Prisma.PrismaPromise<GetDrugDisposalAggregateType<T>>
+
+    /**
+     * Group by DrugDisposal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DrugDisposalGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DrugDisposalGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DrugDisposalGroupByArgs['orderBy'] }
+        : { orderBy?: DrugDisposalGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DrugDisposalGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDrugDisposalGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DrugDisposal model
+   */
+  readonly fields: DrugDisposalFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DrugDisposal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DrugDisposalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    drug<T extends DrugDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DrugDefaultArgs<ExtArgs>>): Prisma__DrugClient<$Result.GetResult<Prisma.$DrugPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DrugDisposal model
+   */
+  interface DrugDisposalFieldRefs {
+    readonly id: FieldRef<"DrugDisposal", 'String'>
+    readonly drugId: FieldRef<"DrugDisposal", 'String'>
+    readonly disposalMethod: FieldRef<"DrugDisposal", 'String'>
+    readonly disposalReason: FieldRef<"DrugDisposal", 'String'>
+    readonly notes: FieldRef<"DrugDisposal", 'String'>
+    readonly warehouseId: FieldRef<"DrugDisposal", 'String'>
+    readonly disposedBy: FieldRef<"DrugDisposal", 'String'>
+    readonly disposalDate: FieldRef<"DrugDisposal", 'DateTime'>
+    readonly createdAt: FieldRef<"DrugDisposal", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DrugDisposal findUnique
+   */
+  export type DrugDisposalFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalInclude<ExtArgs> | null
+    /**
+     * Filter, which DrugDisposal to fetch.
+     */
+    where: DrugDisposalWhereUniqueInput
+  }
+
+  /**
+   * DrugDisposal findUniqueOrThrow
+   */
+  export type DrugDisposalFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalInclude<ExtArgs> | null
+    /**
+     * Filter, which DrugDisposal to fetch.
+     */
+    where: DrugDisposalWhereUniqueInput
+  }
+
+  /**
+   * DrugDisposal findFirst
+   */
+  export type DrugDisposalFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalInclude<ExtArgs> | null
+    /**
+     * Filter, which DrugDisposal to fetch.
+     */
+    where?: DrugDisposalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DrugDisposals to fetch.
+     */
+    orderBy?: DrugDisposalOrderByWithRelationInput | DrugDisposalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DrugDisposals.
+     */
+    cursor?: DrugDisposalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DrugDisposals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DrugDisposals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DrugDisposals.
+     */
+    distinct?: DrugDisposalScalarFieldEnum | DrugDisposalScalarFieldEnum[]
+  }
+
+  /**
+   * DrugDisposal findFirstOrThrow
+   */
+  export type DrugDisposalFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalInclude<ExtArgs> | null
+    /**
+     * Filter, which DrugDisposal to fetch.
+     */
+    where?: DrugDisposalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DrugDisposals to fetch.
+     */
+    orderBy?: DrugDisposalOrderByWithRelationInput | DrugDisposalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DrugDisposals.
+     */
+    cursor?: DrugDisposalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DrugDisposals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DrugDisposals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DrugDisposals.
+     */
+    distinct?: DrugDisposalScalarFieldEnum | DrugDisposalScalarFieldEnum[]
+  }
+
+  /**
+   * DrugDisposal findMany
+   */
+  export type DrugDisposalFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalInclude<ExtArgs> | null
+    /**
+     * Filter, which DrugDisposals to fetch.
+     */
+    where?: DrugDisposalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DrugDisposals to fetch.
+     */
+    orderBy?: DrugDisposalOrderByWithRelationInput | DrugDisposalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DrugDisposals.
+     */
+    cursor?: DrugDisposalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DrugDisposals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DrugDisposals.
+     */
+    skip?: number
+    distinct?: DrugDisposalScalarFieldEnum | DrugDisposalScalarFieldEnum[]
+  }
+
+  /**
+   * DrugDisposal create
+   */
+  export type DrugDisposalCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DrugDisposal.
+     */
+    data: XOR<DrugDisposalCreateInput, DrugDisposalUncheckedCreateInput>
+  }
+
+  /**
+   * DrugDisposal createMany
+   */
+  export type DrugDisposalCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DrugDisposals.
+     */
+    data: DrugDisposalCreateManyInput | DrugDisposalCreateManyInput[]
+  }
+
+  /**
+   * DrugDisposal createManyAndReturn
+   */
+  export type DrugDisposalCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * The data used to create many DrugDisposals.
+     */
+    data: DrugDisposalCreateManyInput | DrugDisposalCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DrugDisposal update
+   */
+  export type DrugDisposalUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DrugDisposal.
+     */
+    data: XOR<DrugDisposalUpdateInput, DrugDisposalUncheckedUpdateInput>
+    /**
+     * Choose, which DrugDisposal to update.
+     */
+    where: DrugDisposalWhereUniqueInput
+  }
+
+  /**
+   * DrugDisposal updateMany
+   */
+  export type DrugDisposalUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DrugDisposals.
+     */
+    data: XOR<DrugDisposalUpdateManyMutationInput, DrugDisposalUncheckedUpdateManyInput>
+    /**
+     * Filter which DrugDisposals to update
+     */
+    where?: DrugDisposalWhereInput
+    /**
+     * Limit how many DrugDisposals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DrugDisposal updateManyAndReturn
+   */
+  export type DrugDisposalUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * The data used to update DrugDisposals.
+     */
+    data: XOR<DrugDisposalUpdateManyMutationInput, DrugDisposalUncheckedUpdateManyInput>
+    /**
+     * Filter which DrugDisposals to update
+     */
+    where?: DrugDisposalWhereInput
+    /**
+     * Limit how many DrugDisposals to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DrugDisposal upsert
+   */
+  export type DrugDisposalUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DrugDisposal to update in case it exists.
+     */
+    where: DrugDisposalWhereUniqueInput
+    /**
+     * In case the DrugDisposal found by the `where` argument doesn't exist, create a new DrugDisposal with this data.
+     */
+    create: XOR<DrugDisposalCreateInput, DrugDisposalUncheckedCreateInput>
+    /**
+     * In case the DrugDisposal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DrugDisposalUpdateInput, DrugDisposalUncheckedUpdateInput>
+  }
+
+  /**
+   * DrugDisposal delete
+   */
+  export type DrugDisposalDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalInclude<ExtArgs> | null
+    /**
+     * Filter which DrugDisposal to delete.
+     */
+    where: DrugDisposalWhereUniqueInput
+  }
+
+  /**
+   * DrugDisposal deleteMany
+   */
+  export type DrugDisposalDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DrugDisposals to delete
+     */
+    where?: DrugDisposalWhereInput
+    /**
+     * Limit how many DrugDisposals to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DrugDisposal without action
+   */
+  export type DrugDisposalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DrugDisposal
+     */
+    select?: DrugDisposalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DrugDisposal
+     */
+    omit?: DrugDisposalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DrugDisposalInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -27235,6 +32483,8 @@ export namespace Prisma {
     storageConditions: 'storageConditions',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
+    sync: 'sync',
+    syncedAt: 'syncedAt',
     isDeleted: 'isDeleted'
   };
 
@@ -27368,6 +32618,91 @@ export namespace Prisma {
   };
 
   export type ReceiptSettingsScalarFieldEnum = (typeof ReceiptSettingsScalarFieldEnum)[keyof typeof ReceiptSettingsScalarFieldEnum]
+
+
+  export const DrugScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    name: 'name',
+    category: 'category',
+    manufacturer: 'manufacturer',
+    description: 'description',
+    activeIngredient: 'activeIngredient',
+    strength: 'strength',
+    dosageForm: 'dosageForm',
+    quantity: 'quantity',
+    reorderLevel: 'reorderLevel',
+    price: 'price',
+    cost: 'cost',
+    expiryDate: 'expiryDate',
+    batchNumber: 'batchNumber',
+    unit: 'unit',
+    storageConditions: 'storageConditions',
+    prescriptionRequired: 'prescriptionRequired',
+    supplier: 'supplier',
+    isDisposed: 'isDisposed',
+    disposalDate: 'disposalDate',
+    disposalMethod: 'disposalMethod',
+    disposalReason: 'disposalReason',
+    disposalNotes: 'disposalNotes',
+    disposedBy: 'disposedBy',
+    createdBy: 'createdBy',
+    lastStockUpdate: 'lastStockUpdate',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    sync: 'sync',
+    syncedAt: 'syncedAt',
+    isDeleted: 'isDeleted'
+  };
+
+  export type DrugScalarFieldEnum = (typeof DrugScalarFieldEnum)[keyof typeof DrugScalarFieldEnum]
+
+
+  export const DrugCategoryScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    color: 'color',
+    isActive: 'isActive',
+    createdBy: 'createdBy',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    isDeleted: 'isDeleted'
+  };
+
+  export type DrugCategoryScalarFieldEnum = (typeof DrugCategoryScalarFieldEnum)[keyof typeof DrugCategoryScalarFieldEnum]
+
+
+  export const DrugStockMovementScalarFieldEnum: {
+    id: 'id',
+    drugId: 'drugId',
+    type: 'type',
+    quantity: 'quantity',
+    reason: 'reason',
+    reference: 'reference',
+    notes: 'notes',
+    balanceAfter: 'balanceAfter',
+    warehouseId: 'warehouseId',
+    createdBy: 'createdBy',
+    createdAt: 'createdAt'
+  };
+
+  export type DrugStockMovementScalarFieldEnum = (typeof DrugStockMovementScalarFieldEnum)[keyof typeof DrugStockMovementScalarFieldEnum]
+
+
+  export const DrugDisposalScalarFieldEnum: {
+    id: 'id',
+    drugId: 'drugId',
+    disposalMethod: 'disposalMethod',
+    disposalReason: 'disposalReason',
+    notes: 'notes',
+    warehouseId: 'warehouseId',
+    disposedBy: 'disposedBy',
+    disposalDate: 'disposalDate',
+    createdAt: 'createdAt'
+  };
+
+  export type DrugDisposalScalarFieldEnum = (typeof DrugDisposalScalarFieldEnum)[keyof typeof DrugDisposalScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -28977,6 +34312,8 @@ export namespace Prisma {
     storageConditions?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
+    sync?: BoolFilter<"Product"> | boolean
+    syncedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     isDeleted?: BoolFilter<"Product"> | boolean
     prescriptionItems?: PrescriptionItemListRelationFilter
     purchaseItem?: PurchaseItemListRelationFilter
@@ -29008,6 +34345,8 @@ export namespace Prisma {
     storageConditions?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    sync?: SortOrder
+    syncedAt?: SortOrderInput | SortOrder
     isDeleted?: SortOrder
     prescriptionItems?: PrescriptionItemOrderByRelationAggregateInput
     purchaseItem?: PurchaseItemOrderByRelationAggregateInput
@@ -29042,6 +34381,8 @@ export namespace Prisma {
     storageConditions?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
+    sync?: BoolFilter<"Product"> | boolean
+    syncedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     isDeleted?: BoolFilter<"Product"> | boolean
     prescriptionItems?: PrescriptionItemListRelationFilter
     purchaseItem?: PurchaseItemListRelationFilter
@@ -29073,6 +34414,8 @@ export namespace Prisma {
     storageConditions?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    sync?: SortOrder
+    syncedAt?: SortOrderInput | SortOrder
     isDeleted?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
@@ -29110,6 +34453,8 @@ export namespace Prisma {
     storageConditions?: StringNullableWithAggregatesFilter<"Product"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
+    sync?: BoolWithAggregatesFilter<"Product"> | boolean
+    syncedAt?: DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
     isDeleted?: BoolWithAggregatesFilter<"Product"> | boolean
   }
 
@@ -29767,6 +35112,435 @@ export namespace Prisma {
     sync?: BoolWithAggregatesFilter<"ReceiptSettings"> | boolean
     syncedAt?: DateTimeNullableWithAggregatesFilter<"ReceiptSettings"> | Date | string | null
     isDeleted?: BoolWithAggregatesFilter<"ReceiptSettings"> | boolean
+  }
+
+  export type DrugWhereInput = {
+    AND?: DrugWhereInput | DrugWhereInput[]
+    OR?: DrugWhereInput[]
+    NOT?: DrugWhereInput | DrugWhereInput[]
+    id?: StringFilter<"Drug"> | string
+    code?: StringFilter<"Drug"> | string
+    name?: StringFilter<"Drug"> | string
+    category?: StringFilter<"Drug"> | string
+    manufacturer?: StringFilter<"Drug"> | string
+    description?: StringNullableFilter<"Drug"> | string | null
+    activeIngredient?: StringNullableFilter<"Drug"> | string | null
+    strength?: StringNullableFilter<"Drug"> | string | null
+    dosageForm?: StringNullableFilter<"Drug"> | string | null
+    quantity?: IntFilter<"Drug"> | number
+    reorderLevel?: IntFilter<"Drug"> | number
+    price?: FloatFilter<"Drug"> | number
+    cost?: FloatFilter<"Drug"> | number
+    expiryDate?: DateTimeFilter<"Drug"> | Date | string
+    batchNumber?: StringFilter<"Drug"> | string
+    unit?: StringFilter<"Drug"> | string
+    storageConditions?: StringNullableFilter<"Drug"> | string | null
+    prescriptionRequired?: BoolFilter<"Drug"> | boolean
+    supplier?: StringNullableFilter<"Drug"> | string | null
+    isDisposed?: BoolFilter<"Drug"> | boolean
+    disposalDate?: DateTimeNullableFilter<"Drug"> | Date | string | null
+    disposalMethod?: StringNullableFilter<"Drug"> | string | null
+    disposalReason?: StringNullableFilter<"Drug"> | string | null
+    disposalNotes?: StringNullableFilter<"Drug"> | string | null
+    disposedBy?: StringNullableFilter<"Drug"> | string | null
+    createdBy?: StringNullableFilter<"Drug"> | string | null
+    lastStockUpdate?: DateTimeNullableFilter<"Drug"> | Date | string | null
+    createdAt?: DateTimeFilter<"Drug"> | Date | string
+    updatedAt?: DateTimeFilter<"Drug"> | Date | string
+    sync?: BoolFilter<"Drug"> | boolean
+    syncedAt?: DateTimeNullableFilter<"Drug"> | Date | string | null
+    isDeleted?: BoolFilter<"Drug"> | boolean
+    stockMovements?: DrugStockMovementListRelationFilter
+    disposalRecords?: DrugDisposalListRelationFilter
+  }
+
+  export type DrugOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    manufacturer?: SortOrder
+    description?: SortOrderInput | SortOrder
+    activeIngredient?: SortOrderInput | SortOrder
+    strength?: SortOrderInput | SortOrder
+    dosageForm?: SortOrderInput | SortOrder
+    quantity?: SortOrder
+    reorderLevel?: SortOrder
+    price?: SortOrder
+    cost?: SortOrder
+    expiryDate?: SortOrder
+    batchNumber?: SortOrder
+    unit?: SortOrder
+    storageConditions?: SortOrderInput | SortOrder
+    prescriptionRequired?: SortOrder
+    supplier?: SortOrderInput | SortOrder
+    isDisposed?: SortOrder
+    disposalDate?: SortOrderInput | SortOrder
+    disposalMethod?: SortOrderInput | SortOrder
+    disposalReason?: SortOrderInput | SortOrder
+    disposalNotes?: SortOrderInput | SortOrder
+    disposedBy?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    lastStockUpdate?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    sync?: SortOrder
+    syncedAt?: SortOrderInput | SortOrder
+    isDeleted?: SortOrder
+    stockMovements?: DrugStockMovementOrderByRelationAggregateInput
+    disposalRecords?: DrugDisposalOrderByRelationAggregateInput
+  }
+
+  export type DrugWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DrugWhereInput | DrugWhereInput[]
+    OR?: DrugWhereInput[]
+    NOT?: DrugWhereInput | DrugWhereInput[]
+    code?: StringFilter<"Drug"> | string
+    name?: StringFilter<"Drug"> | string
+    category?: StringFilter<"Drug"> | string
+    manufacturer?: StringFilter<"Drug"> | string
+    description?: StringNullableFilter<"Drug"> | string | null
+    activeIngredient?: StringNullableFilter<"Drug"> | string | null
+    strength?: StringNullableFilter<"Drug"> | string | null
+    dosageForm?: StringNullableFilter<"Drug"> | string | null
+    quantity?: IntFilter<"Drug"> | number
+    reorderLevel?: IntFilter<"Drug"> | number
+    price?: FloatFilter<"Drug"> | number
+    cost?: FloatFilter<"Drug"> | number
+    expiryDate?: DateTimeFilter<"Drug"> | Date | string
+    batchNumber?: StringFilter<"Drug"> | string
+    unit?: StringFilter<"Drug"> | string
+    storageConditions?: StringNullableFilter<"Drug"> | string | null
+    prescriptionRequired?: BoolFilter<"Drug"> | boolean
+    supplier?: StringNullableFilter<"Drug"> | string | null
+    isDisposed?: BoolFilter<"Drug"> | boolean
+    disposalDate?: DateTimeNullableFilter<"Drug"> | Date | string | null
+    disposalMethod?: StringNullableFilter<"Drug"> | string | null
+    disposalReason?: StringNullableFilter<"Drug"> | string | null
+    disposalNotes?: StringNullableFilter<"Drug"> | string | null
+    disposedBy?: StringNullableFilter<"Drug"> | string | null
+    createdBy?: StringNullableFilter<"Drug"> | string | null
+    lastStockUpdate?: DateTimeNullableFilter<"Drug"> | Date | string | null
+    createdAt?: DateTimeFilter<"Drug"> | Date | string
+    updatedAt?: DateTimeFilter<"Drug"> | Date | string
+    sync?: BoolFilter<"Drug"> | boolean
+    syncedAt?: DateTimeNullableFilter<"Drug"> | Date | string | null
+    isDeleted?: BoolFilter<"Drug"> | boolean
+    stockMovements?: DrugStockMovementListRelationFilter
+    disposalRecords?: DrugDisposalListRelationFilter
+  }, "id">
+
+  export type DrugOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    manufacturer?: SortOrder
+    description?: SortOrderInput | SortOrder
+    activeIngredient?: SortOrderInput | SortOrder
+    strength?: SortOrderInput | SortOrder
+    dosageForm?: SortOrderInput | SortOrder
+    quantity?: SortOrder
+    reorderLevel?: SortOrder
+    price?: SortOrder
+    cost?: SortOrder
+    expiryDate?: SortOrder
+    batchNumber?: SortOrder
+    unit?: SortOrder
+    storageConditions?: SortOrderInput | SortOrder
+    prescriptionRequired?: SortOrder
+    supplier?: SortOrderInput | SortOrder
+    isDisposed?: SortOrder
+    disposalDate?: SortOrderInput | SortOrder
+    disposalMethod?: SortOrderInput | SortOrder
+    disposalReason?: SortOrderInput | SortOrder
+    disposalNotes?: SortOrderInput | SortOrder
+    disposedBy?: SortOrderInput | SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    lastStockUpdate?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    sync?: SortOrder
+    syncedAt?: SortOrderInput | SortOrder
+    isDeleted?: SortOrder
+    _count?: DrugCountOrderByAggregateInput
+    _avg?: DrugAvgOrderByAggregateInput
+    _max?: DrugMaxOrderByAggregateInput
+    _min?: DrugMinOrderByAggregateInput
+    _sum?: DrugSumOrderByAggregateInput
+  }
+
+  export type DrugScalarWhereWithAggregatesInput = {
+    AND?: DrugScalarWhereWithAggregatesInput | DrugScalarWhereWithAggregatesInput[]
+    OR?: DrugScalarWhereWithAggregatesInput[]
+    NOT?: DrugScalarWhereWithAggregatesInput | DrugScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Drug"> | string
+    code?: StringWithAggregatesFilter<"Drug"> | string
+    name?: StringWithAggregatesFilter<"Drug"> | string
+    category?: StringWithAggregatesFilter<"Drug"> | string
+    manufacturer?: StringWithAggregatesFilter<"Drug"> | string
+    description?: StringNullableWithAggregatesFilter<"Drug"> | string | null
+    activeIngredient?: StringNullableWithAggregatesFilter<"Drug"> | string | null
+    strength?: StringNullableWithAggregatesFilter<"Drug"> | string | null
+    dosageForm?: StringNullableWithAggregatesFilter<"Drug"> | string | null
+    quantity?: IntWithAggregatesFilter<"Drug"> | number
+    reorderLevel?: IntWithAggregatesFilter<"Drug"> | number
+    price?: FloatWithAggregatesFilter<"Drug"> | number
+    cost?: FloatWithAggregatesFilter<"Drug"> | number
+    expiryDate?: DateTimeWithAggregatesFilter<"Drug"> | Date | string
+    batchNumber?: StringWithAggregatesFilter<"Drug"> | string
+    unit?: StringWithAggregatesFilter<"Drug"> | string
+    storageConditions?: StringNullableWithAggregatesFilter<"Drug"> | string | null
+    prescriptionRequired?: BoolWithAggregatesFilter<"Drug"> | boolean
+    supplier?: StringNullableWithAggregatesFilter<"Drug"> | string | null
+    isDisposed?: BoolWithAggregatesFilter<"Drug"> | boolean
+    disposalDate?: DateTimeNullableWithAggregatesFilter<"Drug"> | Date | string | null
+    disposalMethod?: StringNullableWithAggregatesFilter<"Drug"> | string | null
+    disposalReason?: StringNullableWithAggregatesFilter<"Drug"> | string | null
+    disposalNotes?: StringNullableWithAggregatesFilter<"Drug"> | string | null
+    disposedBy?: StringNullableWithAggregatesFilter<"Drug"> | string | null
+    createdBy?: StringNullableWithAggregatesFilter<"Drug"> | string | null
+    lastStockUpdate?: DateTimeNullableWithAggregatesFilter<"Drug"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Drug"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Drug"> | Date | string
+    sync?: BoolWithAggregatesFilter<"Drug"> | boolean
+    syncedAt?: DateTimeNullableWithAggregatesFilter<"Drug"> | Date | string | null
+    isDeleted?: BoolWithAggregatesFilter<"Drug"> | boolean
+  }
+
+  export type DrugCategoryWhereInput = {
+    AND?: DrugCategoryWhereInput | DrugCategoryWhereInput[]
+    OR?: DrugCategoryWhereInput[]
+    NOT?: DrugCategoryWhereInput | DrugCategoryWhereInput[]
+    id?: StringFilter<"DrugCategory"> | string
+    name?: StringFilter<"DrugCategory"> | string
+    description?: StringNullableFilter<"DrugCategory"> | string | null
+    color?: StringFilter<"DrugCategory"> | string
+    isActive?: BoolFilter<"DrugCategory"> | boolean
+    createdBy?: StringNullableFilter<"DrugCategory"> | string | null
+    createdAt?: DateTimeFilter<"DrugCategory"> | Date | string
+    updatedAt?: DateTimeFilter<"DrugCategory"> | Date | string
+    isDeleted?: BoolFilter<"DrugCategory"> | boolean
+  }
+
+  export type DrugCategoryOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    color?: SortOrder
+    isActive?: SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    isDeleted?: SortOrder
+  }
+
+  export type DrugCategoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DrugCategoryWhereInput | DrugCategoryWhereInput[]
+    OR?: DrugCategoryWhereInput[]
+    NOT?: DrugCategoryWhereInput | DrugCategoryWhereInput[]
+    name?: StringFilter<"DrugCategory"> | string
+    description?: StringNullableFilter<"DrugCategory"> | string | null
+    color?: StringFilter<"DrugCategory"> | string
+    isActive?: BoolFilter<"DrugCategory"> | boolean
+    createdBy?: StringNullableFilter<"DrugCategory"> | string | null
+    createdAt?: DateTimeFilter<"DrugCategory"> | Date | string
+    updatedAt?: DateTimeFilter<"DrugCategory"> | Date | string
+    isDeleted?: BoolFilter<"DrugCategory"> | boolean
+  }, "id">
+
+  export type DrugCategoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    color?: SortOrder
+    isActive?: SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    isDeleted?: SortOrder
+    _count?: DrugCategoryCountOrderByAggregateInput
+    _max?: DrugCategoryMaxOrderByAggregateInput
+    _min?: DrugCategoryMinOrderByAggregateInput
+  }
+
+  export type DrugCategoryScalarWhereWithAggregatesInput = {
+    AND?: DrugCategoryScalarWhereWithAggregatesInput | DrugCategoryScalarWhereWithAggregatesInput[]
+    OR?: DrugCategoryScalarWhereWithAggregatesInput[]
+    NOT?: DrugCategoryScalarWhereWithAggregatesInput | DrugCategoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DrugCategory"> | string
+    name?: StringWithAggregatesFilter<"DrugCategory"> | string
+    description?: StringNullableWithAggregatesFilter<"DrugCategory"> | string | null
+    color?: StringWithAggregatesFilter<"DrugCategory"> | string
+    isActive?: BoolWithAggregatesFilter<"DrugCategory"> | boolean
+    createdBy?: StringNullableWithAggregatesFilter<"DrugCategory"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DrugCategory"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DrugCategory"> | Date | string
+    isDeleted?: BoolWithAggregatesFilter<"DrugCategory"> | boolean
+  }
+
+  export type DrugStockMovementWhereInput = {
+    AND?: DrugStockMovementWhereInput | DrugStockMovementWhereInput[]
+    OR?: DrugStockMovementWhereInput[]
+    NOT?: DrugStockMovementWhereInput | DrugStockMovementWhereInput[]
+    id?: StringFilter<"DrugStockMovement"> | string
+    drugId?: StringFilter<"DrugStockMovement"> | string
+    type?: StringFilter<"DrugStockMovement"> | string
+    quantity?: IntFilter<"DrugStockMovement"> | number
+    reason?: StringFilter<"DrugStockMovement"> | string
+    reference?: StringNullableFilter<"DrugStockMovement"> | string | null
+    notes?: StringNullableFilter<"DrugStockMovement"> | string | null
+    balanceAfter?: IntFilter<"DrugStockMovement"> | number
+    warehouseId?: StringFilter<"DrugStockMovement"> | string
+    createdBy?: StringFilter<"DrugStockMovement"> | string
+    createdAt?: DateTimeFilter<"DrugStockMovement"> | Date | string
+    drug?: XOR<DrugScalarRelationFilter, DrugWhereInput>
+  }
+
+  export type DrugStockMovementOrderByWithRelationInput = {
+    id?: SortOrder
+    drugId?: SortOrder
+    type?: SortOrder
+    quantity?: SortOrder
+    reason?: SortOrder
+    reference?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    balanceAfter?: SortOrder
+    warehouseId?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    drug?: DrugOrderByWithRelationInput
+  }
+
+  export type DrugStockMovementWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DrugStockMovementWhereInput | DrugStockMovementWhereInput[]
+    OR?: DrugStockMovementWhereInput[]
+    NOT?: DrugStockMovementWhereInput | DrugStockMovementWhereInput[]
+    drugId?: StringFilter<"DrugStockMovement"> | string
+    type?: StringFilter<"DrugStockMovement"> | string
+    quantity?: IntFilter<"DrugStockMovement"> | number
+    reason?: StringFilter<"DrugStockMovement"> | string
+    reference?: StringNullableFilter<"DrugStockMovement"> | string | null
+    notes?: StringNullableFilter<"DrugStockMovement"> | string | null
+    balanceAfter?: IntFilter<"DrugStockMovement"> | number
+    warehouseId?: StringFilter<"DrugStockMovement"> | string
+    createdBy?: StringFilter<"DrugStockMovement"> | string
+    createdAt?: DateTimeFilter<"DrugStockMovement"> | Date | string
+    drug?: XOR<DrugScalarRelationFilter, DrugWhereInput>
+  }, "id">
+
+  export type DrugStockMovementOrderByWithAggregationInput = {
+    id?: SortOrder
+    drugId?: SortOrder
+    type?: SortOrder
+    quantity?: SortOrder
+    reason?: SortOrder
+    reference?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    balanceAfter?: SortOrder
+    warehouseId?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    _count?: DrugStockMovementCountOrderByAggregateInput
+    _avg?: DrugStockMovementAvgOrderByAggregateInput
+    _max?: DrugStockMovementMaxOrderByAggregateInput
+    _min?: DrugStockMovementMinOrderByAggregateInput
+    _sum?: DrugStockMovementSumOrderByAggregateInput
+  }
+
+  export type DrugStockMovementScalarWhereWithAggregatesInput = {
+    AND?: DrugStockMovementScalarWhereWithAggregatesInput | DrugStockMovementScalarWhereWithAggregatesInput[]
+    OR?: DrugStockMovementScalarWhereWithAggregatesInput[]
+    NOT?: DrugStockMovementScalarWhereWithAggregatesInput | DrugStockMovementScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DrugStockMovement"> | string
+    drugId?: StringWithAggregatesFilter<"DrugStockMovement"> | string
+    type?: StringWithAggregatesFilter<"DrugStockMovement"> | string
+    quantity?: IntWithAggregatesFilter<"DrugStockMovement"> | number
+    reason?: StringWithAggregatesFilter<"DrugStockMovement"> | string
+    reference?: StringNullableWithAggregatesFilter<"DrugStockMovement"> | string | null
+    notes?: StringNullableWithAggregatesFilter<"DrugStockMovement"> | string | null
+    balanceAfter?: IntWithAggregatesFilter<"DrugStockMovement"> | number
+    warehouseId?: StringWithAggregatesFilter<"DrugStockMovement"> | string
+    createdBy?: StringWithAggregatesFilter<"DrugStockMovement"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"DrugStockMovement"> | Date | string
+  }
+
+  export type DrugDisposalWhereInput = {
+    AND?: DrugDisposalWhereInput | DrugDisposalWhereInput[]
+    OR?: DrugDisposalWhereInput[]
+    NOT?: DrugDisposalWhereInput | DrugDisposalWhereInput[]
+    id?: StringFilter<"DrugDisposal"> | string
+    drugId?: StringFilter<"DrugDisposal"> | string
+    disposalMethod?: StringFilter<"DrugDisposal"> | string
+    disposalReason?: StringFilter<"DrugDisposal"> | string
+    notes?: StringNullableFilter<"DrugDisposal"> | string | null
+    warehouseId?: StringFilter<"DrugDisposal"> | string
+    disposedBy?: StringFilter<"DrugDisposal"> | string
+    disposalDate?: DateTimeFilter<"DrugDisposal"> | Date | string
+    createdAt?: DateTimeFilter<"DrugDisposal"> | Date | string
+    drug?: XOR<DrugScalarRelationFilter, DrugWhereInput>
+  }
+
+  export type DrugDisposalOrderByWithRelationInput = {
+    id?: SortOrder
+    drugId?: SortOrder
+    disposalMethod?: SortOrder
+    disposalReason?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    warehouseId?: SortOrder
+    disposedBy?: SortOrder
+    disposalDate?: SortOrder
+    createdAt?: SortOrder
+    drug?: DrugOrderByWithRelationInput
+  }
+
+  export type DrugDisposalWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DrugDisposalWhereInput | DrugDisposalWhereInput[]
+    OR?: DrugDisposalWhereInput[]
+    NOT?: DrugDisposalWhereInput | DrugDisposalWhereInput[]
+    drugId?: StringFilter<"DrugDisposal"> | string
+    disposalMethod?: StringFilter<"DrugDisposal"> | string
+    disposalReason?: StringFilter<"DrugDisposal"> | string
+    notes?: StringNullableFilter<"DrugDisposal"> | string | null
+    warehouseId?: StringFilter<"DrugDisposal"> | string
+    disposedBy?: StringFilter<"DrugDisposal"> | string
+    disposalDate?: DateTimeFilter<"DrugDisposal"> | Date | string
+    createdAt?: DateTimeFilter<"DrugDisposal"> | Date | string
+    drug?: XOR<DrugScalarRelationFilter, DrugWhereInput>
+  }, "id">
+
+  export type DrugDisposalOrderByWithAggregationInput = {
+    id?: SortOrder
+    drugId?: SortOrder
+    disposalMethod?: SortOrder
+    disposalReason?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    warehouseId?: SortOrder
+    disposedBy?: SortOrder
+    disposalDate?: SortOrder
+    createdAt?: SortOrder
+    _count?: DrugDisposalCountOrderByAggregateInput
+    _max?: DrugDisposalMaxOrderByAggregateInput
+    _min?: DrugDisposalMinOrderByAggregateInput
+  }
+
+  export type DrugDisposalScalarWhereWithAggregatesInput = {
+    AND?: DrugDisposalScalarWhereWithAggregatesInput | DrugDisposalScalarWhereWithAggregatesInput[]
+    OR?: DrugDisposalScalarWhereWithAggregatesInput[]
+    NOT?: DrugDisposalScalarWhereWithAggregatesInput | DrugDisposalScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DrugDisposal"> | string
+    drugId?: StringWithAggregatesFilter<"DrugDisposal"> | string
+    disposalMethod?: StringWithAggregatesFilter<"DrugDisposal"> | string
+    disposalReason?: StringWithAggregatesFilter<"DrugDisposal"> | string
+    notes?: StringNullableWithAggregatesFilter<"DrugDisposal"> | string | null
+    warehouseId?: StringWithAggregatesFilter<"DrugDisposal"> | string
+    disposedBy?: StringWithAggregatesFilter<"DrugDisposal"> | string
+    disposalDate?: DateTimeWithAggregatesFilter<"DrugDisposal"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"DrugDisposal"> | Date | string
   }
 
   export type superAdminCreateInput = {
@@ -31552,6 +37326,8 @@ export namespace Prisma {
     storageConditions?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
     isDeleted?: boolean
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
     purchaseItem?: PurchaseItemCreateNestedManyWithoutProductInput
@@ -31583,6 +37359,8 @@ export namespace Prisma {
     storageConditions?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
     isDeleted?: boolean
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
     purchaseItem?: PurchaseItemUncheckedCreateNestedManyWithoutProductInput
@@ -31614,6 +37392,8 @@ export namespace Prisma {
     storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
     purchaseItem?: PurchaseItemUpdateManyWithoutProductNestedInput
@@ -31645,6 +37425,8 @@ export namespace Prisma {
     storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
     purchaseItem?: PurchaseItemUncheckedUpdateManyWithoutProductNestedInput
@@ -31676,6 +37458,8 @@ export namespace Prisma {
     storageConditions?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
     isDeleted?: boolean
   }
 
@@ -31705,6 +37489,8 @@ export namespace Prisma {
     storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -31734,6 +37520,8 @@ export namespace Prisma {
     storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -32537,6 +38325,523 @@ export namespace Prisma {
     sync?: BoolFieldUpdateOperationsInput | boolean
     syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DrugCreateInput = {
+    id?: string
+    code: string
+    name: string
+    category: string
+    manufacturer: string
+    description?: string | null
+    activeIngredient?: string | null
+    strength?: string | null
+    dosageForm?: string | null
+    quantity?: number
+    reorderLevel?: number
+    price: number
+    cost: number
+    expiryDate: Date | string
+    batchNumber: string
+    unit?: string
+    storageConditions?: string | null
+    prescriptionRequired?: boolean
+    supplier?: string | null
+    isDisposed?: boolean
+    disposalDate?: Date | string | null
+    disposalMethod?: string | null
+    disposalReason?: string | null
+    disposalNotes?: string | null
+    disposedBy?: string | null
+    createdBy?: string | null
+    lastStockUpdate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
+    isDeleted?: boolean
+    stockMovements?: DrugStockMovementCreateNestedManyWithoutDrugInput
+    disposalRecords?: DrugDisposalCreateNestedManyWithoutDrugInput
+  }
+
+  export type DrugUncheckedCreateInput = {
+    id?: string
+    code: string
+    name: string
+    category: string
+    manufacturer: string
+    description?: string | null
+    activeIngredient?: string | null
+    strength?: string | null
+    dosageForm?: string | null
+    quantity?: number
+    reorderLevel?: number
+    price: number
+    cost: number
+    expiryDate: Date | string
+    batchNumber: string
+    unit?: string
+    storageConditions?: string | null
+    prescriptionRequired?: boolean
+    supplier?: string | null
+    isDisposed?: boolean
+    disposalDate?: Date | string | null
+    disposalMethod?: string | null
+    disposalReason?: string | null
+    disposalNotes?: string | null
+    disposedBy?: string | null
+    createdBy?: string | null
+    lastStockUpdate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
+    isDeleted?: boolean
+    stockMovements?: DrugStockMovementUncheckedCreateNestedManyWithoutDrugInput
+    disposalRecords?: DrugDisposalUncheckedCreateNestedManyWithoutDrugInput
+  }
+
+  export type DrugUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    manufacturer?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    activeIngredient?: NullableStringFieldUpdateOperationsInput | string | null
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    reorderLevel?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    unit?: StringFieldUpdateOperationsInput | string
+    storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionRequired?: BoolFieldUpdateOperationsInput | boolean
+    supplier?: NullableStringFieldUpdateOperationsInput | string | null
+    isDisposed?: BoolFieldUpdateOperationsInput | boolean
+    disposalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    disposalMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    disposedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastStockUpdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    stockMovements?: DrugStockMovementUpdateManyWithoutDrugNestedInput
+    disposalRecords?: DrugDisposalUpdateManyWithoutDrugNestedInput
+  }
+
+  export type DrugUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    manufacturer?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    activeIngredient?: NullableStringFieldUpdateOperationsInput | string | null
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    reorderLevel?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    unit?: StringFieldUpdateOperationsInput | string
+    storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionRequired?: BoolFieldUpdateOperationsInput | boolean
+    supplier?: NullableStringFieldUpdateOperationsInput | string | null
+    isDisposed?: BoolFieldUpdateOperationsInput | boolean
+    disposalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    disposalMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    disposedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastStockUpdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    stockMovements?: DrugStockMovementUncheckedUpdateManyWithoutDrugNestedInput
+    disposalRecords?: DrugDisposalUncheckedUpdateManyWithoutDrugNestedInput
+  }
+
+  export type DrugCreateManyInput = {
+    id?: string
+    code: string
+    name: string
+    category: string
+    manufacturer: string
+    description?: string | null
+    activeIngredient?: string | null
+    strength?: string | null
+    dosageForm?: string | null
+    quantity?: number
+    reorderLevel?: number
+    price: number
+    cost: number
+    expiryDate: Date | string
+    batchNumber: string
+    unit?: string
+    storageConditions?: string | null
+    prescriptionRequired?: boolean
+    supplier?: string | null
+    isDisposed?: boolean
+    disposalDate?: Date | string | null
+    disposalMethod?: string | null
+    disposalReason?: string | null
+    disposalNotes?: string | null
+    disposedBy?: string | null
+    createdBy?: string | null
+    lastStockUpdate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
+    isDeleted?: boolean
+  }
+
+  export type DrugUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    manufacturer?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    activeIngredient?: NullableStringFieldUpdateOperationsInput | string | null
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    reorderLevel?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    unit?: StringFieldUpdateOperationsInput | string
+    storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionRequired?: BoolFieldUpdateOperationsInput | boolean
+    supplier?: NullableStringFieldUpdateOperationsInput | string | null
+    isDisposed?: BoolFieldUpdateOperationsInput | boolean
+    disposalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    disposalMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    disposedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastStockUpdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DrugUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    manufacturer?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    activeIngredient?: NullableStringFieldUpdateOperationsInput | string | null
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    reorderLevel?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    unit?: StringFieldUpdateOperationsInput | string
+    storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionRequired?: BoolFieldUpdateOperationsInput | boolean
+    supplier?: NullableStringFieldUpdateOperationsInput | string | null
+    isDisposed?: BoolFieldUpdateOperationsInput | boolean
+    disposalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    disposalMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    disposedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastStockUpdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DrugCategoryCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    color?: string
+    isActive?: boolean
+    createdBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+  }
+
+  export type DrugCategoryUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    color?: string
+    isActive?: boolean
+    createdBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+  }
+
+  export type DrugCategoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DrugCategoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DrugCategoryCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    color?: string
+    isActive?: boolean
+    createdBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isDeleted?: boolean
+  }
+
+  export type DrugCategoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DrugCategoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DrugStockMovementCreateInput = {
+    id?: string
+    type: string
+    quantity: number
+    reason: string
+    reference?: string | null
+    notes?: string | null
+    balanceAfter: number
+    warehouseId: string
+    createdBy?: string
+    createdAt?: Date | string
+    drug: DrugCreateNestedOneWithoutStockMovementsInput
+  }
+
+  export type DrugStockMovementUncheckedCreateInput = {
+    id?: string
+    drugId: string
+    type: string
+    quantity: number
+    reason: string
+    reference?: string | null
+    notes?: string | null
+    balanceAfter: number
+    warehouseId: string
+    createdBy?: string
+    createdAt?: Date | string
+  }
+
+  export type DrugStockMovementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    reason?: StringFieldUpdateOperationsInput | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    drug?: DrugUpdateOneRequiredWithoutStockMovementsNestedInput
+  }
+
+  export type DrugStockMovementUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    drugId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    reason?: StringFieldUpdateOperationsInput | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrugStockMovementCreateManyInput = {
+    id?: string
+    drugId: string
+    type: string
+    quantity: number
+    reason: string
+    reference?: string | null
+    notes?: string | null
+    balanceAfter: number
+    warehouseId: string
+    createdBy?: string
+    createdAt?: Date | string
+  }
+
+  export type DrugStockMovementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    reason?: StringFieldUpdateOperationsInput | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrugStockMovementUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    drugId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    reason?: StringFieldUpdateOperationsInput | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrugDisposalCreateInput = {
+    id?: string
+    disposalMethod: string
+    disposalReason: string
+    notes?: string | null
+    warehouseId: string
+    disposedBy: string
+    disposalDate?: Date | string
+    createdAt?: Date | string
+    drug: DrugCreateNestedOneWithoutDisposalRecordsInput
+  }
+
+  export type DrugDisposalUncheckedCreateInput = {
+    id?: string
+    drugId: string
+    disposalMethod: string
+    disposalReason: string
+    notes?: string | null
+    warehouseId: string
+    disposedBy: string
+    disposalDate?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type DrugDisposalUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    disposalMethod?: StringFieldUpdateOperationsInput | string
+    disposalReason?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    disposedBy?: StringFieldUpdateOperationsInput | string
+    disposalDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    drug?: DrugUpdateOneRequiredWithoutDisposalRecordsNestedInput
+  }
+
+  export type DrugDisposalUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    drugId?: StringFieldUpdateOperationsInput | string
+    disposalMethod?: StringFieldUpdateOperationsInput | string
+    disposalReason?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    disposedBy?: StringFieldUpdateOperationsInput | string
+    disposalDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrugDisposalCreateManyInput = {
+    id?: string
+    drugId: string
+    disposalMethod: string
+    disposalReason: string
+    notes?: string | null
+    warehouseId: string
+    disposedBy: string
+    disposalDate?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type DrugDisposalUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    disposalMethod?: StringFieldUpdateOperationsInput | string
+    disposalReason?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    disposedBy?: StringFieldUpdateOperationsInput | string
+    disposalDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrugDisposalUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    drugId?: StringFieldUpdateOperationsInput | string
+    disposalMethod?: StringFieldUpdateOperationsInput | string
+    disposalReason?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    disposedBy?: StringFieldUpdateOperationsInput | string
+    disposalDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -33839,6 +40144,8 @@ export namespace Prisma {
     storageConditions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    sync?: SortOrder
+    syncedAt?: SortOrder
     isDeleted?: SortOrder
   }
 
@@ -33878,6 +40185,8 @@ export namespace Prisma {
     storageConditions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    sync?: SortOrder
+    syncedAt?: SortOrder
     isDeleted?: SortOrder
   }
 
@@ -33907,6 +40216,8 @@ export namespace Prisma {
     storageConditions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    sync?: SortOrder
+    syncedAt?: SortOrder
     isDeleted?: SortOrder
   }
 
@@ -34366,6 +40677,274 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type DrugStockMovementListRelationFilter = {
+    every?: DrugStockMovementWhereInput
+    some?: DrugStockMovementWhereInput
+    none?: DrugStockMovementWhereInput
+  }
+
+  export type DrugDisposalListRelationFilter = {
+    every?: DrugDisposalWhereInput
+    some?: DrugDisposalWhereInput
+    none?: DrugDisposalWhereInput
+  }
+
+  export type DrugStockMovementOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DrugDisposalOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DrugCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    manufacturer?: SortOrder
+    description?: SortOrder
+    activeIngredient?: SortOrder
+    strength?: SortOrder
+    dosageForm?: SortOrder
+    quantity?: SortOrder
+    reorderLevel?: SortOrder
+    price?: SortOrder
+    cost?: SortOrder
+    expiryDate?: SortOrder
+    batchNumber?: SortOrder
+    unit?: SortOrder
+    storageConditions?: SortOrder
+    prescriptionRequired?: SortOrder
+    supplier?: SortOrder
+    isDisposed?: SortOrder
+    disposalDate?: SortOrder
+    disposalMethod?: SortOrder
+    disposalReason?: SortOrder
+    disposalNotes?: SortOrder
+    disposedBy?: SortOrder
+    createdBy?: SortOrder
+    lastStockUpdate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    sync?: SortOrder
+    syncedAt?: SortOrder
+    isDeleted?: SortOrder
+  }
+
+  export type DrugAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+    reorderLevel?: SortOrder
+    price?: SortOrder
+    cost?: SortOrder
+  }
+
+  export type DrugMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    manufacturer?: SortOrder
+    description?: SortOrder
+    activeIngredient?: SortOrder
+    strength?: SortOrder
+    dosageForm?: SortOrder
+    quantity?: SortOrder
+    reorderLevel?: SortOrder
+    price?: SortOrder
+    cost?: SortOrder
+    expiryDate?: SortOrder
+    batchNumber?: SortOrder
+    unit?: SortOrder
+    storageConditions?: SortOrder
+    prescriptionRequired?: SortOrder
+    supplier?: SortOrder
+    isDisposed?: SortOrder
+    disposalDate?: SortOrder
+    disposalMethod?: SortOrder
+    disposalReason?: SortOrder
+    disposalNotes?: SortOrder
+    disposedBy?: SortOrder
+    createdBy?: SortOrder
+    lastStockUpdate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    sync?: SortOrder
+    syncedAt?: SortOrder
+    isDeleted?: SortOrder
+  }
+
+  export type DrugMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    manufacturer?: SortOrder
+    description?: SortOrder
+    activeIngredient?: SortOrder
+    strength?: SortOrder
+    dosageForm?: SortOrder
+    quantity?: SortOrder
+    reorderLevel?: SortOrder
+    price?: SortOrder
+    cost?: SortOrder
+    expiryDate?: SortOrder
+    batchNumber?: SortOrder
+    unit?: SortOrder
+    storageConditions?: SortOrder
+    prescriptionRequired?: SortOrder
+    supplier?: SortOrder
+    isDisposed?: SortOrder
+    disposalDate?: SortOrder
+    disposalMethod?: SortOrder
+    disposalReason?: SortOrder
+    disposalNotes?: SortOrder
+    disposedBy?: SortOrder
+    createdBy?: SortOrder
+    lastStockUpdate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    sync?: SortOrder
+    syncedAt?: SortOrder
+    isDeleted?: SortOrder
+  }
+
+  export type DrugSumOrderByAggregateInput = {
+    quantity?: SortOrder
+    reorderLevel?: SortOrder
+    price?: SortOrder
+    cost?: SortOrder
+  }
+
+  export type DrugCategoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    color?: SortOrder
+    isActive?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    isDeleted?: SortOrder
+  }
+
+  export type DrugCategoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    color?: SortOrder
+    isActive?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    isDeleted?: SortOrder
+  }
+
+  export type DrugCategoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    color?: SortOrder
+    isActive?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    isDeleted?: SortOrder
+  }
+
+  export type DrugScalarRelationFilter = {
+    is?: DrugWhereInput
+    isNot?: DrugWhereInput
+  }
+
+  export type DrugStockMovementCountOrderByAggregateInput = {
+    id?: SortOrder
+    drugId?: SortOrder
+    type?: SortOrder
+    quantity?: SortOrder
+    reason?: SortOrder
+    reference?: SortOrder
+    notes?: SortOrder
+    balanceAfter?: SortOrder
+    warehouseId?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DrugStockMovementAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+    balanceAfter?: SortOrder
+  }
+
+  export type DrugStockMovementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    drugId?: SortOrder
+    type?: SortOrder
+    quantity?: SortOrder
+    reason?: SortOrder
+    reference?: SortOrder
+    notes?: SortOrder
+    balanceAfter?: SortOrder
+    warehouseId?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DrugStockMovementMinOrderByAggregateInput = {
+    id?: SortOrder
+    drugId?: SortOrder
+    type?: SortOrder
+    quantity?: SortOrder
+    reason?: SortOrder
+    reference?: SortOrder
+    notes?: SortOrder
+    balanceAfter?: SortOrder
+    warehouseId?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DrugStockMovementSumOrderByAggregateInput = {
+    quantity?: SortOrder
+    balanceAfter?: SortOrder
+  }
+
+  export type DrugDisposalCountOrderByAggregateInput = {
+    id?: SortOrder
+    drugId?: SortOrder
+    disposalMethod?: SortOrder
+    disposalReason?: SortOrder
+    notes?: SortOrder
+    warehouseId?: SortOrder
+    disposedBy?: SortOrder
+    disposalDate?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DrugDisposalMaxOrderByAggregateInput = {
+    id?: SortOrder
+    drugId?: SortOrder
+    disposalMethod?: SortOrder
+    disposalReason?: SortOrder
+    notes?: SortOrder
+    warehouseId?: SortOrder
+    disposedBy?: SortOrder
+    disposalDate?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DrugDisposalMinOrderByAggregateInput = {
+    id?: SortOrder
+    drugId?: SortOrder
+    disposalMethod?: SortOrder
+    disposalReason?: SortOrder
+    notes?: SortOrder
+    warehouseId?: SortOrder
+    disposedBy?: SortOrder
+    disposalDate?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -35464,6 +42043,118 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
+  }
+
+  export type DrugStockMovementCreateNestedManyWithoutDrugInput = {
+    create?: XOR<DrugStockMovementCreateWithoutDrugInput, DrugStockMovementUncheckedCreateWithoutDrugInput> | DrugStockMovementCreateWithoutDrugInput[] | DrugStockMovementUncheckedCreateWithoutDrugInput[]
+    connectOrCreate?: DrugStockMovementCreateOrConnectWithoutDrugInput | DrugStockMovementCreateOrConnectWithoutDrugInput[]
+    createMany?: DrugStockMovementCreateManyDrugInputEnvelope
+    connect?: DrugStockMovementWhereUniqueInput | DrugStockMovementWhereUniqueInput[]
+  }
+
+  export type DrugDisposalCreateNestedManyWithoutDrugInput = {
+    create?: XOR<DrugDisposalCreateWithoutDrugInput, DrugDisposalUncheckedCreateWithoutDrugInput> | DrugDisposalCreateWithoutDrugInput[] | DrugDisposalUncheckedCreateWithoutDrugInput[]
+    connectOrCreate?: DrugDisposalCreateOrConnectWithoutDrugInput | DrugDisposalCreateOrConnectWithoutDrugInput[]
+    createMany?: DrugDisposalCreateManyDrugInputEnvelope
+    connect?: DrugDisposalWhereUniqueInput | DrugDisposalWhereUniqueInput[]
+  }
+
+  export type DrugStockMovementUncheckedCreateNestedManyWithoutDrugInput = {
+    create?: XOR<DrugStockMovementCreateWithoutDrugInput, DrugStockMovementUncheckedCreateWithoutDrugInput> | DrugStockMovementCreateWithoutDrugInput[] | DrugStockMovementUncheckedCreateWithoutDrugInput[]
+    connectOrCreate?: DrugStockMovementCreateOrConnectWithoutDrugInput | DrugStockMovementCreateOrConnectWithoutDrugInput[]
+    createMany?: DrugStockMovementCreateManyDrugInputEnvelope
+    connect?: DrugStockMovementWhereUniqueInput | DrugStockMovementWhereUniqueInput[]
+  }
+
+  export type DrugDisposalUncheckedCreateNestedManyWithoutDrugInput = {
+    create?: XOR<DrugDisposalCreateWithoutDrugInput, DrugDisposalUncheckedCreateWithoutDrugInput> | DrugDisposalCreateWithoutDrugInput[] | DrugDisposalUncheckedCreateWithoutDrugInput[]
+    connectOrCreate?: DrugDisposalCreateOrConnectWithoutDrugInput | DrugDisposalCreateOrConnectWithoutDrugInput[]
+    createMany?: DrugDisposalCreateManyDrugInputEnvelope
+    connect?: DrugDisposalWhereUniqueInput | DrugDisposalWhereUniqueInput[]
+  }
+
+  export type DrugStockMovementUpdateManyWithoutDrugNestedInput = {
+    create?: XOR<DrugStockMovementCreateWithoutDrugInput, DrugStockMovementUncheckedCreateWithoutDrugInput> | DrugStockMovementCreateWithoutDrugInput[] | DrugStockMovementUncheckedCreateWithoutDrugInput[]
+    connectOrCreate?: DrugStockMovementCreateOrConnectWithoutDrugInput | DrugStockMovementCreateOrConnectWithoutDrugInput[]
+    upsert?: DrugStockMovementUpsertWithWhereUniqueWithoutDrugInput | DrugStockMovementUpsertWithWhereUniqueWithoutDrugInput[]
+    createMany?: DrugStockMovementCreateManyDrugInputEnvelope
+    set?: DrugStockMovementWhereUniqueInput | DrugStockMovementWhereUniqueInput[]
+    disconnect?: DrugStockMovementWhereUniqueInput | DrugStockMovementWhereUniqueInput[]
+    delete?: DrugStockMovementWhereUniqueInput | DrugStockMovementWhereUniqueInput[]
+    connect?: DrugStockMovementWhereUniqueInput | DrugStockMovementWhereUniqueInput[]
+    update?: DrugStockMovementUpdateWithWhereUniqueWithoutDrugInput | DrugStockMovementUpdateWithWhereUniqueWithoutDrugInput[]
+    updateMany?: DrugStockMovementUpdateManyWithWhereWithoutDrugInput | DrugStockMovementUpdateManyWithWhereWithoutDrugInput[]
+    deleteMany?: DrugStockMovementScalarWhereInput | DrugStockMovementScalarWhereInput[]
+  }
+
+  export type DrugDisposalUpdateManyWithoutDrugNestedInput = {
+    create?: XOR<DrugDisposalCreateWithoutDrugInput, DrugDisposalUncheckedCreateWithoutDrugInput> | DrugDisposalCreateWithoutDrugInput[] | DrugDisposalUncheckedCreateWithoutDrugInput[]
+    connectOrCreate?: DrugDisposalCreateOrConnectWithoutDrugInput | DrugDisposalCreateOrConnectWithoutDrugInput[]
+    upsert?: DrugDisposalUpsertWithWhereUniqueWithoutDrugInput | DrugDisposalUpsertWithWhereUniqueWithoutDrugInput[]
+    createMany?: DrugDisposalCreateManyDrugInputEnvelope
+    set?: DrugDisposalWhereUniqueInput | DrugDisposalWhereUniqueInput[]
+    disconnect?: DrugDisposalWhereUniqueInput | DrugDisposalWhereUniqueInput[]
+    delete?: DrugDisposalWhereUniqueInput | DrugDisposalWhereUniqueInput[]
+    connect?: DrugDisposalWhereUniqueInput | DrugDisposalWhereUniqueInput[]
+    update?: DrugDisposalUpdateWithWhereUniqueWithoutDrugInput | DrugDisposalUpdateWithWhereUniqueWithoutDrugInput[]
+    updateMany?: DrugDisposalUpdateManyWithWhereWithoutDrugInput | DrugDisposalUpdateManyWithWhereWithoutDrugInput[]
+    deleteMany?: DrugDisposalScalarWhereInput | DrugDisposalScalarWhereInput[]
+  }
+
+  export type DrugStockMovementUncheckedUpdateManyWithoutDrugNestedInput = {
+    create?: XOR<DrugStockMovementCreateWithoutDrugInput, DrugStockMovementUncheckedCreateWithoutDrugInput> | DrugStockMovementCreateWithoutDrugInput[] | DrugStockMovementUncheckedCreateWithoutDrugInput[]
+    connectOrCreate?: DrugStockMovementCreateOrConnectWithoutDrugInput | DrugStockMovementCreateOrConnectWithoutDrugInput[]
+    upsert?: DrugStockMovementUpsertWithWhereUniqueWithoutDrugInput | DrugStockMovementUpsertWithWhereUniqueWithoutDrugInput[]
+    createMany?: DrugStockMovementCreateManyDrugInputEnvelope
+    set?: DrugStockMovementWhereUniqueInput | DrugStockMovementWhereUniqueInput[]
+    disconnect?: DrugStockMovementWhereUniqueInput | DrugStockMovementWhereUniqueInput[]
+    delete?: DrugStockMovementWhereUniqueInput | DrugStockMovementWhereUniqueInput[]
+    connect?: DrugStockMovementWhereUniqueInput | DrugStockMovementWhereUniqueInput[]
+    update?: DrugStockMovementUpdateWithWhereUniqueWithoutDrugInput | DrugStockMovementUpdateWithWhereUniqueWithoutDrugInput[]
+    updateMany?: DrugStockMovementUpdateManyWithWhereWithoutDrugInput | DrugStockMovementUpdateManyWithWhereWithoutDrugInput[]
+    deleteMany?: DrugStockMovementScalarWhereInput | DrugStockMovementScalarWhereInput[]
+  }
+
+  export type DrugDisposalUncheckedUpdateManyWithoutDrugNestedInput = {
+    create?: XOR<DrugDisposalCreateWithoutDrugInput, DrugDisposalUncheckedCreateWithoutDrugInput> | DrugDisposalCreateWithoutDrugInput[] | DrugDisposalUncheckedCreateWithoutDrugInput[]
+    connectOrCreate?: DrugDisposalCreateOrConnectWithoutDrugInput | DrugDisposalCreateOrConnectWithoutDrugInput[]
+    upsert?: DrugDisposalUpsertWithWhereUniqueWithoutDrugInput | DrugDisposalUpsertWithWhereUniqueWithoutDrugInput[]
+    createMany?: DrugDisposalCreateManyDrugInputEnvelope
+    set?: DrugDisposalWhereUniqueInput | DrugDisposalWhereUniqueInput[]
+    disconnect?: DrugDisposalWhereUniqueInput | DrugDisposalWhereUniqueInput[]
+    delete?: DrugDisposalWhereUniqueInput | DrugDisposalWhereUniqueInput[]
+    connect?: DrugDisposalWhereUniqueInput | DrugDisposalWhereUniqueInput[]
+    update?: DrugDisposalUpdateWithWhereUniqueWithoutDrugInput | DrugDisposalUpdateWithWhereUniqueWithoutDrugInput[]
+    updateMany?: DrugDisposalUpdateManyWithWhereWithoutDrugInput | DrugDisposalUpdateManyWithWhereWithoutDrugInput[]
+    deleteMany?: DrugDisposalScalarWhereInput | DrugDisposalScalarWhereInput[]
+  }
+
+  export type DrugCreateNestedOneWithoutStockMovementsInput = {
+    create?: XOR<DrugCreateWithoutStockMovementsInput, DrugUncheckedCreateWithoutStockMovementsInput>
+    connectOrCreate?: DrugCreateOrConnectWithoutStockMovementsInput
+    connect?: DrugWhereUniqueInput
+  }
+
+  export type DrugUpdateOneRequiredWithoutStockMovementsNestedInput = {
+    create?: XOR<DrugCreateWithoutStockMovementsInput, DrugUncheckedCreateWithoutStockMovementsInput>
+    connectOrCreate?: DrugCreateOrConnectWithoutStockMovementsInput
+    upsert?: DrugUpsertWithoutStockMovementsInput
+    connect?: DrugWhereUniqueInput
+    update?: XOR<XOR<DrugUpdateToOneWithWhereWithoutStockMovementsInput, DrugUpdateWithoutStockMovementsInput>, DrugUncheckedUpdateWithoutStockMovementsInput>
+  }
+
+  export type DrugCreateNestedOneWithoutDisposalRecordsInput = {
+    create?: XOR<DrugCreateWithoutDisposalRecordsInput, DrugUncheckedCreateWithoutDisposalRecordsInput>
+    connectOrCreate?: DrugCreateOrConnectWithoutDisposalRecordsInput
+    connect?: DrugWhereUniqueInput
+  }
+
+  export type DrugUpdateOneRequiredWithoutDisposalRecordsNestedInput = {
+    create?: XOR<DrugCreateWithoutDisposalRecordsInput, DrugUncheckedCreateWithoutDisposalRecordsInput>
+    connectOrCreate?: DrugCreateOrConnectWithoutDisposalRecordsInput
+    upsert?: DrugUpsertWithoutDisposalRecordsInput
+    connect?: DrugWhereUniqueInput
+    update?: XOR<XOR<DrugUpdateToOneWithWhereWithoutDisposalRecordsInput, DrugUpdateWithoutDisposalRecordsInput>, DrugUncheckedUpdateWithoutDisposalRecordsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -38329,6 +45020,8 @@ export namespace Prisma {
     storageConditions?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
     isDeleted?: boolean
     purchaseItem?: PurchaseItemCreateNestedManyWithoutProductInput
   }
@@ -38359,6 +45052,8 @@ export namespace Prisma {
     storageConditions?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
     isDeleted?: boolean
     purchaseItem?: PurchaseItemUncheckedCreateNestedManyWithoutProductInput
   }
@@ -38470,6 +45165,8 @@ export namespace Prisma {
     storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     purchaseItem?: PurchaseItemUpdateManyWithoutProductNestedInput
   }
@@ -38500,6 +45197,8 @@ export namespace Prisma {
     storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     purchaseItem?: PurchaseItemUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -39165,6 +45864,8 @@ export namespace Prisma {
     storageConditions?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
     isDeleted?: boolean
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
   }
@@ -39195,6 +45896,8 @@ export namespace Prisma {
     storageConditions?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
     isDeleted?: boolean
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
   }
@@ -39278,6 +45981,8 @@ export namespace Prisma {
     storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
   }
@@ -39308,6 +46013,8 @@ export namespace Prisma {
     storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -39597,6 +46304,456 @@ export namespace Prisma {
     referenceNo?: StringFilter<"Purchase"> | string
     supplierId?: StringNullableFilter<"Purchase"> | string | null
     isDeleted?: BoolFilter<"Purchase"> | boolean
+  }
+
+  export type DrugStockMovementCreateWithoutDrugInput = {
+    id?: string
+    type: string
+    quantity: number
+    reason: string
+    reference?: string | null
+    notes?: string | null
+    balanceAfter: number
+    warehouseId: string
+    createdBy?: string
+    createdAt?: Date | string
+  }
+
+  export type DrugStockMovementUncheckedCreateWithoutDrugInput = {
+    id?: string
+    type: string
+    quantity: number
+    reason: string
+    reference?: string | null
+    notes?: string | null
+    balanceAfter: number
+    warehouseId: string
+    createdBy?: string
+    createdAt?: Date | string
+  }
+
+  export type DrugStockMovementCreateOrConnectWithoutDrugInput = {
+    where: DrugStockMovementWhereUniqueInput
+    create: XOR<DrugStockMovementCreateWithoutDrugInput, DrugStockMovementUncheckedCreateWithoutDrugInput>
+  }
+
+  export type DrugStockMovementCreateManyDrugInputEnvelope = {
+    data: DrugStockMovementCreateManyDrugInput | DrugStockMovementCreateManyDrugInput[]
+  }
+
+  export type DrugDisposalCreateWithoutDrugInput = {
+    id?: string
+    disposalMethod: string
+    disposalReason: string
+    notes?: string | null
+    warehouseId: string
+    disposedBy: string
+    disposalDate?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type DrugDisposalUncheckedCreateWithoutDrugInput = {
+    id?: string
+    disposalMethod: string
+    disposalReason: string
+    notes?: string | null
+    warehouseId: string
+    disposedBy: string
+    disposalDate?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type DrugDisposalCreateOrConnectWithoutDrugInput = {
+    where: DrugDisposalWhereUniqueInput
+    create: XOR<DrugDisposalCreateWithoutDrugInput, DrugDisposalUncheckedCreateWithoutDrugInput>
+  }
+
+  export type DrugDisposalCreateManyDrugInputEnvelope = {
+    data: DrugDisposalCreateManyDrugInput | DrugDisposalCreateManyDrugInput[]
+  }
+
+  export type DrugStockMovementUpsertWithWhereUniqueWithoutDrugInput = {
+    where: DrugStockMovementWhereUniqueInput
+    update: XOR<DrugStockMovementUpdateWithoutDrugInput, DrugStockMovementUncheckedUpdateWithoutDrugInput>
+    create: XOR<DrugStockMovementCreateWithoutDrugInput, DrugStockMovementUncheckedCreateWithoutDrugInput>
+  }
+
+  export type DrugStockMovementUpdateWithWhereUniqueWithoutDrugInput = {
+    where: DrugStockMovementWhereUniqueInput
+    data: XOR<DrugStockMovementUpdateWithoutDrugInput, DrugStockMovementUncheckedUpdateWithoutDrugInput>
+  }
+
+  export type DrugStockMovementUpdateManyWithWhereWithoutDrugInput = {
+    where: DrugStockMovementScalarWhereInput
+    data: XOR<DrugStockMovementUpdateManyMutationInput, DrugStockMovementUncheckedUpdateManyWithoutDrugInput>
+  }
+
+  export type DrugStockMovementScalarWhereInput = {
+    AND?: DrugStockMovementScalarWhereInput | DrugStockMovementScalarWhereInput[]
+    OR?: DrugStockMovementScalarWhereInput[]
+    NOT?: DrugStockMovementScalarWhereInput | DrugStockMovementScalarWhereInput[]
+    id?: StringFilter<"DrugStockMovement"> | string
+    drugId?: StringFilter<"DrugStockMovement"> | string
+    type?: StringFilter<"DrugStockMovement"> | string
+    quantity?: IntFilter<"DrugStockMovement"> | number
+    reason?: StringFilter<"DrugStockMovement"> | string
+    reference?: StringNullableFilter<"DrugStockMovement"> | string | null
+    notes?: StringNullableFilter<"DrugStockMovement"> | string | null
+    balanceAfter?: IntFilter<"DrugStockMovement"> | number
+    warehouseId?: StringFilter<"DrugStockMovement"> | string
+    createdBy?: StringFilter<"DrugStockMovement"> | string
+    createdAt?: DateTimeFilter<"DrugStockMovement"> | Date | string
+  }
+
+  export type DrugDisposalUpsertWithWhereUniqueWithoutDrugInput = {
+    where: DrugDisposalWhereUniqueInput
+    update: XOR<DrugDisposalUpdateWithoutDrugInput, DrugDisposalUncheckedUpdateWithoutDrugInput>
+    create: XOR<DrugDisposalCreateWithoutDrugInput, DrugDisposalUncheckedCreateWithoutDrugInput>
+  }
+
+  export type DrugDisposalUpdateWithWhereUniqueWithoutDrugInput = {
+    where: DrugDisposalWhereUniqueInput
+    data: XOR<DrugDisposalUpdateWithoutDrugInput, DrugDisposalUncheckedUpdateWithoutDrugInput>
+  }
+
+  export type DrugDisposalUpdateManyWithWhereWithoutDrugInput = {
+    where: DrugDisposalScalarWhereInput
+    data: XOR<DrugDisposalUpdateManyMutationInput, DrugDisposalUncheckedUpdateManyWithoutDrugInput>
+  }
+
+  export type DrugDisposalScalarWhereInput = {
+    AND?: DrugDisposalScalarWhereInput | DrugDisposalScalarWhereInput[]
+    OR?: DrugDisposalScalarWhereInput[]
+    NOT?: DrugDisposalScalarWhereInput | DrugDisposalScalarWhereInput[]
+    id?: StringFilter<"DrugDisposal"> | string
+    drugId?: StringFilter<"DrugDisposal"> | string
+    disposalMethod?: StringFilter<"DrugDisposal"> | string
+    disposalReason?: StringFilter<"DrugDisposal"> | string
+    notes?: StringNullableFilter<"DrugDisposal"> | string | null
+    warehouseId?: StringFilter<"DrugDisposal"> | string
+    disposedBy?: StringFilter<"DrugDisposal"> | string
+    disposalDate?: DateTimeFilter<"DrugDisposal"> | Date | string
+    createdAt?: DateTimeFilter<"DrugDisposal"> | Date | string
+  }
+
+  export type DrugCreateWithoutStockMovementsInput = {
+    id?: string
+    code: string
+    name: string
+    category: string
+    manufacturer: string
+    description?: string | null
+    activeIngredient?: string | null
+    strength?: string | null
+    dosageForm?: string | null
+    quantity?: number
+    reorderLevel?: number
+    price: number
+    cost: number
+    expiryDate: Date | string
+    batchNumber: string
+    unit?: string
+    storageConditions?: string | null
+    prescriptionRequired?: boolean
+    supplier?: string | null
+    isDisposed?: boolean
+    disposalDate?: Date | string | null
+    disposalMethod?: string | null
+    disposalReason?: string | null
+    disposalNotes?: string | null
+    disposedBy?: string | null
+    createdBy?: string | null
+    lastStockUpdate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
+    isDeleted?: boolean
+    disposalRecords?: DrugDisposalCreateNestedManyWithoutDrugInput
+  }
+
+  export type DrugUncheckedCreateWithoutStockMovementsInput = {
+    id?: string
+    code: string
+    name: string
+    category: string
+    manufacturer: string
+    description?: string | null
+    activeIngredient?: string | null
+    strength?: string | null
+    dosageForm?: string | null
+    quantity?: number
+    reorderLevel?: number
+    price: number
+    cost: number
+    expiryDate: Date | string
+    batchNumber: string
+    unit?: string
+    storageConditions?: string | null
+    prescriptionRequired?: boolean
+    supplier?: string | null
+    isDisposed?: boolean
+    disposalDate?: Date | string | null
+    disposalMethod?: string | null
+    disposalReason?: string | null
+    disposalNotes?: string | null
+    disposedBy?: string | null
+    createdBy?: string | null
+    lastStockUpdate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
+    isDeleted?: boolean
+    disposalRecords?: DrugDisposalUncheckedCreateNestedManyWithoutDrugInput
+  }
+
+  export type DrugCreateOrConnectWithoutStockMovementsInput = {
+    where: DrugWhereUniqueInput
+    create: XOR<DrugCreateWithoutStockMovementsInput, DrugUncheckedCreateWithoutStockMovementsInput>
+  }
+
+  export type DrugUpsertWithoutStockMovementsInput = {
+    update: XOR<DrugUpdateWithoutStockMovementsInput, DrugUncheckedUpdateWithoutStockMovementsInput>
+    create: XOR<DrugCreateWithoutStockMovementsInput, DrugUncheckedCreateWithoutStockMovementsInput>
+    where?: DrugWhereInput
+  }
+
+  export type DrugUpdateToOneWithWhereWithoutStockMovementsInput = {
+    where?: DrugWhereInput
+    data: XOR<DrugUpdateWithoutStockMovementsInput, DrugUncheckedUpdateWithoutStockMovementsInput>
+  }
+
+  export type DrugUpdateWithoutStockMovementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    manufacturer?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    activeIngredient?: NullableStringFieldUpdateOperationsInput | string | null
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    reorderLevel?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    unit?: StringFieldUpdateOperationsInput | string
+    storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionRequired?: BoolFieldUpdateOperationsInput | boolean
+    supplier?: NullableStringFieldUpdateOperationsInput | string | null
+    isDisposed?: BoolFieldUpdateOperationsInput | boolean
+    disposalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    disposalMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    disposedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastStockUpdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    disposalRecords?: DrugDisposalUpdateManyWithoutDrugNestedInput
+  }
+
+  export type DrugUncheckedUpdateWithoutStockMovementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    manufacturer?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    activeIngredient?: NullableStringFieldUpdateOperationsInput | string | null
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    reorderLevel?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    unit?: StringFieldUpdateOperationsInput | string
+    storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionRequired?: BoolFieldUpdateOperationsInput | boolean
+    supplier?: NullableStringFieldUpdateOperationsInput | string | null
+    isDisposed?: BoolFieldUpdateOperationsInput | boolean
+    disposalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    disposalMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    disposedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastStockUpdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    disposalRecords?: DrugDisposalUncheckedUpdateManyWithoutDrugNestedInput
+  }
+
+  export type DrugCreateWithoutDisposalRecordsInput = {
+    id?: string
+    code: string
+    name: string
+    category: string
+    manufacturer: string
+    description?: string | null
+    activeIngredient?: string | null
+    strength?: string | null
+    dosageForm?: string | null
+    quantity?: number
+    reorderLevel?: number
+    price: number
+    cost: number
+    expiryDate: Date | string
+    batchNumber: string
+    unit?: string
+    storageConditions?: string | null
+    prescriptionRequired?: boolean
+    supplier?: string | null
+    isDisposed?: boolean
+    disposalDate?: Date | string | null
+    disposalMethod?: string | null
+    disposalReason?: string | null
+    disposalNotes?: string | null
+    disposedBy?: string | null
+    createdBy?: string | null
+    lastStockUpdate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
+    isDeleted?: boolean
+    stockMovements?: DrugStockMovementCreateNestedManyWithoutDrugInput
+  }
+
+  export type DrugUncheckedCreateWithoutDisposalRecordsInput = {
+    id?: string
+    code: string
+    name: string
+    category: string
+    manufacturer: string
+    description?: string | null
+    activeIngredient?: string | null
+    strength?: string | null
+    dosageForm?: string | null
+    quantity?: number
+    reorderLevel?: number
+    price: number
+    cost: number
+    expiryDate: Date | string
+    batchNumber: string
+    unit?: string
+    storageConditions?: string | null
+    prescriptionRequired?: boolean
+    supplier?: string | null
+    isDisposed?: boolean
+    disposalDate?: Date | string | null
+    disposalMethod?: string | null
+    disposalReason?: string | null
+    disposalNotes?: string | null
+    disposedBy?: string | null
+    createdBy?: string | null
+    lastStockUpdate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sync?: boolean
+    syncedAt?: Date | string | null
+    isDeleted?: boolean
+    stockMovements?: DrugStockMovementUncheckedCreateNestedManyWithoutDrugInput
+  }
+
+  export type DrugCreateOrConnectWithoutDisposalRecordsInput = {
+    where: DrugWhereUniqueInput
+    create: XOR<DrugCreateWithoutDisposalRecordsInput, DrugUncheckedCreateWithoutDisposalRecordsInput>
+  }
+
+  export type DrugUpsertWithoutDisposalRecordsInput = {
+    update: XOR<DrugUpdateWithoutDisposalRecordsInput, DrugUncheckedUpdateWithoutDisposalRecordsInput>
+    create: XOR<DrugCreateWithoutDisposalRecordsInput, DrugUncheckedCreateWithoutDisposalRecordsInput>
+    where?: DrugWhereInput
+  }
+
+  export type DrugUpdateToOneWithWhereWithoutDisposalRecordsInput = {
+    where?: DrugWhereInput
+    data: XOR<DrugUpdateWithoutDisposalRecordsInput, DrugUncheckedUpdateWithoutDisposalRecordsInput>
+  }
+
+  export type DrugUpdateWithoutDisposalRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    manufacturer?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    activeIngredient?: NullableStringFieldUpdateOperationsInput | string | null
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    reorderLevel?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    unit?: StringFieldUpdateOperationsInput | string
+    storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionRequired?: BoolFieldUpdateOperationsInput | boolean
+    supplier?: NullableStringFieldUpdateOperationsInput | string | null
+    isDisposed?: BoolFieldUpdateOperationsInput | boolean
+    disposalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    disposalMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    disposedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastStockUpdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    stockMovements?: DrugStockMovementUpdateManyWithoutDrugNestedInput
+  }
+
+  export type DrugUncheckedUpdateWithoutDisposalRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    manufacturer?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    activeIngredient?: NullableStringFieldUpdateOperationsInput | string | null
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    reorderLevel?: IntFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
+    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    unit?: StringFieldUpdateOperationsInput | string
+    storageConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionRequired?: BoolFieldUpdateOperationsInput | boolean
+    supplier?: NullableStringFieldUpdateOperationsInput | string | null
+    isDisposed?: BoolFieldUpdateOperationsInput | boolean
+    disposalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    disposalMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalReason?: NullableStringFieldUpdateOperationsInput | string | null
+    disposalNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    disposedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    lastStockUpdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sync?: BoolFieldUpdateOperationsInput | boolean
+    syncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    stockMovements?: DrugStockMovementUncheckedUpdateManyWithoutDrugNestedInput
   }
 
   export type ConsultationCreateManyStudentInput = {
@@ -40953,6 +48110,102 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     referenceNo?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DrugStockMovementCreateManyDrugInput = {
+    id?: string
+    type: string
+    quantity: number
+    reason: string
+    reference?: string | null
+    notes?: string | null
+    balanceAfter: number
+    warehouseId: string
+    createdBy?: string
+    createdAt?: Date | string
+  }
+
+  export type DrugDisposalCreateManyDrugInput = {
+    id?: string
+    disposalMethod: string
+    disposalReason: string
+    notes?: string | null
+    warehouseId: string
+    disposedBy: string
+    disposalDate?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type DrugStockMovementUpdateWithoutDrugInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    reason?: StringFieldUpdateOperationsInput | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrugStockMovementUncheckedUpdateWithoutDrugInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    reason?: StringFieldUpdateOperationsInput | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrugStockMovementUncheckedUpdateManyWithoutDrugInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    reason?: StringFieldUpdateOperationsInput | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfter?: IntFieldUpdateOperationsInput | number
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrugDisposalUpdateWithoutDrugInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    disposalMethod?: StringFieldUpdateOperationsInput | string
+    disposalReason?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    disposedBy?: StringFieldUpdateOperationsInput | string
+    disposalDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrugDisposalUncheckedUpdateWithoutDrugInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    disposalMethod?: StringFieldUpdateOperationsInput | string
+    disposalReason?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    disposedBy?: StringFieldUpdateOperationsInput | string
+    disposalDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DrugDisposalUncheckedUpdateManyWithoutDrugInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    disposalMethod?: StringFieldUpdateOperationsInput | string
+    disposalReason?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    warehouseId?: StringFieldUpdateOperationsInput | string
+    disposedBy?: StringFieldUpdateOperationsInput | string
+    disposalDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

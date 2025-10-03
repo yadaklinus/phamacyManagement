@@ -388,6 +388,8 @@ exports.Prisma.ProductScalarFieldEnum = {
   storageConditions: 'storageConditions',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  sync: 'sync',
+  syncedAt: 'syncedAt',
   isDeleted: 'isDeleted'
 };
 
@@ -505,6 +507,79 @@ exports.Prisma.ReceiptSettingsScalarFieldEnum = {
   isDeleted: 'isDeleted'
 };
 
+exports.Prisma.DrugScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  category: 'category',
+  manufacturer: 'manufacturer',
+  description: 'description',
+  activeIngredient: 'activeIngredient',
+  strength: 'strength',
+  dosageForm: 'dosageForm',
+  quantity: 'quantity',
+  reorderLevel: 'reorderLevel',
+  price: 'price',
+  cost: 'cost',
+  expiryDate: 'expiryDate',
+  batchNumber: 'batchNumber',
+  unit: 'unit',
+  storageConditions: 'storageConditions',
+  prescriptionRequired: 'prescriptionRequired',
+  supplier: 'supplier',
+  isDisposed: 'isDisposed',
+  disposalDate: 'disposalDate',
+  disposalMethod: 'disposalMethod',
+  disposalReason: 'disposalReason',
+  disposalNotes: 'disposalNotes',
+  disposedBy: 'disposedBy',
+  createdBy: 'createdBy',
+  lastStockUpdate: 'lastStockUpdate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  sync: 'sync',
+  syncedAt: 'syncedAt',
+  isDeleted: 'isDeleted'
+};
+
+exports.Prisma.DrugCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  color: 'color',
+  isActive: 'isActive',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  isDeleted: 'isDeleted'
+};
+
+exports.Prisma.DrugStockMovementScalarFieldEnum = {
+  id: 'id',
+  drugId: 'drugId',
+  type: 'type',
+  quantity: 'quantity',
+  reason: 'reason',
+  reference: 'reference',
+  notes: 'notes',
+  balanceAfter: 'balanceAfter',
+  warehouseId: 'warehouseId',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DrugDisposalScalarFieldEnum = {
+  id: 'id',
+  drugId: 'drugId',
+  disposalMethod: 'disposalMethod',
+  disposalReason: 'disposalReason',
+  notes: 'notes',
+  warehouseId: 'warehouseId',
+  disposedBy: 'disposedBy',
+  disposalDate: 'disposalDate',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -583,7 +658,11 @@ exports.Prisma.ModelName = {
   PurchaseItem: 'PurchaseItem',
   BalanceTransaction: 'BalanceTransaction',
   Supplier: 'Supplier',
-  ReceiptSettings: 'ReceiptSettings'
+  ReceiptSettings: 'ReceiptSettings',
+  Drug: 'Drug',
+  DrugCategory: 'DrugCategory',
+  DrugStockMovement: 'DrugStockMovement',
+  DrugDisposal: 'DrugDisposal'
 };
 
 /**
