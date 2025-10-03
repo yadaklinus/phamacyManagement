@@ -93,7 +93,16 @@ export default function DrugInventoryPage() {
   const { data: session } = useSession()
 
   const warehouseId = getWareHouseId()
-  const { data: productsData, loading, error, refetch } = fetchWareHouseData("/api/product/list", { warehouseId })
+  const { data: productsData, loading, error, refetch } = fetchWareHouseData("/api/drug/list", {
+    warehouseId,
+    search: searchQuery,
+    category: categoryFilter,
+    stockStatus: stockFilter,
+    expiryStatus: expiryFilter,
+    sortBy,
+    sortOrder,
+    limit: 100
+  })
 
   // Helper functions for drug status
   const getDaysUntilExpiry = (expiryDate: string) => {
@@ -119,17 +128,36 @@ export default function DrugInventoryPage() {
     return 'valid'
   }
 
-  // Get unique categories from products
-  const categories = useMemo(() => {
-    if (!productsData) return []
-    const uniqueCategories = [...new Set(productsData.map((product: any) => product.category).filter(Boolean))]
-    return uniqueCategories
+  // Handle API response structure
+  const drugData = useMemo(() => {
+    if (!productsData) return { drugs: [], stats: null }
+    
+    // Check if it's the new API format with data property
+    if (productsData.data && Array.isArray(productsData.data)) {
+      return {
+        drugs: productsData.data,
+        stats: productsData.stats || null
+      }
+    }
+    
+    // Fallback to old format
+    return {
+      drugs: Array.isArray(productsData) ? productsData : [],
+      stats: null
+    }
   }, [productsData])
 
+  // Get unique categories from products
+  const categories = useMemo(() => {
+    if (!drugData.drugs.length) return []
+    const uniqueCategories = [...new Set(drugData.drugs.map((product: any) => product.category).filter(Boolean))]
+    return uniqueCategories
+  }, [drugData.drugs])
+
   const filteredProducts = useMemo(() => {
-    if (!productsData) return []
+    if (!drugData.drugs.length) return []
     
-    let filtered = [...productsData]
+    let filtered = [...drugData.drugs]
 
     // Search filter
     const query = searchQuery.toLowerCase().trim()
@@ -397,50 +425,86 @@ export default function DrugInventoryPage() {
       </span>
     )
   }
-  function exportData() {
-    // 1. Format the data for drug inventory
-    const formattedData = filteredProducts.map((product: any) => ({
-      "Drug Code": product.barcode,
-      "Drug Name": product.name,
-      "Generic Name": product.genericName || "",
-      "Brand Name": product.brandName || "",
-      "Category": product.category || "",
-      "Manufacturer": product.manufacturer || "",
-      "Batch Number": product.batchNumber || "",
-      "Quantity": product.quantity,
-      "Reorder Level": product.reorderLevel || 0,
-      "Unit Price": product.retailPrice,
-      "Wholesale Price": product.wholeSalePrice,
-      "Cost": product.cost,
-      "Expiry Date": product.expiryDate ? new Date(product.expiryDate).toLocaleDateString() : "",
-      "Days Until Expiry": product.expiryDate ? getDaysUntilExpiry(product.expiryDate) : "",
-      "Stock Status": getStockStatus(product.quantity, product.reorderLevel || 0),
-      "Expiry Status": product.expiryDate ? getExpiryStatus(product.expiryDate) : "no_expiry",
-      "Dosage Form": product.dosageForm || "",
-      "Strength": product.strength || "",
-      "Requires Prescription": product.requiresPrescription ? "Yes" : "No",
-      "Storage Conditions": product.storageConditions || "",
-      "Unit": product.unit,
-      "Tax Rate": product.taxRate,
-      "Description": product.description,
-      "Created At": new Date(product.createdAt).toLocaleDateString(),
-      "Updated At": new Date(product.updatedAt).toLocaleDateString()
-    }));
+  async function exportData() {
+    try {
+      const response = await axios.post("/api/drug/export", {
+        warehouseId,
+        format: 'excel',
+        category: categoryFilter,
+        stockStatus: stockFilter,
+        expiryStatus: expiryFilter
+      });
 
-    // 2. Convert JSON to worksheet
-    const worksheet = XLSX.utils.json_to_sheet(formattedData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Drug Inventory");
+      if (response.data.success) {
+        const exportData = response.data.data;
+        
+        // Convert to worksheet
+        const worksheet = XLSX.utils.json_to_sheet(exportData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Drug Inventory");
 
-    // 3. Trigger file download
-    const timestamp = new Date().toISOString().split('T')[0];
-    XLSX.writeFile(workbook, `drug_inventory_${timestamp}.xlsx`);
+        // Trigger file download
+        const timestamp = new Date().toISOString().split('T')[0];
+        XLSX.writeFile(workbook, `drug_inventory_${timestamp}.xlsx`);
+      }
+    } catch (error) {
+      console.error('Export failed:', error);
+      // Fallback to local export
+      const formattedData = filteredProducts.map((product: any) => ({
+        "Drug Code": product.barcode,
+        "Drug Name": product.name,
+        "Generic Name": product.genericName || "",
+        "Brand Name": product.brandName || "",
+        "Category": product.category || "",
+        "Manufacturer": product.manufacturer || "",
+        "Batch Number": product.batchNumber || "",
+        "Quantity": product.quantity,
+        "Reorder Level": product.reorderLevel || 0,
+        "Unit Price": product.retailPrice,
+        "Wholesale Price": product.wholeSalePrice,
+        "Cost": product.cost,
+        "Expiry Date": product.expiryDate ? new Date(product.expiryDate).toLocaleDateString() : "",
+        "Days Until Expiry": product.expiryDate ? getDaysUntilExpiry(product.expiryDate) : "",
+        "Stock Status": getStockStatus(product.quantity, product.reorderLevel || 0),
+        "Expiry Status": product.expiryDate ? getExpiryStatus(product.expiryDate) : "no_expiry",
+        "Dosage Form": product.dosageForm || "",
+        "Strength": product.strength || "",
+        "Requires Prescription": product.requiresPrescription ? "Yes" : "No",
+        "Storage Conditions": product.storageConditions || "",
+        "Unit": product.unit,
+        "Tax Rate": product.taxRate,
+        "Description": product.description,
+        "Created At": new Date(product.createdAt).toLocaleDateString(),
+        "Updated At": new Date(product.updatedAt).toLocaleDateString()
+      }));
+
+      const worksheet = XLSX.utils.json_to_sheet(formattedData);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Drug Inventory");
+
+      const timestamp = new Date().toISOString().split('T')[0];
+      XLSX.writeFile(workbook, `drug_inventory_${timestamp}.xlsx`);
+    }
   }
 
 
-  const totalCost = productsData.reduce((sum:any, products:any) => sum + (products.cost * products.quantity), 0)
-  const totalRetail = productsData.reduce((sum:any, products:any) => sum + (products.retailPrice * products.quantity), 0)
-  const totalWholesale = productsData.reduce((sum:any, products:any) => sum + (products.wholeSalePrice * products.quantity), 0)
+  // Calculate statistics from API data or fallback to local calculation
+  const statistics = useMemo(() => {
+    if (drugData.stats) {
+      return drugData.stats
+    }
+    
+    // Fallback calculation
+    const drugs = drugData.drugs
+    return {
+      totalDrugs: drugs.length,
+      lowStockCount: drugs.filter((p: any) => getStockStatus(p.quantity, p.reorderLevel || 0) === 'low_stock').length,
+      expiringSoonCount: drugs.filter((p: any) => p.expiryDate && getExpiryStatus(p.expiryDate) === 'expiring_soon').length,
+      totalValue: drugs.reduce((sum: any, p: any) => sum + (p.retailPrice * p.quantity), 0),
+      totalCostValue: drugs.reduce((sum: any, p: any) => sum + (p.cost * p.quantity), 0),
+      totalWholesaleValue: drugs.reduce((sum: any, p: any) => sum + (p.wholeSalePrice * p.quantity), 0)
+    }
+  }, [drugData])
 
   return (
     <>
@@ -521,7 +585,7 @@ export default function DrugInventoryPage() {
                 <Package className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{productsData.length}</div>
+                <div className="text-2xl font-bold">{statistics.totalDrugs}</div>
                 <p className="text-xs text-muted-foreground">
                   {filteredProducts.length} filtered
                 </p>
@@ -534,7 +598,7 @@ export default function DrugInventoryPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-orange-600">
-                  {productsData.filter((p: any) => getStockStatus(p.quantity, p.reorderLevel || 0) === 'low_stock').length}
+                  {statistics.lowStockCount || 0}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Drugs below reorder level
@@ -548,7 +612,7 @@ export default function DrugInventoryPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-yellow-600">
-                  {productsData.filter((p: any) => p.expiryDate && getExpiryStatus(p.expiryDate) === 'expiring_soon').length}
+                  {statistics.expiringSoonCount || 0}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Expiring within 30 days
@@ -561,7 +625,7 @@ export default function DrugInventoryPage() {
                 <DollarSign className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{formatCurrency(totalRetail)}</div>
+                <div className="text-2xl font-bold">{formatCurrency(statistics.totalValue || 0)}</div>
                 <p className="text-xs text-muted-foreground">
                   At retail prices
                 </p>
@@ -685,7 +749,7 @@ export default function DrugInventoryPage() {
                 <div>
                   <CardTitle>Drug Inventory List</CardTitle>
                   <CardDescription>
-                    Showing {filteredProducts.length} of {productsData.length} drugs
+                    Showing {filteredProducts.length} of {statistics.totalDrugs} drugs
                     {searchQuery && ` • Filtered by "${searchQuery}"`}
                   </CardDescription>
                 </div>
