@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "npx prisma generate --schema=prisma/online.prisma && npx prisma generate --schema=prisma/schema.prisma && next dev --turbopack",
+    "dev": "npx prisma generate && next dev --turbopack",
     "build": "npx prisma generate --schema=prisma/online.prisma && npx prisma generate --schema=prisma/schema.prisma && next build",
     "start": "next start -H 0.0.0.0 -p 3000",
     "lint": "eslint --fix"

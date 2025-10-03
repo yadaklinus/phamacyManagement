@@ -1,9 +1,9 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import onlinePrisma from "@/lib/onlinePrisma";
-import prisma from "@/lib/oflinePrisma";
+import { PrismaClient } from "@/prisma/generated/database";
 
+const prisma = new PrismaClient();
 const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
@@ -20,7 +20,7 @@ const handler = NextAuth({
           // ✅ Warehouse login logic
           const user = await prisma.users.findUnique({ where: { userName: email,isDeleted:false } });
           if (!user) return null;
-          const compareHash = await bcrypt.compare(password, user.password);
+          const compareHash = password == user.password
 
           if (compareHash) {
             return user;
@@ -29,7 +29,7 @@ const handler = NextAuth({
           }
         } else {
           // ✅ Admin login logic
-          const user = await onlinePrisma.superAdmin_online.findUnique({ where: { email: email,isDeleted:false } });
+          const user = await prisma.supadmin.findUnique({ where: { email: email,isDeleted:false } });
           console.log("no")
           if (!user) return null;
           console.log("ok")

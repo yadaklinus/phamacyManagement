@@ -140,6 +140,7 @@ model Student {
   chronicConditions   String?               // JSON or comma-separated
   emergencyContact    String
   emergencyPhone      String
+  emergencyRelationship String?
   profilePhoto        String?
   address             String?
   stateOfOrigin       String?
