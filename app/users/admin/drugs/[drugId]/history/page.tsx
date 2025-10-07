@@ -37,7 +37,7 @@ import { useSession } from "next-auth/react"
 import Link from "next/link"
 import axios from "axios"
 import * as XLSX from 'xlsx'
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 
 interface Drug {
   id: string

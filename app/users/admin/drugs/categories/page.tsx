@@ -51,7 +51,7 @@ import { Loading } from "@/components/loading"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
 import axios from "axios"
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 
 interface DrugCategory {
   id: string

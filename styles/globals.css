@@ -82,3 +82,160 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Add this to your globals.css file */
+
+/* Global text styling - Make everything bold but keep reasonable sizes */
+* {
+  font-weight: 600 !important; /* Semi-bold for all text */
+}
+
+/* Body text - subtle increase */
+body {
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+}
+
+/* Headings - Bold but not too large */
+h1, .text-3xl, .text-4xl, .text-5xl {
+  font-weight: 800 !important;
+}
+
+h2, .text-2xl {
+  font-weight: 800 !important;
+}
+
+h3, .text-xl {
+  font-weight: 700 !important;
+}
+
+h4, .text-lg {
+  font-weight: 700 !important;
+}
+
+h5, h6 {
+  font-weight: 700 !important;
+}
+
+/* Paragraphs and body text - Keep original sizes */
+p, span, div, a {
+  font-weight: 600 !important;
+}
+
+/* Buttons - Bold but not oversized */
+button, .button, [role="button"] {
+  font-weight: 700 !important;
+}
+
+/* Table headers */
+th {
+  font-weight: 800 !important;
+}
+
+/* Table data */
+td {
+  font-weight: 600 !important;
+}
+
+/* Badge and tags - Keep small */
+.badge, [class*="badge"], [class*="Badge"] {
+  font-weight: 700 !important;
+}
+
+/* Small text - keep small but bold */
+.text-xs {
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+}
+
+.text-sm, small {
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+}
+
+/* Sidebar - Bold but compact */
+[class*="sidebar"] * {
+  font-weight: 700 !important;
+}
+
+[class*="SidebarMenuButton"] {
+  font-weight: 700 !important;
+  font-size: 0.95rem !important; /* Slightly smaller for sidebar */
+}
+
+[class*="SidebarGroupLabel"] {
+  font-weight: 800 !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.05em !important;
+}
+
+[class*="SidebarMenuSubButton"] {
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+}
+
+/* Metrics and numbers - Bold but not huge */
+.metric, .number {
+  font-weight: 900 !important;
+}
+
+/* Breadcrumb */
+[class*="breadcrumb"] * {
+  font-weight: 700 !important;
+}
+
+/* Footer */
+footer * {
+  font-weight: 700 !important;
+}
+
+/* Alerts and notifications */
+[class*="alert"] *, [role="alert"] * {
+  font-weight: 700 !important;
+}
+
+/* Muted text - bold but subtle */
+.text-muted-foreground, [class*="muted"] {
+  font-weight: 600 !important;
+}
+
+/* Input placeholders */
+::placeholder {
+  font-weight: 600 !important;
+  opacity: 0.7;
+}
+
+/* List items */
+li {
+  font-weight: 600 !important;
+}
+
+/* Code blocks */
+code, pre {
+  font-weight: 600 !important;
+}
+
+/* Form elements - Keep compact */
+input, textarea, select {
+  font-weight: 600 !important;
+}
+
+/* Labels */
+label {
+  font-weight: 700 !important;
+}
+
+/* Navigation - Bold but not oversized */
+nav a, nav button {
+  font-weight: 700 !important;
+}
+
+/* Card titles - Bold */
+.card-title, [class*="CardTitle"] {
+  font-weight: 800 !important;
+}
+
+/* Card descriptions */
+.card-description, [class*="CardDescription"] {
+  font-weight: 600 !important;
+}

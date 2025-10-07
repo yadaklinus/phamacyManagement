@@ -47,7 +47,7 @@ import { formatCurrency } from "@/lib/utils"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
 import * as XLSX from 'xlsx'
-import { toast } from "sonner"
+import { toast } from "react-hot-toast"
 
 interface Drug {
   id: string

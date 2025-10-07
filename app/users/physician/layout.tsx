@@ -1,6 +1,6 @@
 "use client"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { PhysicianAppSidebar } from "./side-bar";
+import { PhysicianMedicalSidebar } from "./side-bar";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -28,7 +28,7 @@ export default function PhysicianLayout({children}:{children:React.ReactNode}){
     return(
         <>
         <SidebarProvider>
-            <PhysicianAppSidebar/>
+            <PhysicianMedicalSidebar/>
             <SidebarInset>
                     {children}
             </SidebarInset>
