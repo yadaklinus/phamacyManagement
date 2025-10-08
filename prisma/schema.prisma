@@ -8,7 +8,7 @@ generator client {
 
 // Offline database (SQLite) - Main database
 datasource db {
-  provider = "sqlite"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
