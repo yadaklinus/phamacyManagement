@@ -10,7 +10,7 @@ import { GithubIcon } from "@/components/icons";
 
 import { useEffect, useRef } from "react";
 import fetchData from "@/hooks/fetch-data";
-import { dataSyncService } from "@/lib/sync-service";
+
 import axios from "axios";
 import { useOnlineStatus } from "@/hooks/check-online";
 

@@ -383,7 +383,7 @@ export default function AddStudentPage() {
                       <Checkbox
                         id="autoGenerate"
                         checked={autoGenerateMatric}
-                        onCheckedChange={setAutoGenerateMatric}
+                        //onCheckedChange={setAutoGenerateMatric}
                       />
                       <Label htmlFor="autoGenerate" className="text-sm">Auto-generate</Label>
                     </div>
