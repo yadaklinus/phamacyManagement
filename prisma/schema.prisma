@@ -1,749 +1,653 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// School Clinic Drug Tracking System
+// Focus: Complete drug tracking from purchase to administration
+// Admin oversight for theft prevention
 
 generator client {
   provider = "prisma-client-js"
-  output   = "generated/database"
+  output   = "generated/offline"
 }
 
-// Offline database (SQLite) - Main database
 datasource db {
-  provider = "postgres"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
-enum mode {
-  dark
-  light
-}
+// ==================== ENUMS ====================
 
 enum role {
   admin
   physician
   pharmacist
-  receptionist
-  nurse
 }
 
 enum unit {
-  kg
-  piece
-  liter
-  meter
   tablet
   capsule
+  bottle
+  sachet
+  injection
+  tube
   ml
   mg
-  bottle
-  tube
-  sachet
+  piece
 }
 
-enum type {
-  COMPANY
-  INDIVIDUAL
-  GOVERNMENT
-  NON_PROFIT
-  retail
-  wholesale
+enum movementType {
+  PURCHASE          // Drug bought from supplier
+  ADMINISTERED      // Drug given to student
+  ADJUSTMENT        // Manual stock correction
+  EXPIRED           // Drug expired and removed
+  DAMAGED           // Drug damaged
+  RETURNED          // Student returned unused
+  LOSS              // Missing/stolen
 }
 
-enum priority {
-  emergency
-  urgent
-  normal
-}
-
-enum consultationStatus {
-  waiting
-  in_progress
-  completed
-  cancelled
-  referred
-}
-
-enum prescriptionStatus {
-  pending
-  approved
-  dispensed
-  partially_dispensed
-  cancelled
+enum alertType {
+  low_stock
+  out_of_stock
+  expiring_soon
   expired
+  unusual_activity
+  discrepancy
 }
 
-model superAdmin {
+// ==================== USERS ====================
+
+model User {
   id           String    @id @default(uuid())
-  userName     String
   email        String    @unique
-  password     String
-  role         String
-  lastLogin    DateTime?
-  sync         Boolean   @default(false)
-  syncedAt     DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  isDeleted    Boolean   @default(false)
-}
-
-model users {
-  id           String    @id @default(uuid())
-  email        String
-  userName     String    @unique
-  phoneNumber  String
+  name         String
   password     String
   role         role
+  isActive     Boolean   @default(true)
   lastLogin    DateTime?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  sync         Boolean   @default(false)
-  syncedAt     DateTime?
-  isDeleted    Boolean   @default(false)
+  
+  @@index([email])
+  @@index([role])
 }
 
 model Settings {
-  setting_id      Int       @id
-  companyName     String
-  companyEmail    String
-  phoneNumber     String
-  websiteURL      String
-  address         String
-  logoUrl         String
-  defaultCurrency String
-  taxRate         Int
-  mode            mode
-  itermsPerPage   Int
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  sync            Boolean   @default(false)
-  syncedAt        DateTime?
-  isDeleted       Boolean   @default(false)
+  id                      String    @id @default(uuid())
+  schoolName              String
+  clinicName              String
+  email                   String
+  phone                   String
+  address                 String
+  logoUrl                 String?
+  
+  // Alert Settings
+  alertEmail              String
+  alertPhone              String?
+  lowStockThreshold       Int       @default(20) // Percentage
+  enableStockAlerts       Boolean   @default(true)
+  enableActivityAlerts    Boolean   @default(true)
+  
+  // Security Settings
+  requireApprovalForAdjustment Boolean @default(true)
+  maxDrugsPerConsultation      Int     @default(10)
+  
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
 }
 
-// ==================== PHARMACY MODELS ====================
+// ==================== STUDENTS ====================
 
 model Student {
-  id                  String                @id @default(uuid())
-  matricNumber        String                @unique
-  firstName           String
-  lastName            String
-  otherNames          String?
+  id                  String          @id @default(uuid())
+  matricNumber        String          @unique
+  name                String
   email               String?
-  phone               String?
+  phone               String
   department          String
-  level               String                // 100, 200, 300, etc.
+  level               String          // 100, 200, 300, etc.
   faculty             String
   dateOfBirth         DateTime
-  gender              String                // Male, Female
-  bloodGroup          String?               // A+, B+, O+, AB+, A-, B-, O-, AB-
-  genotype            String?               // AA, AS, SS, AC, SC
-  allergies           String?               // JSON or comma-separated
-  chronicConditions   String?               // JSON or comma-separated
+  gender              String
+  bloodGroup          String?
+  genotype            String?
+  allergies           String?         // Comma-separated or JSON
+  chronicConditions   String?         // Comma-separated or JSON
   emergencyContact    String
   emergencyPhone      String
-  emergencyRelationship String?
   profilePhoto        String?
-  address             String?
-  stateOfOrigin       String?
-  nationality         String?               @default("Nigerian")
-  isActive            Boolean               @default(true)
+  isActive            Boolean         @default(true)
   
   // Relations
   consultations       Consultation[]
-  prescriptions       Prescription[]
-  drugDispensals      DrugDispensal[]
-  medicalRecords      MedicalRecord[]
-  vitalSigns          VitalSigns[]
-  appointments        Appointment[]
-  queue               Queue[]
-  balanceTransaction  BalanceTransaction[]
+  drugRecords         DrugRecord[]
   
-  createdAt           DateTime              @default(now())
-  updatedAt           DateTime              @updatedAt
-  sync                Boolean               @default(false)
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
   
-  isDeleted           Boolean               @default(false)
+  @@index([matricNumber])
+  @@index([department])
+  @@index([isActive])
 }
+
+// ==================== PHYSICIANS ====================
 
 model Physician {
   id                  String          @id @default(uuid())
   staffId             String          @unique
-  firstName           String
-  lastName            String
-  otherNames          String?
-  specialization      String
-  qualification       String          // MBBS, MD, etc.
-  licenseNumber       String
+  name                String
   email               String
   phone               String
-  profilePhoto        String?
+  specialization      String?
+  qualification       String?
   isActive            Boolean         @default(true)
-  isAvailable         Boolean         @default(true)
   
   // Relations
   consultations       Consultation[]
-  prescriptions       Prescription[]
-  appointments        Appointment[]
+  drugRecords         DrugRecord[]    // Drugs they administered
   
   createdAt           DateTime        @default(now())
   updatedAt           DateTime        @updatedAt
-  sync                Boolean         @default(false)
   
-  isDeleted           Boolean         @default(false)
+  @@index([staffId])
+  @@index([isActive])
 }
 
-model Queue {
-  id                  String              @id @default(uuid())
-  queueNumber         Int
-  studentId           String
-  student             Student             @relation(fields: [studentId], references: [id])
-  priority            priority            @default(normal)
-  status              String              @default("waiting") // waiting, called, in_consultation, completed
-  checkInTime         DateTime            @default(now())
-  calledTime          DateTime?
-  completedTime       DateTime?
-  notes               String?
-  
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
-  
-  
-  isDeleted           Boolean             @default(false)
-
-  @@index([status])
-}
-
-model Appointment {
-  id                  String              @id @default(uuid())
-  appointmentNo       String              @unique
-  studentId           String
-  student             Student             @relation(fields: [studentId], references: [id])
-  physicianId         String?
-  physician           Physician?          @relation(fields: [physicianId], references: [id])
-  appointmentDate     DateTime
-  appointmentTime     String
-  reason              String
-  status              String              @default("scheduled") // scheduled, confirmed, cancelled, completed, no_show
-  notes               String?
-  
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
-  
-  
-  isDeleted           Boolean             @default(false)
-}
-
-model VitalSigns {
-  id                  String              @id @default(uuid())
-  studentId           String
-  student             Student             @relation(fields: [studentId], references: [id])
-  consultationId      String?
-  consultation        Consultation?       @relation(fields: [consultationId], references: [id])
-  
-  temperature         Float?              // in Celsius
-  bloodPressure       String?             // e.g., "120/80"
-  pulse               Int?                // beats per minute
-  respiratoryRate     Int?                // breaths per minute
-  weight              Float?              // in kg
-  height              Float?              // in cm
-  bmi                 Float?              // calculated
-  oxygenSaturation    Int?                // SpO2 percentage
-  
-  recordedBy          String              // User ID
-  
-  createdAt           DateTime            @default(now())
-  
-  
-  isDeleted           Boolean             @default(false)
-}
+// ==================== CONSULTATIONS ====================
 
 model Consultation {
-  id                  String              @id @default(uuid())
-  consultationNo      String              @unique
+  id              String          @id @default(uuid())
+  consultationNo  String          @unique
   
-  // Student Info
-  studentId           String
-  student             Student             @relation(fields: [studentId], references: [id])
+  studentId       String
+  student         Student         @relation(fields: [studentId], references: [id])
   
-  // Physician Info
-  physicianId         String
-  physician           Physician           @relation(fields: [physicianId], references: [id])
+  physicianId     String
+  physician       Physician       @relation(fields: [physicianId], references: [id])
   
-  // Consultation Details
-  chiefComplaint      String              // Main problem
-  historyOfPresenting String?             // Detailed history
-  symptoms            String              // JSON array of symptoms
-  physicalExamination String?
-  diagnosis           String
-  differentialDiagnosis String?
-  treatmentPlan       String?
-  notes               String?
-  followUpDate        DateTime?
-  
-  // Vital Signs
-  vitalSigns          VitalSigns[]
-  
-  // Status
-  status              consultationStatus  @default(waiting)
-  priority            priority            @default(normal)
+  // Medical Details
+  complaint       String          // Chief complaint
+  diagnosis       String          // Diagnosis
+  vitals          String?         // JSON: { temp, bp, pulse, weight }
+  symptoms        String?         // JSON array of symptoms
+  notes           String?
   
   // Relations
-  prescriptions       Prescription[]
+  drugRecords     DrugRecord[]    // Drugs administered during this visit
   
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
-  completedAt         DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
   
-  
-  isDeleted           Boolean             @default(false)
-
-  @@index([status])
-  @@index([physicianId, status])
-}
-
-model Prescription {
-  id                  String                @id @default(uuid())
-  prescriptionNo      String                @unique
-  
-  // Student & Physician
-  studentId           String
-  student             Student               @relation(fields: [studentId], references: [id])
-  physicianId         String
-  physician           Physician             @relation(fields: [physicianId], references: [id])
-  
-  // Consultation
-  consultationId      String
-  consultation        Consultation          @relation(fields: [consultationId], references: [id])
-  
-  // Prescription Details
-  prescriptionItems   PrescriptionItem[]
-  diagnosis           String
-  instructions        String?
-  
-  // Status & Workflow
-  status              prescriptionStatus    @default(pending)
-  priority            priority              @default(normal)
-  isPaid              Boolean               @default(false)
-  isDispensed         Boolean               @default(false)
-  dispensedBy         String?               // User ID who dispensed
-  dispensedAt         DateTime?
-  
-  // Pricing
-  totalCost           Float                 @default(0)
-  amountPaid          Float                 @default(0)
-  discount            Float                 @default(0)
-  
-  // Notifications
-  pharmacyNotified    Boolean               @default(false)
-  notifiedAt          DateTime?
-  studentNotified     Boolean               @default(false)
-  
-  // Validity
-  validUntil          DateTime?
-  
-  createdAt           DateTime              @default(now())
-  updatedAt           DateTime              @updatedAt
-  sync                Boolean               @default(false)
-  
-  isDeleted           Boolean               @default(false)
-
-  @@index([status])
-  @@index([status, priority])
-}
-
-model PrescriptionItem {
-  id                  String              @id @default(uuid())
-  
-  prescriptionId      String
-  prescription        Prescription        @relation(fields: [prescriptionId], references: [prescriptionNo])
-  
-  productId           String
-  product             Product             @relation(fields: [productId], references: [id])
-  
-  // Drug Details
-  drugName            String
-  dosage              String              // e.g., "500mg"
-  frequency           String              // e.g., "3 times daily", "Every 8 hours"
-  duration            String              // e.g., "7 days", "2 weeks"
-  route               String?             // Oral, Topical, IV, IM, etc.
-  instructions        String              // e.g., "Take after meals"
-  
-  quantityPrescribed  Int
-  quantityDispensed   Int                 @default(0)
-  
-  unitPrice           Float
-  totalPrice          Float
-  
-  isDispensed         Boolean             @default(false)
-  dispensedAt         DateTime?
-  dispensedBy         String?             // User ID
-  
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
-  
-  
-  isDeleted           Boolean             @default(false)
-}
-
-model DrugDispensal {
-  id                  String              @id @default(uuid())
-  dispensalNo         String              @unique
-  
-  prescriptionId      String
-  prescriptionNo      String
-  studentId           String
-  student             Student             @relation(fields: [studentId], references: [id])
-  
-  dispensedBy         String              // User ID
-  dispensedItems      String              // JSON array of dispensed items
-  
-  totalAmount         Float
-  notes               String?
-  
-  createdAt           DateTime            @default(now())
-  
-  
-  isDeleted           Boolean             @default(false)
-
+  @@index([studentId, createdAt])
+  @@index([physicianId, createdAt])
   @@index([createdAt])
 }
 
-model MedicalRecord {
-  id                  String              @id @default(uuid())
+// ==================== DRUG RECORDS (Main Tracking) ⭐⭐⭐ ====================
+// Every drug given to a student creates ONE record here
+// This is the core of the tracking system
+
+model DrugRecord {
+  id                  String        @id @default(uuid())
+  recordNo            String        @unique // DR-2025-0001
   
+  // WHO received the drug
   studentId           String
-  student             Student             @relation(fields: [studentId], references: [id])
+  student             Student       @relation(fields: [studentId], references: [id])
   
-  recordType          String              // consultation, prescription, lab_result, vaccination, etc.
-  title               String
-  description         String?
-  recordData          String?             // JSON - Flexible data storage
-  attachments         String?             // JSON array of file URLs
+  // WHO gave the drug
+  physicianId         String
+  physician           Physician     @relation(fields: [physicianId], references: [id])
+  physicianName       String        // Cached for quick display
   
-  createdBy           String              // User ID
+  // WHY they got it
+  consultationId      String
+  consultation        Consultation  @relation(fields: [consultationId], references: [id])
+  diagnosis           String        // Copied for audit trail
   
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
+  // WHAT drug
+  drugId              String
+  drug                Drug          @relation(fields: [drugId], references: [id])
+  drugName            String        // Cached for audit trail
   
+  // HOW MUCH
+  quantity            Int
+  unit                String
+  dosage              String?       // e.g., "500mg"
+  frequency           String?       // e.g., "3 times daily"
+  duration            String?       // e.g., "5 days"
+  instructions        String?       // How to take it
   
-  isDeleted           Boolean             @default(false)
-
-  @@index([studentId, recordType])
-}
-
-// ==================== INVENTORY MODELS (Modified for Drugs) ====================
-
-model Product {
-  id                  String              @id @default(uuid())
-  name                String              // Drug name
-  barcode             String
-  genericName         String?             // Generic drug name
-  brandName           String?             // Brand name
-  category            String?             // Antibiotic, Painkiller, etc.
-  manufacturer        String?
+  // WHEN
+  administeredAt      DateTime      @default(now())
+  
+  // TRACKING (Critical for theft prevention)
   batchNumber         String?
   expiryDate          DateTime?
+  stockBefore         Int           // Stock before giving
+  stockAfter          Int           // Stock after giving
+  unitCost            Float?        // Cost per unit
+  totalCost           Float?        // Total cost
   
-  // Pricing
-  wholeSalePrice      Float
-  retailPrice         Float
-  cost                Float
+  createdAt           DateTime      @default(now())
   
-  // Stock
-  quantity            Int
-  reorderLevel        Int?                // When to reorder
-  maxStockLevel       Int?
-  
-  taxRate             Int
-  unit                unit
-  description         String
-  
-  // Drug-specific fields
-  dosageForm          String?             // Tablet, Capsule, Syrup, Injection
-  strength            String?             // 500mg, 250mg/5ml
-  requiresPrescription Boolean            @default(true)
-  controlledSubstance Boolean            @default(false)
-  storageConditions   String?             // Store in cool dry place
-  
-  // Warehouse
-  
-  
-  // Relations
-  prescriptionItems   PrescriptionItem[]
-  purchaseItem        PurchaseItem[]
-  
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
-  sync                Boolean             @default(false)
-  syncedAt            DateTime?
-  
-  isDeleted           Boolean             @default(false)
-
-  
+  @@index([studentId, administeredAt])
+  @@index([drugId, administeredAt])
+  @@index([physicianId, administeredAt])
+  @@index([consultationId])
+  @@index([administeredAt])
+  @@index([batchNumber])
 }
 
-model Purchase {
-  id                  String              @id @default(cuid())
-  purchaseItem        PurchaseItem[]
-  taxRate             Float
-  subTotal            Float
-  notes               String?
-  amountPaid          Float?
-  grandTotal          Float
-  paidAmount          Float
-  balance             Float
+// ==================== DRUGS (Inventory) ====================
+
+model Drug {
+  id                  String              @id @default(uuid())
+  drugCode            String              @unique // Internal code: DRG-001
+  name                String
+  genericName         String?
+  brandName           String?
+  category            String              // Painkiller, Antibiotic, etc.
+  manufacturer        String?
+  
+  // Stock Management
+  currentStock        Int                 @default(0)
+  reorderLevel        Int                 @default(50)
+  maxStockLevel       Int?
+  
+  // Pricing
+  averageCost         Float               @default(0)
+  currentUnitPrice    Float               @default(0)
+  
+  unit                unit
+  description         String?
+  
+  // Drug Properties
+  dosageForm          String?             // Tablet, Syrup, Injection
+  strength            String?             // 500mg, 250mg/5ml
+  requiresPrescription Boolean            @default(true)
+  storageConditions   String?
+  
+  // Lifetime Tracking
+  totalPurchased      Int                 @default(0)
+  totalAdministered   Int                 @default(0)
+  totalAdjustments    Int                 @default(0)
+  
+  // Status
+  isActive            Boolean             @default(true)
+  
+  // Relations
+  drugRecords         DrugRecord[]
+  purchaseItems       PurchaseItem[]
+  drugMovements       DrugMovement[]
+  batches             DrugBatch[]
+  alerts              Alert[]
+  
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @updatedAt
-  referenceNo         String              @unique
+  
+  @@index([drugCode])
+  @@index([category])
+  @@index([currentStock])
+  @@index([isActive])
+}
+
+// ==================== DRUG BATCHES ====================
+
+model DrugBatch {
+  id                  String        @id @default(uuid())
+  batchNumber         String        @unique
+  
+  drugId              String
+  drug                Drug          @relation(fields: [drugId], references: [id])
+  
+  // Batch Details
+  manufactureDate     DateTime?
+  expiryDate          DateTime
+  supplier            String
+  
+  // Quantity Tracking
+  initialQuantity     Int
+  currentQuantity     Int
+  administeredQuantity Int          @default(0)
+  
+  // Cost
+  unitCost            Float
+  totalCost           Float
+  
+  // Status
+  isExpired           Boolean       @default(false)
+  
+  // Tracking
+  receivedDate        DateTime      @default(now())
+  receivedBy          String        // User name
+  
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  
+  @@index([drugId, expiryDate])
+  @@index([batchNumber])
+  @@index([expiryDate])
+}
+
+// ==================== DRUG MOVEMENTS (Complete Audit Trail) ⭐⭐⭐ ====================
+// Every stock change creates a record here
+// This is how admin tracks everything
+
+model DrugMovement {
+  id                  String          @id @default(uuid())
+  movementNo          String          @unique // MOV-2025-0001
+  
+  // WHAT drug moved
+  drugId              String
+  drug                Drug            @relation(fields: [drugId], references: [id])
+  drugName            String          // Cached for quick display
+  
+  // TYPE of movement
+  movementType        movementType
+  
+  // HOW MUCH moved
+  quantity            Int             // Can be negative for administration
+  unit                String
+  
+  // STOCK TRACKING (Before & After)
+  stockBefore         Int
+  stockAfter          Int
+  
+  // VALUE
+  unitCost            Float?
+  totalValue          Float?
+  
+  // WHY it moved
+  reason              String
+  notes               String?
+  
+  // REFERENCE to source record
+  referenceType       String?         // "consultation", "purchase", "adjustment"
+  referenceNo         String?         // Consultation no, Purchase no, etc.
+  
+  // WHO performed the movement
+  performedBy         String          // User name
+  performedById       String          // User ID
+  
+  // WHEN
+  performedAt         DateTime        @default(now())
+  
+  // Approval (for adjustments)
+  requiresApproval    Boolean         @default(false)
+  approvedBy          String?
+  approvedAt          DateTime?
+  approvalStatus      String?         // pending, approved, rejected
+  
+  createdAt           DateTime        @default(now())
+  
+  @@index([drugId, performedAt])
+  @@index([movementType])
+  @@index([performedBy])
+  @@index([performedAt])
+  @@index([referenceType, referenceNo])
+}
+
+// ==================== PURCHASES ====================
+
+model Purchase {
+  id                  String          @id @default(uuid())
+  purchaseOrderNo     String          @unique 
+  
+  supplier            String
+  supplierContact     String?
+  
+  // Items
+  purchaseItems       PurchaseItem[]
+  
+  // Financials
+  subTotal            Float
+  taxAmount           Float           @default(0)
+  discount            Float           @default(0)
+  totalAmount         Float
+  
+  // Status
+  status              String          @default("completed") // pending, completed, cancelled
+  
+  // Dates
+  purchaseDate        DateTime        @default(now())
+  deliveryDate        DateTime?
+  
+  // People
+  purchasedBy         String          // User name
+  purchasedById       String          // User ID
+  receivedBy          String?
+  
+  invoiceNumber       String?
+  invoiceDocument     String?         // File path
+  notes               String?
+  
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
 
   
-  
-  Supplier            Supplier?           @relation(fields: [supplierId], references: [id])
-  supplierId          String?
-  isDeleted           Boolean             @default(false)
+  @@index([purchaseOrderNo])
+  @@index([supplier])
+  @@index([purchaseDate])
+  @@index([status])
 }
 
 model PurchaseItem {
-  id                   String             @id @default(cuid())
-  productId            String?
-  product              Product?           @relation(fields: [productId], references: [id])
-  cost                 Float
-  productName          String?
-  selectedPrice        Float
-  priceType            String
-  quantity             Int
-  discount             Float
-  total                Float
-  profit               Float
-  sync                 Boolean            @default(false)
-  syncedAt             DateTime?
-  Purchase             Purchase?          @relation(fields: [purchaseId], references: [referenceNo])
-  purchaseId           String?
-  customRetailPrice    Float?
-  customWholesalePrice Float?
-  expiryDate           DateTime?
-  batchNumber          String?
-  createdAt            DateTime           @default(now())
-  updatedAt            DateTime           @updatedAt
-  isDeleted            Boolean            @default(false)
+  id                  String          @id @default(uuid())
+  
+  purchaseId          String
+  purchase            Purchase        @relation(fields: [purchaseId], references: [id])
+  
+  drugId              String
+  drug                Drug            @relation(fields: [drugId], references: [id])
+  
+  drugName            String          // Cached
+  batchNumber         String?
+  expiryDate          DateTime?
+  
+  quantityOrdered     Int
+  quantityReceived    Int
+  
+  unitCost            Float
+  totalCost           Float
+  
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  
+  @@index([purchaseId])
+  @@index([drugId])
 }
 
-model BalanceTransaction {
-  id                  String              @id @default(uuid())
-  studentId           String
-  student             Student             @relation(fields: [studentId], references: [id])
-  amount              Float
-  type                String              // CREDIT or DEBIT
-  description         String
-  paymentMethod       String?             // cash, card, bank_transfer, mobile_money
-  reference           String?             // Transaction reference
-  prescriptionId      String?             // If related to a prescription
-  balanceAfter        Float               // Balance after this transaction
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
-  
-  
-  isDeleted           Boolean             @default(false)
-}
+// ==================== SUPPLIERS ====================
 
 model Supplier {
-  id                  String              @id @default(uuid())
+  id                  String          @id @default(uuid())
+  supplierCode        String          @unique
   name                String
-  type                String
-  companyName         String?
+  contactPerson       String?
   email               String
-  address             String
   phone               String
-  purchase            Purchase[]
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @updatedAt
+  address             String
   
+  // Performance Tracking
+  totalPurchases      Int             @default(0)
+  totalValue          Float           @default(0)
+  reliabilityRating   Float?          // 0-5 stars
   
-  isDeleted           Boolean             @default(false)
+  isActive            Boolean         @default(true)
+  notes               String?
+  
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  
+  @@index([supplierCode])
+  @@index([isActive])
 }
 
-model ReceiptSettings {
-  id                      String              @id @default(uuid())
-  companyName             String
-  businessName            String
-  address                 String
-  city                    String
-  state                   String
-  country                 String
-  phone                   String
-  email                   String
-  website                 String
+// ==================== ALERTS & NOTIFICATIONS ====================
 
-  // Receipt Configuration
-  receiptTitle            String?
-  headerMessage           String?
-  footerMessage           String?
-  showLogo                Boolean?            @default(true)
-  logoUrl                 String?
-  showQrCode              Boolean?            @default(true)
-  qrCodeContent           String?             @default("website")
-  customQrContent         String?
-
-  // Display Options
-  showStudentInfo         Boolean?            @default(true)
-  showPhysicianInfo       Boolean?            @default(true)
-  showPharmacistInfo      Boolean?            @default(true)
-  showDrugCodes           Boolean?            @default(true)
-  showDrugDescriptions    Boolean?            @default(true)
-  showDosageInstructions  Boolean?            @default(true)
-  showTimestamp           Boolean?            @default(true)
-  use24HourFormat         Boolean?            @default(false)
-
-  // Format Settings
-  paperSize               String?             @default("80mm")
-  fontSize                String?             @default("normal")
-  printDensity            String?             @default("normal")
-  lineSpacing             String?             @default("normal")
-
-  // Branding
-  primaryColor            String?             @default("#000000")
-  accentColor             String?             @default("#666666")
-  fontFamily              String?             @default("monospace")
-
-  // Additional Settings
-  printCopyCount          Int?                @default(1)
-  autoPrint               Boolean?            @default(false)
-  language                String?             @default("en")
-  currency                String?             @default("NGN")
-  currencySymbol          String?             @default("₦")
-  currencyPosition        String?             @default("before")
-
-  createdAt               DateTime            @default(now())
-  updatedAt               DateTime            @updatedAt
-  sync                    Boolean             @default(false)
-  syncedAt                DateTime?
-  isDeleted               Boolean             @default(false)
-}
-
-// ==================== DRUG INVENTORY MODELS ====================
-
-model Drug {
-  id                      String              @id @default(uuid())
-  code                    String              // Drug code (e.g., PAI001, ANT002)
-  name                    String              // Drug name
-  category                String              // Category (Painkillers, Antibiotics, etc.)
-  manufacturer            String              // Manufacturer name
-  description             String?             // Drug description
-  activeIngredient        String?             // Active ingredient
-  strength                String?             // Strength/dosage (e.g., 500mg, 10ml)
-  dosageForm              String?             // Tablet, Capsule, Syrup, etc.
+model Alert {
+  id                  String          @id @default(uuid())
   
-  // Stock Management
-  quantity                Int                 @default(0)
-  reorderLevel            Int                 @default(0)
+  alertType           alertType
+  severity            String          // info, warning, critical
   
-  // Pricing
-  price                   Float               // Selling price
-  cost                    Float               // Cost price
+  title               String
+  message             String
   
-  // Batch & Expiry
-  expiryDate              DateTime
-  batchNumber             String
+  // Context
+  drugId              String?
+  drug                Drug?           @relation(fields: [drugId], references: [id])
   
-  // Additional Info
-  unit                    String              @default("Pieces")
-  storageConditions       String?
-  prescriptionRequired    Boolean             @default(false)
-  supplier                String?
+  relatedEntity       String?         // student_id, physician_id, etc.
+  relatedEntityType   String?         // "student", "physician", "drug"
   
-  // Disposal Info (for expired drugs)
-  isDisposed              Boolean             @default(false)
-  disposalDate            DateTime?
-  disposalMethod          String?
-  disposalReason          String?
-  disposalNotes           String?
-  disposedBy              String?
-  
-  // Warehouse & Sync
-  
-  
-  // Audit Fields
-  createdBy               String?
-  lastStockUpdate         DateTime?
-  
-  // Relations
-  stockMovements          DrugStockMovement[]
-  disposalRecords         DrugDisposal[]
-  
-  createdAt               DateTime            @default(now())
-  updatedAt               DateTime            @updatedAt
-  sync                    Boolean             @default(false)
-  syncedAt                DateTime?
-  isDeleted               Boolean             @default(false)
-
- 
-}
-
-model DrugCategory {
-  id                      String              @id @default(uuid())
-  name                    String              // Category name
-  description             String?             // Category description
-  color                   String              @default("#3B82F6") // Color for UI
-  
-  // Warehouse
- 
+  // Details
+  currentStock        Int?
+  reorderLevel        Int?
+  expiryDate          DateTime?
   
   // Status
-  isActive                Boolean             @default(true)
+  isResolved          Boolean         @default(false)
+  resolvedBy          String?
+  resolvedAt          DateTime?
+  resolutionNotes     String?
   
-  // Audit
-  createdBy               String?
+  // Notification
+  notifiedUsers       String?         // JSON array of user IDs
+  notifiedAt          DateTime?
   
-  createdAt               DateTime            @default(now())
-  updatedAt               DateTime            @updatedAt
-  isDeleted               Boolean             @default(false)
-
- 
-}
-
-model DrugStockMovement {
-  id                      String              @id @default(uuid())
-  drugId                  String
-  drug                    Drug                @relation(fields: [drugId], references: [id])
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
   
-  type                    String              // 'in', 'out', 'adjustment'
-  quantity                Int                 // Quantity moved (positive for in, negative for out)
-  reason                  String              // Reason for movement
-  reference               String?             // Reference number (invoice, transfer, etc.)
-  notes                   String?             // Additional notes
-  balanceAfter            Int                 // Stock balance after this movement
-  
-  // Warehouse
-  warehouseId             String
-  
-  // Audit
-  createdBy               String              @default("system")
-  
-  createdAt               DateTime            @default(now())
-
-  @@index([drugId, createdAt])
-  @@index([warehouseId, createdAt])
-}
-
-model DrugDisposal {
-  id                      String              @id @default(uuid())
-  drugId                  String
-  drug                    Drug                @relation(fields: [drugId], references: [id])
-  
-  disposalMethod          String              // Incineration, Return to Supplier, etc.
-  disposalReason          String              // Expired, Damaged, etc.
-  notes                   String?
-  
-  // Warehouse
-  warehouseId             String
-  
-  // Audit
-  disposedBy              String
-  disposalDate            DateTime            @default(now())
-  
-  createdAt               DateTime            @default(now())
-
+  @@index([alertType, isResolved])
+  @@index([severity, isResolved])
+  @@index([createdAt])
   @@index([drugId])
-  @@index([warehouseId, disposalDate])
 }
 
-// Add warehouse model if it doesn't exist
+// ==================== STOCK AUDIT (Reconciliation) ====================
+
+model StockAudit {
+  id                  String            @id @default(uuid())
+  auditNo             String            @unique // AUDIT-2025-001
+  
+  auditDate           DateTime          @default(now())
+  auditType           String            @default("full") // full, spot, random
+  
+  // Who performed it
+  auditedBy           String            // User name
+  auditedById         String            // User ID
+  verifiedBy          String?           // Second checker
+  
+  // Results
+  totalDrugs          Int
+  totalDiscrepancies  Int
+  totalValueDiscrepancy Float
+  
+  status              String            @default("in_progress") // in_progress, completed
+  
+  findings            String?           // JSON summary
+  recommendations     String?
+  
+  // Items
+  auditItems          StockAuditItem[]
+  
+  completedAt         DateTime?
+  createdAt           DateTime          @default(now())
+  
+  @@index([auditNo])
+  @@index([auditDate])
+  @@index([status])
+}
+
+model StockAuditItem {
+  id                  String          @id @default(uuid())
+  
+  auditId             String
+  audit               StockAudit      @relation(fields: [auditId], references: [id])
+  
+  drugId              String
+  drugName            String
+  batchNumber         String?
+  
+  // Comparison
+  systemStock         Int             // What system says
+  physicalStock       Int             // What was counted
+  discrepancy         Int             // Difference
+  discrepancyValue    Float?          // Financial impact
+  
+  // Investigation
+  possibleCause       String?
+  actionTaken         String?
+  notes               String?
+  
+  createdAt           DateTime        @default(now())
+  
+  @@index([auditId])
+  @@index([drugId])
+  @@index([discrepancy])
+}
+
+// ==================== ACTIVITY LOGS (Complete Audit Trail) ====================
+
+model ActivityLog {
+  id                  String          @id @default(uuid())
+  
+  // WHO did it
+  userId              String
+  userName            String
+  userRole            String
+  
+  // WHAT they did
+  action              String          // "created", "updated", "deleted", etc.
+  entity              String          // "drug", "consultation", "purchase"
+  entityId            String?
+  
+  description         String          // Human-readable
+  
+  // Details
+  oldValue            String?         // JSON - before change
+  newValue            String?         // JSON - after change
+  
+  // Context
+  ipAddress           String?
+  userAgent           String?
+  
+  createdAt           DateTime        @default(now())
+  
+  @@index([userId, createdAt])
+  @@index([entity, entityId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+// ==================== SYSTEM NOTIFICATIONS ====================
+
+model Notification {
+  id                  String          @id @default(uuid())
+  
+  recipientId         String          // User ID
+  recipientRole       String?         // admin, physician, etc.
+  
+  type                String          // drug_administered, low_stock, etc.
+  title               String
+  message             String
+  
+  priority            String          @default("normal") // low, normal, high, urgent
+  
+  // Context
+  relatedEntity       String?         // drug_id, consultation_id, etc.
+  relatedEntityType   String?
+  
+  // Status
+  isRead              Boolean         @default(false)
+  readAt              DateTime?
+  
+  // Actions
+  actionUrl           String?         // Link to relevant page
+  actionText          String?         // Button text
+  
+  createdAt           DateTime        @default(now())
+  
+  @@index([recipientId, isRead])
+  @@index([recipientRole, isRead])
+  @@index([createdAt])
+  @@index([type])
+}
