@@ -1,334 +1,146 @@
 // app/api/admin/dashboard/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@/prisma/generated/database";
+import prisma from "@/lib/oflinePrisma";
 
-const prisma = new PrismaClient();
-
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   try {
-    // Get current date ranges
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const thirtyDaysFromNow = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
     const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const thirtyDaysFromNow = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
 
-    // Parallel data fetching for better performance
     const [
+      totalDrugs,
       totalStudents,
       activePhysicians,
-      pendingPrescriptions,
-      lowStockProducts,
+      lowStockDrugs,
+      expiringBatches,
       todayConsultations,
-      todayDispensals,
-      expiringDrugs,
-      recentActivities,
-      dailyConsultations,
-      topPrescribedDrugs,
-      diseaseDistribution,
-      departmentVisits,
-      queueCount,
-      recentStudents,
-      recentConsultations,
+      todayAdministrations,
+      recentMovements,
+      recentAdministrations,
+      unresolvedAlerts,
+      dailyAdministrations,
+      topAdministeredDrugs,
     ] = await Promise.all([
-      // Total Students
-      prisma.student.count({ where: { isDeleted: false, isActive: true } }),
-
-      // Active Physicians
-      prisma.physician.count({ where: { isDeleted: false, isActive: true } }),
-
-      // Pending Prescriptions
-      prisma.prescription.count({
-        where: { isDeleted: false, status: "pending" },
-      }),
-
-      // Low Stock Products (below reorder level)
-      prisma.product.findMany({
-        where: {
-          isDeleted: false,
-          quantity: { lte: prisma.product.fields.reorderLevel },
-          reorderLevel: { not: null },
-        },
-        select: {
-          id: true,
-          name: true,
-          quantity: true,
-          reorderLevel: true,
-          unit: true,
-        },
+      prisma.drug.count({ where: { isActive: true } }),
+      prisma.student.count({ where: { isActive: true } }),
+      prisma.physician.count({ where: { isActive: true } }),
+      prisma.drug.findMany({
+        where: { isActive: true, currentStock: { lte: prisma.drug.fields.reorderLevel as any } },
+        select: { id: true, name: true, drugCode: true, currentStock: true, reorderLevel: true, unit: true },
         take: 10,
       }),
-
-      // Today's Consultations
-      prisma.consultation.count({
-        where: {
-          isDeleted: false,
-          createdAt: { gte: today },
-        },
-      }),
-
-      // Today's Drug Dispensals
-      prisma.drugDispensal.count({
-        where: {
-          isDeleted: false,
-          createdAt: { gte: today },
-        },
-      }),
-
-      // Drugs expiring in 30 days
-      prisma.product.findMany({
-        where: {
-          isDeleted: false,
-          expiryDate: {
-            gte: now,
-            lte: thirtyDaysFromNow,
-          },
-        },
-        select: {
-          id: true,
-          name: true,
-          expiryDate: true,
-          quantity: true,
-          batchNumber: true,
-        },
+      prisma.drugBatch.findMany({
+        where: { expiryDate: { gt: now, lte: thirtyDaysFromNow } },
+        select: { id: true, batchNumber: true, expiryDate: true, currentQuantity: true, drug: { select: { id: true, name: true } } },
+        orderBy: { expiryDate: "asc" },
         take: 10,
       }),
-
-      // Recent Activities (mix of consultations, prescriptions, dispensals)
-      prisma.consultation.findMany({
-        where: { isDeleted: false },
-        select: {
-          id: true,
-          consultationNo: true,
-          createdAt: true,
-          status: true,
-          student: { select: { firstName: true, lastName: true } },
-          physician: { select: { firstName: true, lastName: true } },
-        },
-        orderBy: { createdAt: "desc" },
-        take: 5,
-      }),
-
-      // Daily Consultations (last 7 days)
-      prisma.$queryRaw`
-  SELECT 
-    DATE_TRUNC('day', "createdAt") AS date,
-    COUNT(*) AS count
-  FROM "Consultation"
-  WHERE "isDeleted" = FALSE
-    AND "createdAt" >= ${sevenDaysAgo.toISOString()}
-  GROUP BY DATE_TRUNC('day', "createdAt")
-  ORDER BY date ASC
-`,
-
-
-      // Top 10 Prescribed Drugs
-      prisma.$queryRaw`
-  SELECT 
-    pi."drugName" AS name,
-    COUNT(*) AS "prescriptionCount",
-    SUM(pi."quantityDispensed") AS "totalDispensed"
-  FROM "PrescriptionItem" pi
-  INNER JOIN "Prescription" p ON pi."prescriptionId" = p."prescriptionNo"
-  WHERE pi."isDeleted" = FALSE AND p."isDeleted" = FALSE
-  GROUP BY pi."drugName"
-  ORDER BY "prescriptionCount" DESC
-  LIMIT 10
-`,
-
-
-      // Disease Distribution (from diagnosis)
-      prisma.$queryRaw`
-  SELECT 
-    "diagnosis",
-    COUNT(*) AS count
-  FROM "Consultation"
-  WHERE "isDeleted" = FALSE
-    AND "diagnosis" IS NOT NULL 
-    AND "diagnosis" != ''
-  GROUP BY "diagnosis"
-  ORDER BY count DESC
-  LIMIT 10
-`,
-
-
-
-      // Department-wise visits
-      prisma.$queryRaw`
-        SELECT 
-          s.department,
-          COUNT(c.id) as visitCount
-        FROM Student s
-        LEFT JOIN Consultation c ON s.id = c.studentId AND c.isDeleted = 0
-        WHERE s.isDeleted = 0
-        GROUP BY s.department
-        ORDER BY visitCount DESC
-        LIMIT 10
-      `,
-
-      // Current Queue Count
-      prisma.$queryRaw`
-  SELECT 
-    s."department",
-    COUNT(c.id) AS "visitCount"
-  FROM "Student" s
-  LEFT JOIN "Consultation" c 
-    ON s.id = c."studentId" 
-    AND c."isDeleted" = FALSE
-  WHERE s."isDeleted" = FALSE
-  GROUP BY s."department"
-  ORDER BY "visitCount" DESC
-  LIMIT 10
-`,
-
-
-      // Recent Students (last 5)
-      prisma.student.findMany({
-        where: { isDeleted: false },
-        select: {
-          id: true,
-          matricNumber: true,
-          firstName: true,
-          lastName: true,
-          department: true,
-          createdAt: true,
-        },
-        orderBy: { createdAt: "desc" },
-        take: 5,
-      }),
-
-      // Recent Consultations with details
-      prisma.consultation.findMany({
-        where: { isDeleted: false },
-        include: {
-          student: {
-            select: {
-              firstName: true,
-              lastName: true,
-              matricNumber: true,
-              department: true,
-            },
-          },
-          physician: {
-            select: {
-              firstName: true,
-              lastName: true,
-              specialization: true,
-            },
-          },
-        },
-        orderBy: { createdAt: "desc" },
+      prisma.consultation.count({ where: { createdAt: { gte: today } } }),
+      prisma.drugRecord.count({ where: { administeredAt: { gte: today } } }),
+      prisma.drugMovement.findMany({ orderBy: { performedAt: "desc" }, take: 20 }),
+      prisma.drugRecord.findMany({
+        orderBy: { administeredAt: "desc" },
         take: 10,
+        include: { student: { select: { name: true, matricNumber: true } }, physician: { select: { name: true } } },
       }),
+      prisma.alert.findMany({ where: { isResolved: false }, orderBy: { createdAt: "desc" }, take: 10 }),
+      prisma.$queryRawUnsafe<any[]>(
+        `SELECT DATE_TRUNC('day', "administeredAt") AS date, COUNT(*)::int AS count
+         FROM "DrugRecord"
+         WHERE "administeredAt" >= $1
+         GROUP BY DATE_TRUNC('day', "administeredAt")
+         ORDER BY date ASC`,
+        sevenDaysAgo
+      ),
+      prisma.$queryRawUnsafe<any[]>(
+        `SELECT "drugName" AS name, COUNT(*)::int AS count, SUM("quantity")::int AS total
+         FROM "DrugRecord"
+         GROUP BY "drugName"
+         ORDER BY count DESC
+         LIMIT 10`
+      ),
     ]);
 
-    // Format the response
     const dashboard = {
       metrics: {
+        totalDrugs,
         totalStudents,
         activePhysicians,
-        pendingPrescriptions,
-        lowStockCount: lowStockProducts.length,
         todayConsultations,
-        todayDispensals,
-        expiringDrugsCount: expiringDrugs.length,
-        queueCount,
+        todayAdministrations,
+        lowStockCount: lowStockDrugs.length,
+        expiringSoonCount: expiringBatches.length,
       },
       alerts: {
-        lowStock: lowStockProducts.map((p:any) => ({
-          id: p.id,
-          name: p.name,
-          quantity: p.quantity,
-          reorderLevel: p.reorderLevel,
-          unit: p.unit,
-          severity: "high",
-        })),
-        expiringDrugs: expiringDrugs.map((d:any) => ({
+        lowStock: lowStockDrugs.map((d: any) => ({
           id: d.id,
           name: d.name,
-          expiryDate: d.expiryDate,
-          quantity: d.quantity,
-          batchNumber: d.batchNumber,
-          daysUntilExpiry: Math.ceil(
-            (new Date(d.expiryDate!).getTime() - now.getTime()) /
-              (1000 * 60 * 60 * 24)
-          ),
-          severity:
-            Math.ceil(
-              (new Date(d.expiryDate!).getTime() - now.getTime()) /
-                (1000 * 60 * 60 * 24)
-            ) <= 7
-              ? "high"
-              : "medium",
+          drugCode: d.drugCode,
+          quantity: d.currentStock,
+          reorderLevel: d.reorderLevel,
+          unit: d.unit,
+          severity: "high",
         })),
+        expiringBatches: expiringBatches.map((b: any) => ({
+          id: b.id,
+          drugId: b.drug.id,
+          drugName: b.drug.name,
+          batchNumber: b.batchNumber,
+          expiryDate: b.expiryDate,
+          currentQuantity: b.currentQuantity,
+          daysUntilExpiry: Math.ceil((new Date(b.expiryDate).getTime() - now.getTime()) / (1000 * 60 * 60 * 24)),
+          severity: "medium",
+        })),
+        systemAlerts: unresolvedAlerts,
       },
+      liveMovements: recentMovements.map((m: any) => ({
+        id: m.id,
+        movementNo: m.movementNo,
+        drugId: m.drugId,
+        drugName: m.drugName,
+        type: m.movementType,
+        quantity: m.quantity,
+        unit: m.unit,
+        stockBefore: m.stockBefore,
+        stockAfter: m.stockAfter,
+        performedBy: m.performedBy,
+        performedAt: m.performedAt,
+        reason: m.reason,
+      })),
+      recentAdministrations: recentAdministrations.map((r: any) => ({
+        id: r.id,
+        recordNo: r.recordNo,
+        drugId: r.drugId,
+        drugName: r.drugName,
+        quantity: r.quantity,
+        unit: r.unit,
+        student: { name: r.student?.name || null, matricNumber: r.student?.matricNumber || null },
+        physicianName: r.physicianName || r.physician?.name || null,
+        administeredAt: r.administeredAt,
+      })),
       charts: {
-        dailyConsultations: (dailyConsultations as any[]).map((d) => ({
-          date: new Date(d.date).toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-          }),
+        dailyAdministrations: dailyAdministrations.map((d: any) => ({
+          date: d.date,
           count: Number(d.count),
         })),
-        topPrescribedDrugs: (topPrescribedDrugs as any[]).map((d) => ({
-          name: d.name,
-          count: Number(d.prescriptionCount),
-          dispensed: Number(d.totalDispensed || 0),
-        })),
-        diseaseDistribution: (diseaseDistribution as any[]).map(
-          (d, index) => ({
-            name: d.diagnosis,
-            value: Number(d.count),
-            color: [
-              "#3b82f6",
-              "#10b981",
-              "#f59e0b",
-              "#ef4444",
-              "#8b5cf6",
-              "#ec4899",
-              "#14b8a6",
-              "#f97316",
-              "#06b6d4",
-              "#84cc16",
-            ][index % 10],
-          })
-        ),
-        departmentVisits: (departmentVisits as any[]).map((d) => ({
-          department: d.department,
-          visits: Number(d.visitCount),
+        topAdministeredDrugs: topAdministeredDrugs.map((t: any) => ({
+          name: t.name,
+          count: Number(t.count),
+          total: Number(t.total || 0),
         })),
       },
-      recentActivities: recentActivities.map((activity:any) => ({
-        id: activity.id,
-        type: "consultation",
-        title: `Consultation ${activity.consultationNo}`,
-        description: `${activity.student.firstName} ${activity.student.lastName} consulted with Dr. ${activity.physician.firstName} ${activity.physician.lastName}`,
-        timestamp: activity.createdAt,
-        status: activity.status,
-      })),
-      recentStudents,
-      recentConsultations: recentConsultations.map((c:any) => ({
-        id: c.id,
-        consultationNo: c.consultationNo,
-        student: `${c.student.firstName} ${c.student.lastName}`,
-        studentMatric: c.student.matricNumber,
-        department: c.student.department,
-        physician: `Dr. ${c.physician.firstName} ${c.physician.lastName}`,
-        specialization: c.physician.specialization,
-        diagnosis: c.diagnosis,
-        status: c.status,
-        priority: c.priority,
-        createdAt: c.createdAt,
-      })),
+      quickActions: [
+        { key: "review_low_stock", label: "Review Low Stock", count: lowStockDrugs.length },
+        { key: "check_expiring", label: "Check Expiring Batches", count: expiringBatches.length },
+        { key: "view_alerts", label: "View Alerts", count: unresolvedAlerts.length },
+      ],
     };
 
-    return NextResponse.json(dashboard, { status: 200 });
+    return NextResponse.json(dashboard);
   } catch (error) {
     console.error("Admin Dashboard Error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch dashboard data", details: error },
-      { status: 500 }
-    );
-  } finally {
-    await prisma.$disconnect();
+    return NextResponse.json({ error: "Failed to fetch dashboard data" }, { status: 500 });
   }
 }
