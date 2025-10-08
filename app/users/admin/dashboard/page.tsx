@@ -110,6 +110,71 @@ interface DashboardData {
   }>
 }
 
+// --- DUMMY DATA ---
+const dummyData: DashboardData = {
+  metrics: {
+    totalStudents: 12543,
+    activePhysicians: 12,
+    pendingPrescriptions: 28,
+    lowStockCount: 5,
+    todayConsultations: 47,
+    todayDispensals: 89,
+    expiringDrugsCount: 8,
+    queueCount: 15,
+  },
+  alerts: {
+    lowStock: [
+      { id: "ls1", name: "Paracetamol 500mg", quantity: 45, reorderLevel: 50, unit: "packs", severity: "high" },
+      { id: "ls2", name: "Amoxicillin 250mg", quantity: 18, reorderLevel: 20, unit: "bottles", severity: "high" },
+      { id: "ls3", name: "Ibuprofen 200mg", quantity: 95, reorderLevel: 100, unit: "boxes", severity: "medium" },
+      { id: "ls4", name: "Vitamin C 1000mg", quantity: 12, reorderLevel: 25, unit: "tubes", severity: "high" },
+      { id: "ls5", name: "Cotton Wool 500g", quantity: 4, reorderLevel: 5, unit: "packs", severity: "high" },
+    ],
+    expiringDrugs: [
+      { id: "ed1", name: "Ciprofloxacin 500mg", expiryDate: "2025-10-30", quantity: 25, batchNumber: "BATCH001", daysUntilExpiry: 22, severity: "high" },
+      { id: "ed2", name: "Salbutamol Inhaler", expiryDate: "2025-11-05", quantity: 10, batchNumber: "BATCH002", daysUntilExpiry: 28, severity: "high" },
+      { id: "ed3", name: "Metformin 500mg", expiryDate: "2025-10-25", quantity: 50, batchNumber: "BATCH003", daysUntilExpiry: 17, severity: "high" },
+      { id: "ed4", name: "Omeprazole 20mg", expiryDate: "2025-11-15", quantity: 100, batchNumber: "BATCH004", daysUntilExpiry: 38, severity: "medium" },
+      { id: "ed5", name: "Amlodipine 5mg", expiryDate: "2025-11-20", quantity: 70, batchNumber: "BATCH005", daysUntilExpiry: 43, severity: "medium" },
+      { id: "ed6", name: "Simvastatin 20mg", expiryDate: "2025-11-22", quantity: 30, batchNumber: "BATCH006", daysUntilExpiry: 45, severity: "medium" },
+      { id: "ed7", name: "Lisinopril 10mg", expiryDate: "2025-11-18", quantity: 60, batchNumber: "BATCH007", daysUntilExpiry: 41, severity: "medium" },
+      { id: "ed8", name: "Atorvastatin 40mg", expiryDate: "2025-11-12", quantity: 40, batchNumber: "BATCH008", daysUntilExpiry: 35, severity: "medium" },
+    ],
+  },
+  charts: {
+    dailyConsultations: [
+      { date: "Oct 1", count: 34 }, { date: "Oct 2", count: 45 }, { date: "Oct 3", count: 39 }, { date: "Oct 4", count: 52 }, { date: "Oct 5", count: 48 }, { date: "Oct 6", count: 61 }, { date: "Oct 7", count: 47 },
+    ],
+    topPrescribedDrugs: [
+      { name: "Paracetamol", count: 250, dispensed: 240 }, { name: "Amoxicillin", count: 180, dispensed: 175 }, { name: "Loratadine", count: 150, dispensed: 150 }, { name: "Ibuprofen", count: 145, dispensed: 140 }, { name: "Vitamin C", count: 120, dispensed: 120 }, { name: "Metronidazole", count: 110, dispensed: 105 }, { name: "Ciprofloxacin", count: 90, dispensed: 88 }, { name: "Omeprazole", count: 85, dispensed: 80 }, { name: "Salbutamol", count: 70, dispensed: 65 }, { name: "Artemether", count: 65, dispensed: 65 },
+    ],
+    diseaseDistribution: [
+      { name: "Malaria", value: 400, color: "#10b981" }, { name: "Common Cold", value: 300, color: "#3b82f6" }, { name: "Typhoid Fever", value: 250, color: "#f97316" }, { name: "UTI", value: 180, color: "#ef4444" }, { name: "Gastroenteritis", value: 150, color: "#8b5cf6" }, { name: "Headache", value: 120, color: "#f59e0b" }, { name: "Dermatitis", value: 90, color: "#ec4899" }, { name: "Others", value: 200, color: "#6b7280" },
+    ],
+    departmentVisits: [
+      { department: "Engineering", visits: 120 }, { department: "Sciences", visits: 95 }, { department: "Arts & Humanities", visits: 80 }, { department: "Management Sci.", visits: 70 }, { department: "Education", visits: 65 }, { department: "Social Sci.", visits: 60 }, { department: "Law", visits: 40 },
+    ],
+  },
+  recentActivities: [
+    { id: "ra1", type: "consultation", title: "New Consultation: CON-00123", description: "Dr. Ben Carter completed consultation for Musa Ibrahim (19/ENG/012).", timestamp: "2025-10-08T08:30:00.000Z", status: "completed", },
+    { id: "ra2", type: "inventory", title: "Stock Update: Paracetamol", description: "Pharmacist updated stock for Paracetamol 500mg. 50 packs added.", timestamp: "2025-10-08T08:15:00.000Z", status: "updated", },
+    { id: "ra3", type: "student", title: "New Student Registered", description: "Amina Yusuf (21/SCI/045) was registered in the system.", timestamp: "2025-10-08T08:05:00.000Z", status: "created", },
+    { id: "ra4", type: "prescription", title: "Prescription Dispensed: PRE-00214", description: "Prescription for Fatima Bala (20/EDU/088) was fulfilled.", timestamp: "2025-10-08T07:50:00.000Z", status: "fulfilled", },
+  ],
+  recentStudents: [
+    { id: "rs1", matricNumber: "21/SCI/045", firstName: "Amina", lastName: "Yusuf", department: "Computer Science", createdAt: "2025-10-08T08:05:00.000Z", },
+    { id: "rs2", matricNumber: "21/MGT/011", firstName: "David", lastName: "Okoro", department: "Business Administration", createdAt: "2025-10-07T15:20:00.000Z", },
+    { id: "rs3", matricNumber: "21/ART/032", firstName: "Chiamaka", lastName: "Eze", department: "History", createdAt: "2025-10-07T14:10:00.000Z", },
+    { id: "rs4", matricNumber: "21/ENG/098", firstName: "Samuel", lastName: "Adeboye", department: "Mechanical Engineering", createdAt: "2025-10-07T11:00:00.000Z", },
+  ],
+  recentConsultations: [
+    { id: "rc1", consultationNo: "CON-00123", student: "Musa Ibrahim", studentMatric: "19/ENG/012", department: "Civil Engineering", physician: "Dr. Ben Carter", specialization: "General Physician", diagnosis: "Acute Malaria", status: "completed", priority: "routine", createdAt: "2025-10-08T08:30:00.000Z", },
+    { id: "rc2", consultationNo: "CON-00122", student: "Fatima Bala", studentMatric: "20/EDU/088", department: "Education", physician: "Dr. Aisha Bello", specialization: "General Physician", diagnosis: "Upper Respiratory Tract Infection", status: "completed", priority: "urgent", createdAt: "2025-10-08T07:45:00.000Z", },
+    { id: "rc3", consultationNo: "CON-00121", student: "John Doe", studentMatric: "18/LAW/001", department: "Law", physician: "Dr. Ben Carter", specialization: "General Physician", diagnosis: "Minor Laceration", status: "awaiting-prescription", priority: "emergency", createdAt: "2025-10-07T16:00:00.000Z", },
+    { id: "rc4", consultationNo: "CON-00120", student: "Jane Smith", studentMatric: "19/SCI/023", department: "Biochemistry", physician: "Dr. Aisha Bello", specialization: "General Physician", diagnosis: "Allergic Reaction", status: "completed", priority: "routine", createdAt: "2025-10-07T15:30:00.000Z", },
+  ],
+}
+
 export default function AdminDashboardPage() {
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null)
   const [loading, setLoading] = useState(true)
@@ -123,14 +188,21 @@ export default function AdminDashboardPage() {
   }, [])
 
   const fetchDashboardData = async () => {
+    setLoading(true)
     try {
-      const response = await fetch("/api/admin/dashboard")
-      if (!response.ok) throw new Error("Failed to fetch dashboard data")
-      const data = await response.json()
+      // Simulate an API call delay
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      
+      // Use the dummy data instead of fetching
+      const data = dummyData
+      
+      if (!data) throw new Error("Failed to load dummy data")
+      
       setDashboardData(data)
       setError(null)
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred")
+      setDashboardData(null) // Clear data on error
     } finally {
       setLoading(false)
     }
@@ -183,10 +255,17 @@ export default function AdminDashboardPage() {
         <div className="flex flex-1 items-center justify-center">
           <Card className="w-96">
             <CardHeader>
-              <CardTitle className="text-red-600">Error</CardTitle>
+              <CardTitle className="text-red-600 flex items-center gap-2">
+                <AlertCircle />
+                Error
+              </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p>{error || "Failed to load dashboard data"}</p>
+            <CardContent className="space-y-4">
+              <p>{error || "An unknown error occurred while loading dashboard data."}</p>
+              <Button onClick={fetchDashboardData}>
+                 <Activity className="h-4 w-4 mr-2"/>
+                 Try Again
+              </Button>
             </CardContent>
           </Card>
         </div>
@@ -236,7 +315,7 @@ export default function AdminDashboardPage() {
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{metrics.totalStudents}</div>
+              <div className="text-2xl font-bold">{metrics?.totalStudents}</div>
               <p className="text-xs text-muted-foreground">Registered and active</p>
             </CardContent>
           </Card>
@@ -247,7 +326,7 @@ export default function AdminDashboardPage() {
               <Stethoscope className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{metrics.activePhysicians}</div>
+              <div className="text-2xl font-bold">{metrics?.activePhysicians}</div>
               <p className="text-xs text-muted-foreground">Currently available</p>
             </CardContent>
           </Card>
@@ -258,7 +337,7 @@ export default function AdminDashboardPage() {
               <FileText className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{metrics.pendingPrescriptions}</div>
+              <div className="text-2xl font-bold">{metrics?.pendingPrescriptions}</div>
               <p className="text-xs text-muted-foreground">Awaiting fulfillment</p>
             </CardContent>
           </Card>
@@ -269,7 +348,7 @@ export default function AdminDashboardPage() {
               <Package className="h-4 w-4 text-yellow-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-yellow-600">{metrics.lowStockCount}</div>
+              <div className="text-2xl font-bold text-yellow-600">{metrics?.lowStockCount}</div>
               <p className="text-xs text-muted-foreground">Below reorder level</p>
             </CardContent>
           </Card>
@@ -283,7 +362,7 @@ export default function AdminDashboardPage() {
               <Activity className="h-4 w-4 text-blue-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-600">{metrics.todayConsultations}</div>
+              <div className="text-2xl font-bold text-blue-600">{metrics?.todayConsultations}</div>
               <p className="text-xs text-muted-foreground">Consultations completed</p>
             </CardContent>
           </Card>
@@ -294,7 +373,7 @@ export default function AdminDashboardPage() {
               <Package className="h-4 w-4 text-green-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">{metrics.todayDispensals}</div>
+              <div className="text-2xl font-bold text-green-600">{metrics?.todayDispensals}</div>
               <p className="text-xs text-muted-foreground">Prescriptions fulfilled</p>
             </CardContent>
           </Card>
@@ -305,7 +384,7 @@ export default function AdminDashboardPage() {
               <Clock className="h-4 w-4 text-orange-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-orange-600">{metrics.queueCount}</div>
+              <div className="text-2xl font-bold text-orange-600">{metrics?.queueCount}</div>
               <p className="text-xs text-muted-foreground">Patients waiting</p>
             </CardContent>
           </Card>
@@ -316,7 +395,7 @@ export default function AdminDashboardPage() {
               <AlertTriangle className="h-4 w-4 text-red-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-600">{metrics.expiringDrugsCount}</div>
+              <div className="text-2xl font-bold text-red-600">{metrics?.expiringDrugsCount}</div>
               <p className="text-xs text-muted-foreground">Within 30 days</p>
             </CardContent>
           </Card>
@@ -404,7 +483,7 @@ export default function AdminDashboardPage() {
                   <BarChart3 className="h-5 w-5" />
                   Disease Distribution
                 </CardTitle>
-                <CardDescription>Top 10 diagnosed conditions</CardDescription>
+                <CardDescription>Top diagnosed conditions</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center justify-center">
@@ -457,7 +536,7 @@ export default function AdminDashboardPage() {
                   <BarChart data={charts.topPrescribedDrugs} layout="vertical">
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis type="number" />
-                    <YAxis dataKey="name" type="category" width={100} />
+                    <YAxis dataKey="name" type="category" width={100} tick={{ fontSize: 12 }}/>
                     <Tooltip />
                     <Bar dataKey="count" fill="#10b981" />
                   </BarChart>
@@ -480,7 +559,7 @@ export default function AdminDashboardPage() {
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={charts.departmentVisits}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="department" />
+                    <XAxis dataKey="department" tick={{ fontSize: 12 }}/>
                     <YAxis />
                     <Tooltip />
                     <Bar dataKey="visits" fill="#3b82f6" />
@@ -510,6 +589,15 @@ export default function AdminDashboardPage() {
                       <div className="mt-1">
                         {activity.type === "consultation" && (
                           <Stethoscope className="h-4 w-4 text-blue-600" />
+                        )}
+                        {activity.type === "inventory" && (
+                          <Package className="h-4 w-4 text-green-600" />
+                        )}
+                         {activity.type === "student" && (
+                          <UserPlus className="h-4 w-4 text-purple-600" />
+                        )}
+                         {activity.type === "prescription" && (
+                          <FileText className="h-4 w-4 text-orange-600" />
                         )}
                       </div>
                       <div className="flex-1">
@@ -591,7 +679,7 @@ export default function AdminDashboardPage() {
                         </Badge>
                         <Badge 
                           variant="outline" 
-                          className={`text-xs ${
+                          className={`text-xs capitalize ${
                             consultation.priority === "emergency" 
                               ? "border-red-600 text-red-600" 
                               : consultation.priority === "urgent" 
@@ -602,7 +690,7 @@ export default function AdminDashboardPage() {
                           {consultation.priority}
                         </Badge>
                       </div>
-                      <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                         <div>
                           <span className="text-muted-foreground">Student: </span>
                           <span className="font-medium">{consultation.student}</span>
@@ -645,7 +733,7 @@ export default function AdminDashboardPage() {
             <CardDescription>Common administrative tasks</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
               <Link href="/admin/students/add">
                 <Button className="h-20 flex-col gap-2 bg-transparent w-full" variant="outline">
                   <UserPlus className="h-6 w-6" />
@@ -659,7 +747,7 @@ export default function AdminDashboardPage() {
                 </Button>
               </Link>
               <Link href="/admin/queue">
-                <Button className="h-20 flex-col gap-2 bg-transparent w-full" variant="outline">
+                <Button className="h-20 flex-col gap-2 bg-transparent w-full relative" variant="outline">
                   <Clock className="h-6 w-6" />
                   <span>View Queue</span>
                   {metrics.queueCount > 0 && (
@@ -682,7 +770,7 @@ export default function AdminDashboardPage() {
                 </Button>
               </Link>
               <Link href="/admin/prescriptions">
-                <Button className="h-20 flex-col gap-2 bg-transparent w-full" variant="outline">
+                <Button className="h-20 flex-col gap-2 bg-transparent w-full relative" variant="outline">
                   <FileText className="h-6 w-6" />
                   <span>Prescriptions</span>
                   {metrics.pendingPrescriptions > 0 && (
@@ -693,11 +781,11 @@ export default function AdminDashboardPage() {
                 </Button>
               </Link>
               <Link href="/admin/inventory">
-                <Button className="h-20 flex-col gap-2 bg-transparent w-full" variant="outline">
+                <Button className="h-20 flex-col gap-2 bg-transparent w-full relative" variant="outline">
                   <Package className="h-6 w-6" />
                   <span>Inventory</span>
                   {metrics.lowStockCount > 0 && (
-                    <Badge className="absolute top-2 right-2 bg-yellow-600">
+                    <Badge className="absolute top-2 right-2 bg-yellow-600 hover:bg-yellow-700">
                       {metrics.lowStockCount}
                     </Badge>
                   )}

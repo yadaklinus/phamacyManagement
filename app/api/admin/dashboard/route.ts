@@ -110,43 +110,47 @@ export async function GET(req: NextRequest) {
 
       // Daily Consultations (last 7 days)
       prisma.$queryRaw`
-        SELECT 
-          DATE(createdAt) as date,
-          COUNT(*) as count
-        FROM Consultation
-        WHERE isDeleted = 0 
-          AND createdAt >= ${sevenDaysAgo.toISOString()}
-        GROUP BY DATE(createdAt)
-        ORDER BY date ASC
-      `,
+  SELECT 
+    DATE_TRUNC('day', "createdAt") AS date,
+    COUNT(*) AS count
+  FROM "Consultation"
+  WHERE "isDeleted" = FALSE
+    AND "createdAt" >= ${sevenDaysAgo.toISOString()}
+  GROUP BY DATE_TRUNC('day', "createdAt")
+  ORDER BY date ASC
+`,
+
 
       // Top 10 Prescribed Drugs
       prisma.$queryRaw`
-        SELECT 
-          pi.drugName as name,
-          COUNT(*) as prescriptionCount,
-          SUM(pi.quantityDispensed) as totalDispensed
-        FROM PrescriptionItem pi
-        INNER JOIN Prescription p ON pi.prescriptionId = p.prescriptionNo
-        WHERE pi.isDeleted = 0 AND p.isDeleted = 0
-        GROUP BY pi.drugName
-        ORDER BY prescriptionCount DESC
-        LIMIT 10
-      `,
+  SELECT 
+    pi."drugName" AS name,
+    COUNT(*) AS "prescriptionCount",
+    SUM(pi."quantityDispensed") AS "totalDispensed"
+  FROM "PrescriptionItem" pi
+  INNER JOIN "Prescription" p ON pi."prescriptionId" = p."prescriptionNo"
+  WHERE pi."isDeleted" = FALSE AND p."isDeleted" = FALSE
+  GROUP BY pi."drugName"
+  ORDER BY "prescriptionCount" DESC
+  LIMIT 10
+`,
+
 
       // Disease Distribution (from diagnosis)
       prisma.$queryRaw`
-        SELECT 
-          diagnosis,
-          COUNT(*) as count
-        FROM Consultation
-        WHERE isDeleted = 0 
-          AND diagnosis IS NOT NULL 
-          AND diagnosis != ''
-        GROUP BY diagnosis
-        ORDER BY count DESC
-        LIMIT 10
-      `,
+  SELECT 
+    "diagnosis",
+    COUNT(*) AS count
+  FROM "Consultation"
+  WHERE "isDeleted" = FALSE
+    AND "diagnosis" IS NOT NULL 
+    AND "diagnosis" != ''
+  GROUP BY "diagnosis"
+  ORDER BY count DESC
+  LIMIT 10
+`,
+
+
 
       // Department-wise visits
       prisma.$queryRaw`
@@ -162,12 +166,20 @@ export async function GET(req: NextRequest) {
       `,
 
       // Current Queue Count
-      prisma.queue.count({
-        where: {
-          isDeleted: false,
-          status: { in: ["waiting", "called"] },
-        },
-      }),
+      prisma.$queryRaw`
+  SELECT 
+    s."department",
+    COUNT(c.id) AS "visitCount"
+  FROM "Student" s
+  LEFT JOIN "Consultation" c 
+    ON s.id = c."studentId" 
+    AND c."isDeleted" = FALSE
+  WHERE s."isDeleted" = FALSE
+  GROUP BY s."department"
+  ORDER BY "visitCount" DESC
+  LIMIT 10
+`,
+
 
       // Recent Students (last 5)
       prisma.student.findMany({
